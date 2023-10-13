@@ -127,6 +127,67 @@ importers:
       vitest: 0.32.0_rs2cwakxm2tl3jkkz62ybkjfxu
       zod: 3.22.4
 
+  apps/basic-t3-app:
+    specifiers:
+      "@social-hustle/config-postcss": latest
+      "@social-hustle/config-prettier": latest
+      "@social-hustle/config-tailwind": latest
+      "@social-hustle/config-tsconfig": latest
+      "@social-hustle/ui-dialog": latest
+      "@social-hustle/ui-loaders": latest
+      "@social-hustle/ui-loading-skeleton": latest
+      "@social-hustle/utils-arrays": latest
+      "@social-hustle/utils-async": latest
+      "@social-hustle/utils-cache": latest
+      "@social-hustle/utils-classnames": latest
+      "@social-hustle/utils-fetch": latest
+      "@social-hustle/utils-numbers": latest
+      "@social-hustle/utils-objects": latest
+      "@social-hustle/utils-strings": latest
+      "@social-hustle/utils-types": latest
+      "@types/node": ^20
+      "@types/react": ^18
+      "@types/react-dom": ^18
+      autoprefixer: ^10
+      eslint: ^8
+      eslint-config-social-hustle: latest
+      next: 13.5.4
+      postcss: ^8
+      react: ^18
+      react-dom: ^18
+      tailwindcss: ^3
+      typescript: ^5
+    dependencies:
+      "@social-hustle/ui-dialog": link:../../ui/dialog
+      "@social-hustle/ui-loaders": link:../../ui/loader
+      "@social-hustle/ui-loading-skeleton": link:../../ui/loading-skeleton
+      "@social-hustle/utils-arrays": link:../../utils/arrays
+      "@social-hustle/utils-async": link:../../utils/async
+      "@social-hustle/utils-cache": link:../../utils/cache
+      "@social-hustle/utils-classnames": link:../../utils/classnames
+      "@social-hustle/utils-fetch": link:../../utils/fetch
+      "@social-hustle/utils-numbers": link:../../utils/numbers
+      "@social-hustle/utils-objects": link:../../utils/objects
+      "@social-hustle/utils-strings": link:../../utils/strings
+      next: 13.5.4_biqbaboplfbrettd7655fr4n2y
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    devDependencies:
+      "@social-hustle/config-postcss": link:../../configs/postcss
+      "@social-hustle/config-prettier": link:../../configs/prettier
+      "@social-hustle/config-tailwind": link:../../configs/tailwind
+      "@social-hustle/config-tsconfig": link:../../configs/tsconfig
+      "@social-hustle/utils-types": link:../../utils/types
+      "@types/node": 20.5.1
+      "@types/react": 18.2.8
+      "@types/react-dom": 18.2.4
+      autoprefixer: 10.4.16_postcss@8.4.31
+      eslint: 8.44.0
+      eslint-config-social-hustle: link:../../configs/eslint
+      postcss: 8.4.31
+      tailwindcss: 3.3.2
+      typescript: 5.2.2
+
   configs/eslint:
     specifiers:
       "@tanstack/eslint-plugin-query": 4.29.9
@@ -3178,7 +3239,7 @@ packages:
     dependencies:
       "@types/istanbul-lib-coverage": 2.0.4
       "@types/istanbul-reports": 3.0.2
-      "@types/node": 18.11.18
+      "@types/node": 20.5.1
       "@types/yargs": 16.0.6
       chalk: 4.1.2
     dev: false
@@ -3193,7 +3254,7 @@ packages:
       "@jest/schemas": 29.6.3
       "@types/istanbul-lib-coverage": 2.0.4
       "@types/istanbul-reports": 3.0.2
-      "@types/node": 18.11.18
+      "@types/node": 20.5.1
       "@types/yargs": 17.0.28
       chalk: 4.1.2
     dev: false
@@ -7618,7 +7679,7 @@ packages:
       }
     dependencies:
       "@types/connect": 3.4.36
-      "@types/node": 18.11.18
+      "@types/node": 20.5.1
 
   /@types/cacheable-request/6.0.3:
     resolution:
@@ -7628,7 +7689,7 @@ packages:
     dependencies:
       "@types/http-cache-semantics": 4.0.2
       "@types/keyv": 3.1.4
-      "@types/node": 18.11.18
+      "@types/node": 20.5.1
       "@types/responselike": 1.0.1
     dev: true
 
@@ -7652,7 +7713,7 @@ packages:
         integrity: sha512-P63Zd/JUGq+PdrM1lv0Wv5SBYeA2+CORvbrXbngriYY0jzLUWfQMQQxOhjONEz/wlHOAxOdY7CY65rgQdTjq2w==,
       }
     dependencies:
-      "@types/node": 18.11.18
+      "@types/node": 20.5.1
 
   /@types/cookie/0.4.1:
     resolution:
@@ -7667,7 +7728,7 @@ packages:
         integrity: sha512-BDAkU7WHHRHnvBf5z89lcvACsvkz/n7Tv+HyD/uW76O29HoH1Tk/W6iQrepaZVbisvlEek4ygwT8IW7ow9XLAA==,
       }
     dependencies:
-      "@types/node": 18.11.18
+      "@types/node": 20.5.1
 
   /@types/debug/4.1.9:
     resolution:
@@ -7754,7 +7815,7 @@ packages:
         integrity: sha512-ZohaCYTgGFcOP7u6aJOhY9uIZQgZ2vxC2yWoArY+FeDXlqeH66ZVBjgvg+RLVAS/DWNq4Ap9ZXu1+SUQiiWYMg==,
       }
     dependencies:
-      "@types/node": 18.11.18
+      "@types/node": 20.5.1
       "@types/qs": 6.9.8
       "@types/range-parser": 1.2.5
       "@types/send": 0.17.2
@@ -7783,7 +7844,7 @@ packages:
       }
     dependencies:
       "@types/minimatch": 5.1.2
-      "@types/node": 18.11.18
+      "@types/node": 20.5.1
 
   /@types/graceful-fs/4.1.7:
     resolution:
@@ -7791,7 +7852,7 @@ packages:
         integrity: sha512-MhzcwU8aUygZroVwL2jeYk6JisJrPl/oov/gsgGCue9mkgl9wjGbzReYQClxiUgFDnib9FuHqTndccKeZKxTRw==,
       }
     dependencies:
-      "@types/node": 18.11.18
+      "@types/node": 20.5.1
     dev: false
 
   /@types/html-minifier-terser/6.1.0:
@@ -7889,7 +7950,7 @@ packages:
         integrity: sha512-BQ5aZNSCpj7D6K2ksrRCTmKRLEpnPvWDiLPfoGyhZ++8YtiK9d/3DBKPJgry359X/P1PfruyYwvnvwFjuEiEIg==,
       }
     dependencies:
-      "@types/node": 18.11.18
+      "@types/node": 20.5.1
 
   /@types/lodash/4.14.199:
     resolution:
@@ -7956,7 +8017,7 @@ packages:
         integrity: sha512-95X8guJYhfqiuVVhRFxVQcf4hW/2bCuoPwDasMf/531STFoNoWTT7YDnWdXHEZKqAGUigmpG31r2FE70LwnzJw==,
       }
     dependencies:
-      "@types/node": 18.11.18
+      "@types/node": 20.5.1
       form-data: 4.0.0
 
   /@types/node/12.20.55:
@@ -7977,13 +8038,13 @@ packages:
       {
         integrity: sha512-DHQpWGjyQKSHj3ebjFI/wRKcqQcdR+MoFBygntYOZytCqNfkd2ZC4ARDJ2DQqhjH5p85Nnd3jhUJIXrszFX/JA==,
       }
+    dev: false
 
   /@types/node/20.5.1:
     resolution:
       {
         integrity: sha512-4tT2UrL5LBqDwoed9wZ6N3umC4Yhz3W3FloMmiiG4JwmUJWpie0c7lcnUNd4gtMKuDEO4wRVS8B6Xa0uMRsMKg==,
       }
-    dev: false
 
   /@types/normalize-package-data/2.4.2:
     resolution:
@@ -8003,7 +8064,7 @@ packages:
         integrity: sha512-O2xNmXebtwVekJDD+02udOncjVcMZQuTEQEMpKJ0ZRf5E7/9JJX3izhKUcUifBkyKpljyUM6BTgy2trmviKlpw==,
       }
     dependencies:
-      "@types/node": 18.11.18
+      "@types/node": 20.5.1
       pg-protocol: 1.6.0
       pg-types: 2.2.0
     dev: true
@@ -8026,7 +8087,6 @@ packages:
       {
         integrity: sha512-kMpQpfZKSCBqltAJwskgePRaYRFukDkm1oItcAbC3gNELR20XIBcN9VRgg4+m8DKsTfkWeA4m4Imp4DDuWy7FQ==,
       }
-    dev: false
 
   /@types/qs/6.9.8:
     resolution:
@@ -8047,7 +8107,6 @@ packages:
       }
     dependencies:
       "@types/react": 18.2.8
-    dev: false
 
   /@types/react/18.2.8:
     resolution:
@@ -8058,7 +8117,6 @@ packages:
       "@types/prop-types": 15.7.8
       "@types/scheduler": 0.16.4
       csstype: 3.1.2
-    dev: false
 
   /@types/responselike/1.0.1:
     resolution:
@@ -8066,14 +8124,13 @@ packages:
         integrity: sha512-TiGnitEDxj2X0j+98Eqk5lv/Cij8oHd32bU4D/Yw6AOq7vvTk0gSD2GPj0G/HkvhMoVsdlhYF4yqqlyPBTM6Sg==,
       }
     dependencies:
-      "@types/node": 18.11.18
+      "@types/node": 20.5.1
 
   /@types/scheduler/0.16.4:
     resolution:
       {
         integrity: sha512-2L9ifAGl7wmXwP4v3pN4p2FLhD0O1qsJpvKmNin5VA8+UvNVb447UDaAEV6UdrkA+m/Xs58U1RFps44x6TFsVQ==,
       }
-    dev: false
 
   /@types/semver/6.2.4:
     resolution:
@@ -8095,7 +8152,7 @@ packages:
       }
     dependencies:
       "@types/mime": 1.3.3
-      "@types/node": 18.11.18
+      "@types/node": 20.5.1
 
   /@types/serve-static/1.15.3:
     resolution:
@@ -8105,7 +8162,7 @@ packages:
     dependencies:
       "@types/http-errors": 2.0.2
       "@types/mime": 3.0.2
-      "@types/node": 18.11.18
+      "@types/node": 20.5.1
 
   /@types/set-cookie-parser/2.4.4:
     resolution:
@@ -8113,7 +8170,7 @@ packages:
         integrity: sha512-xCfTC/eL/GmvMC24b42qJpYSTdCIBwWcfskDF80ztXtnU6pKXyvuZP2EConb2K9ps0s7gMhCa0P1foy7wiItMA==,
       }
     dependencies:
-      "@types/node": 18.11.18
+      "@types/node": 20.5.1
     dev: true
 
   /@types/stack-utils/2.0.1:
@@ -8151,7 +8208,7 @@ packages:
         integrity: sha512-lwhs8hktwxSjf9UaZ9tG5M03PGogvFaH8gUgLNbN9HKIg0dvv6q+gkSuJ8HN4/VbyxkuLzCjlN7GquQ0gUJfIg==,
       }
     dependencies:
-      "@types/node": 18.11.18
+      "@types/node": 20.5.1
     dev: true
 
   /@types/yargs-parser/21.0.1:
@@ -8186,7 +8243,7 @@ packages:
       }
     requiresBuild: true
     dependencies:
-      "@types/node": 18.11.18
+      "@types/node": 20.5.1
     dev: true
     optional: true
 
@@ -10575,7 +10632,7 @@ packages:
     engines: { node: ">=12.13.0" }
     hasBin: true
     dependencies:
-      "@types/node": 18.11.18
+      "@types/node": 20.5.1
       escape-string-regexp: 4.0.0
       is-wsl: 2.2.0
       lighthouse-logger: 1.4.2
@@ -10591,7 +10648,7 @@ packages:
     engines: { node: ">=12.13.0" }
     hasBin: true
     dependencies:
-      "@types/node": 18.11.18
+      "@types/node": 20.5.1
       escape-string-regexp: 4.0.0
       is-wsl: 2.2.0
       lighthouse-logger: 2.0.1
@@ -15884,7 +15941,7 @@ packages:
     dependencies:
       "@jest/types": 29.6.3
       "@types/graceful-fs": 4.1.7
-      "@types/node": 18.11.18
+      "@types/node": 20.5.1
       anymatch: 3.1.3
       fb-watchman: 2.0.2
       graceful-fs: 4.2.11
@@ -15936,7 +15993,7 @@ packages:
     engines: { node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0 }
     dependencies:
       "@jest/types": 27.5.1
-      "@types/node": 18.11.18
+      "@types/node": 20.5.1
     dev: false
 
   /jest-regex-util/29.6.3:
@@ -15955,7 +16012,7 @@ packages:
     engines: { node: ^14.15.0 || ^16.10.0 || >=18.0.0 }
     dependencies:
       "@jest/types": 29.6.3
-      "@types/node": 18.11.18
+      "@types/node": 20.5.1
       chalk: 4.1.2
       ci-info: 3.9.0
       graceful-fs: 4.2.11
@@ -15969,7 +16026,7 @@ packages:
       }
     engines: { node: ">= 10.13.0" }
     dependencies:
-      "@types/node": 18.11.18
+      "@types/node": 20.5.1
       merge-stream: 2.0.0
       supports-color: 8.1.1
 
@@ -15980,7 +16037,7 @@ packages:
       }
     engines: { node: ^14.15.0 || ^16.10.0 || >=18.0.0 }
     dependencies:
-      "@types/node": 18.11.18
+      "@types/node": 20.5.1
       jest-util: 29.7.0
       merge-stream: 2.0.0
       supports-color: 8.1.1
@@ -17542,6 +17599,48 @@ packages:
       }
     engines: { node: ">= 0.4.0" }
     dev: true
+
+  /next/13.5.4_biqbaboplfbrettd7655fr4n2y:
+    resolution:
+      {
+        integrity: sha512-+93un5S779gho8y9ASQhb/bTkQF17FNQOtXLKAj3lsNgltEcF0C5PMLLncDmH+8X1EnJH1kbqAERa29nRXqhjA==,
+      }
+    engines: { node: ">=16.14.0" }
+    hasBin: true
+    peerDependencies:
+      "@opentelemetry/api": ^1.1.0
+      react: ^18.2.0
+      react-dom: ^18.2.0
+      sass: ^1.3.0
+    peerDependenciesMeta:
+      "@opentelemetry/api":
+        optional: true
+      sass:
+        optional: true
+    dependencies:
+      "@next/env": 13.5.4
+      "@swc/helpers": 0.5.2
+      busboy: 1.6.0
+      caniuse-lite: 1.0.30001547
+      postcss: 8.4.31
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      styled-jsx: 5.1.1_react@18.2.0
+      watchpack: 2.4.0
+    optionalDependencies:
+      "@next/swc-darwin-arm64": 13.5.4
+      "@next/swc-darwin-x64": 13.5.4
+      "@next/swc-linux-arm64-gnu": 13.5.4
+      "@next/swc-linux-arm64-musl": 13.5.4
+      "@next/swc-linux-x64-gnu": 13.5.4
+      "@next/swc-linux-x64-musl": 13.5.4
+      "@next/swc-win32-arm64-msvc": 13.5.4
+      "@next/swc-win32-ia32-msvc": 13.5.4
+      "@next/swc-win32-x64-msvc": 13.5.4
+    transitivePeerDependencies:
+      - "@babel/core"
+      - babel-plugin-macros
+    dev: false
 
   /next/13.5.4_toszgfznx75tcganlj4ru4g5oe:
     resolution:
@@ -20985,7 +21084,7 @@ packages:
       }
     engines: { node: ">=8.0" }
     dependencies:
-      "@types/node": 18.11.18
+      "@types/node": 20.5.1
       image-ssim: 0.2.0
       jpeg-js: 0.4.4
     dev: true
@@ -21362,6 +21461,26 @@ packages:
       "@babel/core": 7.23.2
       client-only: 0.0.1
       react: 18.2.0
+
+  /styled-jsx/5.1.1_react@18.2.0:
+    resolution:
+      {
+        integrity: sha512-pW7uC1l4mBZ8ugbiZrcIsiIvVx1UmTfw7UkC3Um2tmfUq9Bhk8IiyEIPl6F8agHgjzku6j0xQEZbfA5uSgSaCw==,
+      }
+    engines: { node: ">= 12.0.0" }
+    peerDependencies:
+      "@babel/core": "*"
+      babel-plugin-macros: "*"
+      react: ">= 16.8.0 || 17.x.x || ^18.0.0-0"
+    peerDependenciesMeta:
+      "@babel/core":
+        optional: true
+      babel-plugin-macros:
+        optional: true
+    dependencies:
+      client-only: 0.0.1
+      react: 18.2.0
+    dev: false
 
   /stylis/4.3.0:
     resolution:
@@ -23071,7 +23190,7 @@ packages:
       }
     engines: { node: ">= 0.8" }
 
-  /vite-node/0.27.3_@types+node@18.11.18:
+  /vite-node/0.27.3_@types+node@20.5.1:
     resolution:
       {
         integrity: sha512-eyJYOO64o5HIp8poc4bJX+ZNBwMZeI3f6/JdiUmJgW02Mt7LnoCtDMRVmLaY9S05SIsjGe339ZK4uo2wQ+bF9g==,
@@ -23086,7 +23205,7 @@ packages:
       picocolors: 1.0.0
       source-map: 0.6.1
       source-map-support: 0.5.21
-      vite: 4.4.11_@types+node@18.11.18
+      vite: 4.4.11_@types+node@20.5.1
     transitivePeerDependencies:
       - "@types/node"
       - less
@@ -23098,7 +23217,7 @@ packages:
       - terser
     dev: false
 
-  /vite-node/0.32.0_@types+node@18.11.18:
+  /vite-node/0.32.0_@types+node@20.5.1:
     resolution:
       {
         integrity: sha512-220P/y8YacYAU+daOAqiGEFXx2A8AwjadDzQqos6wSukjvvTWNqleJSwoUn0ckyNdjHIKoxn93Nh1vWBqEKr3Q==,
@@ -23111,7 +23230,7 @@ packages:
       mlly: 1.4.2
       pathe: 1.1.1
       picocolors: 1.0.0
-      vite: 4.4.11_@types+node@18.11.18
+      vite: 4.4.11_@types+node@20.5.1
     transitivePeerDependencies:
       - "@types/node"
       - less
@@ -23216,6 +23335,45 @@ packages:
       rollup: 3.29.4
     optionalDependencies:
       fsevents: 2.3.3
+    dev: false
+
+  /vite/4.4.11_@types+node@20.5.1:
+    resolution:
+      {
+        integrity: sha512-ksNZJlkcU9b0lBwAGZGGaZHCMqHsc8OpgtoYhsQ4/I2v5cnpmmmqe5pM4nv/4Hn6G/2GhTdj0DhZh2e+Er1q5A==,
+      }
+    engines: { node: ^14.18.0 || >=16.0.0 }
+    hasBin: true
+    peerDependencies:
+      "@types/node": ">= 14"
+      less: "*"
+      lightningcss: ^1.21.0
+      sass: "*"
+      stylus: "*"
+      sugarss: "*"
+      terser: ^5.4.0
+    peerDependenciesMeta:
+      "@types/node":
+        optional: true
+      less:
+        optional: true
+      lightningcss:
+        optional: true
+      sass:
+        optional: true
+      stylus:
+        optional: true
+      sugarss:
+        optional: true
+      terser:
+        optional: true
+    dependencies:
+      "@types/node": 20.5.1
+      esbuild: 0.18.20
+      postcss: 8.4.31
+      rollup: 3.29.4
+    optionalDependencies:
+      fsevents: 2.3.3
 
   /vitest-localstorage-mock/0.0.1_vitest@0.32.0:
     resolution:
@@ -23255,7 +23413,7 @@ packages:
     dependencies:
       "@types/chai": 4.3.8
       "@types/chai-subset": 1.3.3
-      "@types/node": 18.11.18
+      "@types/node": 20.5.1
       "@vitest/ui": 0.32.4_vitest@0.32.0
       acorn: 8.10.0
       acorn-walk: 8.2.0
@@ -23271,8 +23429,8 @@ packages:
       tinybench: 2.5.1
       tinypool: 0.3.1
       tinyspy: 1.1.1
-      vite: 4.4.11_@types+node@18.11.18
-      vite-node: 0.27.3_@types+node@18.11.18
+      vite: 4.4.11_@types+node@20.5.1
+      vite-node: 0.27.3_@types+node@20.5.1
       why-is-node-running: 2.2.2
     transitivePeerDependencies:
       - less
@@ -23320,7 +23478,7 @@ packages:
     dependencies:
       "@types/chai": 4.3.8
       "@types/chai-subset": 1.3.3
-      "@types/node": 18.11.18
+      "@types/node": 20.5.1
       "@vitest/expect": 0.32.0
       "@vitest/runner": 0.32.0
       "@vitest/snapshot": 0.32.0
@@ -23340,8 +23498,8 @@ packages:
       strip-literal: 1.3.0
       tinybench: 2.5.1
       tinypool: 0.5.0
-      vite: 4.4.11_@types+node@18.11.18
-      vite-node: 0.32.0_@types+node@18.11.18
+      vite: 4.4.11_@types+node@20.5.1
+      vite-node: 0.32.0_@types+node@20.5.1
       why-is-node-running: 2.2.2
     transitivePeerDependencies:
       - less
@@ -23389,7 +23547,7 @@ packages:
     dependencies:
       "@types/chai": 4.3.8
       "@types/chai-subset": 1.3.3
-      "@types/node": 18.11.18
+      "@types/node": 20.5.1
       "@vitest/expect": 0.32.0
       "@vitest/runner": 0.32.0
       "@vitest/snapshot": 0.32.0
@@ -23411,8 +23569,8 @@ packages:
       strip-literal: 1.3.0
       tinybench: 2.5.1
       tinypool: 0.5.0
-      vite: 4.4.11_@types+node@18.11.18
-      vite-node: 0.32.0_@types+node@18.11.18
+      vite: 4.4.11_@types+node@20.5.1
+      vite-node: 0.32.0_@types+node@20.5.1
       why-is-node-running: 2.2.2
     transitivePeerDependencies:
       - less

@@ -54,3 +54,5 @@ mockServiceWorker.js
 **/supabase/.temp
 
 .unlighthouse
+
+apps/*
