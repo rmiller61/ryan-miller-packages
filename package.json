@@ -5,6 +5,7 @@
   "scripts": {
     "build": "turbo build",
     "build:storybook": "turbo build:storybook",
+    "changeset": "changeset",
     "commit": "git-cz",
     "deps:check": "manypkg check",
     "deps:fix": "manypkg fix",
