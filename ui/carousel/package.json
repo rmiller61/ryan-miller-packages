@@ -1,6 +1,6 @@
 {
   "name": "@social-hustle/ui-carousel",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Customizable, reusable Framer Motion carousel component",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -29,8 +29,8 @@
     "tailwindcss": "3.3.2"
   },
   "peerDependencies": {
-    "@social-hustle/utils-arrays": "^1.0.0",
-    "@social-hustle/utils-numbers": "^1.0.0",
+    "@social-hustle/utils-arrays": "^1.1.0",
+    "@social-hustle/utils-numbers": "^1.1.0",
     "framer-motion": "^10.10.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",

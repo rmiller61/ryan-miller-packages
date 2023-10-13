@@ -1,6 +1,6 @@
 {
   "name": "@social-hustle/ui-dialog",
-  "version": "1.1.1",
+  "version": "2.0.0",
   "description": "Dialog component for React applications",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
