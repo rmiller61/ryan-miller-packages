@@ -248,12 +248,16 @@ importers:
   ui/dialog:
     specifiers:
       "@radix-ui/react-dialog": 1.0.3
+      "@radix-ui/react-visually-hidden": ^1.0.2
       "@social-hustle/utils-classnames": workspace:*
+      react-icons: 4.10.1
       tailwindcss: 3.3.2
     dependencies:
       "@social-hustle/utils-classnames": link:../../utils/classnames
+      react-icons: 4.10.1_react@18.2.0
     devDependencies:
       "@radix-ui/react-dialog": 1.0.3_biqbaboplfbrettd7655fr4n2y
+      "@radix-ui/react-visually-hidden": 1.0.3_biqbaboplfbrettd7655fr4n2y
       tailwindcss: 3.3.2
 
   ui/loader:
@@ -19498,6 +19502,17 @@ packages:
       react: ">=16.13.1"
     dependencies:
       "@babel/runtime": 7.23.2
+      react: 18.2.0
+    dev: false
+
+  /react-icons/4.10.1_react@18.2.0:
+    resolution:
+      {
+        integrity: sha512-/ngzDP/77tlCfqthiiGNZeYFACw85fUjZtLbedmJ5DTlNDIwETxhwBzdOJ21zj4iJdvc0J3y7yOsX3PpxAJzrw==,
+      }
+    peerDependencies:
+      react: "*"
+    dependencies:
       react: 18.2.0
     dev: false
 
