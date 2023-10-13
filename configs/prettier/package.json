@@ -1,6 +1,6 @@
 {
   "name": "@social-hustle/config-prettier",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "index.js",
   "peerDependencies": {
     "@ianvs/prettier-plugin-sort-imports": "^3.7.1",

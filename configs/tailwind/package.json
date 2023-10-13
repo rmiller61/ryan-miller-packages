@@ -1,6 +1,6 @@
 {
   "name": "@social-hustle/config-tailwind",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "index.ts",
   "devDependencies": {
     "tailwindcss": "3.3.2"
