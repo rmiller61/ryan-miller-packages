@@ -1,13 +1,13 @@
 {
   "name": "@social-hustle/ui-dialog",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Dialog component for React applications",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "files": [
     "dist",
-    "./tailwind.plugin.ts"
+    "tailwind.plugin.ts"
   ],
   "scripts": {
     "build": "tsup",

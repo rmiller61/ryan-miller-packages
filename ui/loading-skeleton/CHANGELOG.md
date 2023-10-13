@@ -1,5 +1,11 @@
 # @social-hustle/ui-loading-skeleton
 
+## 2.0.2
+
+### Patch Changes
+
+- fix tailwind plugin export
+
 ## 2.0.1
 
 ### Patch Changes
