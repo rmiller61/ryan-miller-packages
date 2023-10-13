@@ -1,13 +1,13 @@
 {
   "name": "@social-hustle/ui-carousel",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Customizable, reusable Framer Motion carousel component",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "files": [
     "dist",
-    "./tailwind.plugin.js"
+    "./tailwind.plugin.ts"
   ],
   "scripts": {
     "build": "tsup",
