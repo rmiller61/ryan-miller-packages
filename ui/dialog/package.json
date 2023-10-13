@@ -22,10 +22,12 @@
     "tsc": "tsc -p tsconfig.json"
   },
   "devDependencies": {
-    "@radix-ui/react-dialog": "1.0.3"
+    "@radix-ui/react-dialog": "1.0.3",
+    "tailwindcss": "3.3.2"
   },
   "peerDependencies": {
-    "@social-hustle/utils-classnames": "workspace:*"
+    "@social-hustle/utils-classnames": "workspace:*",
+    "tailwindcss": "3.3.2"
   },
   "publishConfig": {
     "access": "public"

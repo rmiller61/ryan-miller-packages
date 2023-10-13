@@ -22,8 +22,12 @@
     "test:watch": "vitest",
     "tsc": "tsc -p tsconfig.json"
   },
+  "devDependencies": {
+    "tailwindcss": "3.3.2"
+  },
   "peerDependencies": {
-    "@social-hustle/utils-classnames": "workspace:*"
+    "@social-hustle/utils-classnames": "workspace:*",
+    "tailwindcss": "3.3.2"
   },
   "publishConfig": {
     "access": "public"
