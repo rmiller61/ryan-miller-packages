@@ -12,6 +12,12 @@
     "lint": "eslint",
     "tsc": "tsc -p tsconfig.json"
   },
+  "devDependencies": {
+    "magic-regexp": "0.7.0"
+  },
+  "peerDependencies": {
+    "magic-regexp": "0.7.0"
+  },
   "publishConfig": {
     "access": "public"
   }
