@@ -1,0 +1,23 @@
+{
+  "extends": "@social-hustle/config-tsconfig/tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": "src",
+    "paths": {
+      ".": ["."]
+    },
+    "noEmit": false,
+    "outDir": "dist",
+    "emitDeclarationOnly": true
+  },
+  "include": ["."],
+  "exclude": [
+    "node_modules",
+    ".next",
+    ".turbo",
+    "coverage",
+    "dist",
+    "compiled",
+    "build-next-static",
+    "build-storybook-static"
+  ]
+}

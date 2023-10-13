@@ -1,0 +1,22 @@
+{
+  "name": "@social-hustle/utils-classnames",
+  "version": "1.0.0",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "lint": "eslint",
+    "tsc": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "clsx": "1.2.1",
+    "tailwind-merge": "1.11.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

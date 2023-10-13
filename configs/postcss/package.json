@@ -1,0 +1,14 @@
+{
+  "name": "@social-hustle/config-postcss",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {
+    "autoprefixer": "^10.4.13",
+    "postcss": "^8.4.21",
+    "postcss-import": "^15.1.0",
+    "postcss-loader": "^7.0.2"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

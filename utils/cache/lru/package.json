@@ -1,0 +1,5 @@
+{
+  "main": "../dist/cjs/lru/index.js",
+  "module": "../dist/esm/lru/index.js",
+  "types": "../dist/types/lru/index.d.ts"
+}

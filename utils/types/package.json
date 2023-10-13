@@ -1,0 +1,11 @@
+{
+  "name": "@social-hustle/utils-types",
+  "version": "1.0.0",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -1,0 +1,7 @@
+export { DialogClose } from "./Close"
+export { DialogContent } from "./Content"
+export { DialogDescription } from "./Description"
+export { DialogOverlay } from "./Overlay"
+export { DialogRoot } from "./Root"
+export { DialogTitle } from "./Title"
+export { DialogTrigger } from "./Trigger"

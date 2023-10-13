@@ -1,0 +1,31 @@
+{
+  "name": "@social-hustle/ui-loading-skeleton",
+  "version": "1.0.0",
+  "description": "Basic styled loading skeleton",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "tailwind.plugin.js"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "build:css": "npx tailwindcss -o ./public/compiled/tailwind.css",
+    "build:css:watch": "pnpm run build:css --watch",
+    "build:storybook": "storybook build",
+    "dev": "tsup --watch",
+    "dev:storybook": "storybook dev -p 6006",
+    "lint": "eslint",
+    "test": "vitest run --passWithNoTests",
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest",
+    "tsc": "tsc -p tsconfig.json"
+  },
+  "peerDependencies": {
+    "@social-hustle/utils-classnames": "workspace:*"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

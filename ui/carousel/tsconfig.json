@@ -1,0 +1,25 @@
+{
+  "extends": "@social-hustle/config-tsconfig/tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": "src",
+    "paths": {
+      ".": ["."]
+    }
+  },
+  "ts-node": {
+    "compilerOptions": {
+      "module": "commonjs"
+    }
+  },
+  "include": [".", ".eslintrc.js", ".storybook/**/*"],
+  "exclude": [
+    "node_modules",
+    ".next",
+    ".turbo",
+    "coverage",
+    "dist",
+    "compiled",
+    "build-next-static",
+    "build-storybook-static"
+  ]
+}

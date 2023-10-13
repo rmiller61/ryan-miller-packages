@@ -1,0 +1,18 @@
+name: Test Workflow
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test1:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - id: filter-workspaces
+        uses: ./.github/workflows/actions/filter-workspaces
+      - name: Echo workspace
+        env:
+          WORKSPACE: ${{ steps.filter-workspaces.outputs.filtered-workspace }}
+        run: |
+          echo ${{ steps.filter-workspaces.outputs.filtered-workspace }}
+        shell: bash

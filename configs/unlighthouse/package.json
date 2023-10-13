@@ -1,0 +1,15 @@
+{
+  "name": "@social-hustle/config-unlighthouse",
+  "version": "0.0.0",
+  "description": "Config for unlighthouse",
+  "main": "index.js",
+  "devDependencies": {
+    "unlighthouse": "^0.10.0"
+  },
+  "peerDependencies": {
+    "unlighthouse": "^0.10.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

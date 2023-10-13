@@ -1,0 +1,56 @@
+node_modules
+coverage
+dist
+build-next-static
+build-storybook-static
+storybook-static
+compiled
+*.ignore.*
+
+.DS_Store
+*.log
+.idea
+
+.next/
+.turbo
+out/
+build
+next-env.d.ts
+
+npm-debug.log*
+.pnpm-debug.log*
+
+# Caches
+*.tsbuildinfo
+.eslintcache
+.node_repl_history
+.yarn-integrity
+
+# Serverless directories
+.serverless/
+
+# Stores VSCode versions used for testing VSCode extensions
+.vscode-test
+
+# local env files
+.env
+.env.local
+.env.*.local
+.env.test
+.envrc
+
+generated
+
+.vercel
+
+playwright-report
+test-results
+
+mockServiceWorker.js
+.auth
+
+# Supabase
+**/supabase/.branches
+**/supabase/.temp
+
+.unlighthouse

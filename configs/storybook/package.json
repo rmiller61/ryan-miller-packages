@@ -1,0 +1,24 @@
+{
+  "name": "@social-hustle/config-storybook",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "devDependencies": {
+    "@storybook/nextjs": "^7.0.5",
+    "@storybook/react": "^7.0.5",
+    "@storybook/react-vite": "^7.0.5",
+    "storybook": "^7.0.5"
+  },
+  "peerDependencies": {
+    "@storybook/addon-essentials": "^7.0.5",
+    "@storybook/addon-interactions": "^7.0.5",
+    "@storybook/addon-links": "^7.0.5",
+    "@storybook/blocks": "^7.0.5",
+    "@storybook/nextjs": "^7.0.5",
+    "@storybook/react": "^7.0.5",
+    "@storybook/react-vite": "^7.0.5",
+    "storybook": "^7.0.5"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

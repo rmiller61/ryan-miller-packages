@@ -1,0 +1,12 @@
+{
+  "extends": "@social-hustle/config-tsconfig/tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": "src",
+    "paths": {
+      ".": ["."]
+    },
+    "module": "commonjs"
+  },
+  "include": ["src/**/*"],
+  "exclude": ["src/**/*.test.ts"]
+}
