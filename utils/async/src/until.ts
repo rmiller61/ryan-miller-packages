@@ -1,5 +1,9 @@
 // Src: https://blog.openreplay.com/forever-functional-waiting-with-promises
-export const until = async (fn: () => boolean, time: number = 1000, wait: number = 10000) => {
+export const until = async (
+  fn: () => Promise<boolean> | boolean,
+  time: number = 1000,
+  wait: number = 10000
+) => {
   const startTime =
     new Date().getTime() /* 1. Store the starting time in case the test takes too long */
   /* 2. Create an infinite loop */
