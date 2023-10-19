@@ -1,7 +1,7 @@
 import { defineConfig } from "tsup"
 
 const tsupConfig = defineConfig({
-  entry: ["src/index.ts"],
+  entry: ["src/primitives/index.ts", "src/form/index.tsx"],
   format: ["esm", "cjs"],
   dts: true,
   external: [
