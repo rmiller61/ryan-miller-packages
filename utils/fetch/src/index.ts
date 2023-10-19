@@ -20,6 +20,8 @@ import type {
 } from "types"
 import { generateBasicAuthHeader } from "utils"
 
+export * from "./types"
+
 const configDefaults: RequestConfigDefaults = {
   method: "GET",
   baseURL: "",
