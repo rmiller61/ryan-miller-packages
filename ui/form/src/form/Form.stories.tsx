@@ -1,4 +1,5 @@
 import { Input } from "../primitives/input"
+import { getZodKeys } from "../utils"
 import {
   Form as FormComponent,
   FormControl,
@@ -8,12 +9,20 @@ import {
   FormLabel,
   FormMessage,
 } from "./index"
-import { zodResolver } from "@hookform/resolvers/zod"
 import type { Meta, StoryObj } from "@storybook/react"
-import { useForm } from "react-hook-form"
 import { z } from "zod"
 
+const FormSchema = z.object({
+  username: z.string().min(2, {
+    message: "Username must be at least 2 characters.",
+  }),
+})
+
 const Form = ({ onSubmit }: { onSubmit: (values: z.infer<typeof FormSchema>) => void }) => {
+  //console.log(FormSchema.shape["username"])
+
+  console.log(getZodKeys(FormSchema))
+
   return (
     <FormComponent
       onSubmit={onSubmit}
@@ -51,12 +60,6 @@ const meta = {
 
 export default meta
 type Story = StoryObj<typeof meta>
-
-const FormSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-})
 
 export const Primary: Story = {
   args: {
