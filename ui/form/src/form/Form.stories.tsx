@@ -14,35 +14,30 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 
 const Form = ({ onSubmit }: { onSubmit: (values: z.infer<typeof FormSchema>) => void }) => {
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
-  })
-
   return (
-    <FormComponent {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="w-2/3 space-y-6"
-      >
-        <FormField
-          control={form.control}
-          name="username"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Username</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="shadcn"
-                  {...field}
-                />
-              </FormControl>
-              <FormDescription>This is your public display name.</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <button type="submit">Submit</button>
-      </form>
+    <FormComponent
+      onSubmit={onSubmit}
+      className="w-2/3 space-y-6"
+      schema={FormSchema}
+    >
+      <FormField
+        //control={form.control}
+        name="username"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Username</FormLabel>
+            <FormControl>
+              <Input
+                placeholder="shadcn"
+                {...field}
+              />
+            </FormControl>
+            <FormDescription>This is your public display name.</FormDescription>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <button type="submit">Submit</button>
     </FormComponent>
   )
 }

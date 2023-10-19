@@ -1,19 +1,46 @@
 import { Label } from "../primitives/label"
+import { zodResolver } from "@hookform/resolvers/zod"
 import type * as LabelPrimitive from "@radix-ui/react-label"
 import { Slot } from "@radix-ui/react-slot"
 import cn from "@social-hustle/utils-classnames"
 import * as React from "react"
-import type {
-  ControllerProps,
-  FieldPath,
-  FieldValues} from "react-hook-form";
-import {
-  Controller,
-  FormProvider,
-  useFormContext,
-} from "react-hook-form"
+import type { ControllerProps, FieldPath, FieldValues , UseFormProps} from "react-hook-form"
+import { Controller, FormProvider, useForm, useFormContext } from "react-hook-form"
+import type { z } from "zod"
 
-const Form = FormProvider
+interface FormProps<S extends z.AnyZodObject>
+  extends React.PropsWithoutRef<JSX.IntrinsicElements["form"]> {
+  children: React.ReactNode
+  schema: S
+  onSubmit: (values: z.infer<S>) => void | Promise<void>
+  defaultValues?: UseFormProps<z.infer<S>>["defaultValues"]
+  useFormProps?: Omit<UseFormProps<z.infer<S>>, "resolver" | "defaultValues">
+}
+
+const Form = <S extends z.AnyZodObject>({
+  schema,
+  children,
+  defaultValues,
+  onSubmit,
+  useFormProps,
+  ...props
+}: FormProps<S>) => {
+  const form = useForm<z.infer<S>>({
+    ...useFormProps,
+    resolver: zodResolver(schema),
+    defaultValues,
+  })
+  return (
+    <FormProvider {...form}>
+      <form
+        {...props}
+        onSubmit={form.handleSubmit(onSubmit)}
+      >
+        {children}
+      </form>
+    </FormProvider>
+  )
+}
 
 type FormFieldContextValue<
   TFieldValues extends FieldValues = FieldValues,
@@ -29,10 +56,14 @@ const FormField = <
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
 >({
   ...props
-}: ControllerProps<TFieldValues, TName>) => {
+}: Omit<ControllerProps<TFieldValues, TName>, "control">) => {
+  const form = useFormContext<TFieldValues>()
   return (
     <FormFieldContext.Provider value={{ name: props.name }}>
-      <Controller {...props} />
+      <Controller
+        {...props}
+        control={form.control}
+      />
     </FormFieldContext.Provider>
   )
 }
