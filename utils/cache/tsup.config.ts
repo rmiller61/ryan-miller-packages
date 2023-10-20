@@ -21,6 +21,7 @@ const tsupConfig = defineConfig((overrideOptions) => {
     clean: true,
     tsconfig: "tsconfig.prod.json",
     bundle: false,
+    external: ["node_modules"],
   }
 
   const esm = {

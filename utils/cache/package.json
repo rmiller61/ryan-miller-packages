@@ -37,7 +37,12 @@
     "test:watch": "vitest",
     "tsc": "tsc -p tsconfig.json"
   },
-  "dependencies": {
+  "devDependencies": {
+    "@upstash/redis": "1.19.1",
+    "cachified": "3.5.4",
+    "lru-cache": "10.0.0"
+  },
+  "peerDependencies": {
     "@upstash/redis": "1.19.1",
     "cachified": "3.5.4",
     "lru-cache": "10.0.0"
