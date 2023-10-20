@@ -1,5 +1,12 @@
 # @social-hustle/ui-carousel
 
+## 3.0.0
+
+### Patch Changes
+
+- Updated dependencies
+  - @social-hustle/utils-numbers@1.2.0
+
 ## 2.0.2
 
 ### Patch Changes
