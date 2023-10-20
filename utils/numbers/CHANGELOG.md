@@ -1,5 +1,11 @@
 # @social-hustle/utils-numbers
 
+## 1.2.1
+
+### Patch Changes
+
+- fix randomNumber returning negative
+
 ## 1.2.0
 
 ### Minor Changes
