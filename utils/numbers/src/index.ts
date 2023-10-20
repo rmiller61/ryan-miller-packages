@@ -55,8 +55,8 @@ export const wrap = (number: number, [min, max]: InputRange) => {
   return ((((number - min) % rangeSize) + rangeSize) % rangeSize) + min
 }
 
-export const randomNumber = (numbers: number[]) => {
-  return Math.floor(Math.random() * (getMax(numbers) - getMin(numbers) + 1) + getMin(numbers))
+export const randomNumber = ([min, max]: InputRange) => {
+  return Math.floor(Math.random() * (min - max + 1) + min)
 }
 
 export const getSum = (numbers: number[]) => {
