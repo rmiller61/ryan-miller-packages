@@ -1,5 +1,11 @@
 # @social-hustle/utils-cache
 
+## 1.2.1
+
+### Patch Changes
+
+- revert b70f1ce7c35d27fe76a9e41c325089494786e05b
+
 ## 1.2.0
 
 ### Minor Changes

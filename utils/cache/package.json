@@ -1,6 +1,6 @@
 {
   "name": "@social-hustle/utils-cache",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Ready-to-use implementations of Xiphe's cachified",
   "sideEffects": false,
   "exports": {
@@ -37,12 +37,7 @@
     "test:watch": "vitest",
     "tsc": "tsc -p tsconfig.json"
   },
-  "devDependencies": {
-    "@upstash/redis": "1.19.1",
-    "cachified": "3.5.4",
-    "lru-cache": "10.0.0"
-  },
-  "peerDependencies": {
+  "dependencies": {
     "@upstash/redis": "1.19.1",
     "cachified": "3.5.4",
     "lru-cache": "10.0.0"
