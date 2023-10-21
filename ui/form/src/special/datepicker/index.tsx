@@ -9,8 +9,6 @@ const DatePicker = React.forwardRef<ReactDatePicker, DatePickerProps>((props, re
     <ReactDatePicker
       {...props}
       ref={ref}
-      //className={cn("input-datepicker", props.className)}
-      wrapperClassName="react-datepicker-wrapper"
     />
   )
 })
