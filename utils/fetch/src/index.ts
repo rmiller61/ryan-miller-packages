@@ -47,7 +47,7 @@ const configDefaults: RequestConfigDefaults = {
   ]),
 }
 
-export const request = async <T = any, R = ResponseObject<T>, D = any>(
+const request = async <T = any, R = ResponseObject<T>, D = any>(
   config: RequestConfig<D>
 ): Promise<R> => {
   const options = merge(configDefaults, config) as RequestConfigWithDefaults
@@ -158,3 +158,61 @@ export const request = async <T = any, R = ResponseObject<T>, D = any>(
       })
   })
 }
+
+const get = <T = any, R = ResponseObject<T>, D = any>(
+  url: string,
+  config?: RequestConfig<D>
+): Promise<R> => request({ ...config, url, method: "GET" })
+
+const deleteMethod = <T = any, R = ResponseObject<T>, D = any>(
+  url: string,
+  config?: RequestConfig<D>
+): Promise<R> => request({ ...config, url, method: "DELETE" })
+
+const head = <T = any, R = ResponseObject<T>, D = any>(
+  url: string,
+  config?: RequestConfig<D>
+): Promise<R> => request({ ...config, url, method: "HEAD" })
+
+const options = <T = any, R = ResponseObject<T>, D = any>(
+  url: string,
+  config?: RequestConfig<D>
+): Promise<R> => request({ ...config, url, method: "OPTIONS" })
+
+const post = <T = any, R = ResponseObject<T>, D = any>(
+  url: string,
+  data: D,
+  config?: RequestConfig<D>
+): Promise<R> => request({ ...config, url, data, method: "POST" })
+
+const put = <T = any, R = ResponseObject<T>, D = any>(
+  url: string,
+  data: D,
+  config?: RequestConfig<D>
+): Promise<R> => request({ ...config, url, data, method: "PUT" })
+
+const patch = <T = any, R = ResponseObject<T>, D = any>(
+  url: string,
+  data: D,
+  config?: RequestConfig<D>
+): Promise<R> => request({ ...config, url, data, method: "PATCH" })
+
+const spread = <Args extends any, R extends unknown>(fn: (...args: Args[]) => R) =>
+  fn.apply.bind(fn, fn)
+
+function create() {
+  return {
+    request,
+    get,
+    delete: deleteMethod,
+    head,
+    options,
+    post,
+    put,
+    patch,
+    spread,
+    CancelToken: typeof AbortController == "function" ? AbortController : Object,
+  }
+}
+
+export default create()

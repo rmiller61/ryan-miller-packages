@@ -1,8 +1,10 @@
-import { request } from "./index"
+import axios from "./index"
 import { rest } from "msw"
 import { setupServer } from "msw/node"
 import { afterAll, afterEach, beforeAll, expect, it } from "vitest"
 import "isomorphic-fetch"
+
+const request = axios.request
 
 const server = setupServer()
 beforeAll(() => server.listen())
