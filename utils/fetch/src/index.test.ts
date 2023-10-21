@@ -54,7 +54,7 @@ describe("request", () => {
     expect(response.data).toStrictEqual({ message: "hello" })
   })
 
-  /**it("should throw if auth fails", async () => {
+  it("should throw if auth fails", async () => {
     server.use(
       rest.get(url, (req, res, ctx) => {
         if (req.headers.get("Authorization") == "Basic dXNlcm5hbWU6cGFzc3dvcmQ=") {
@@ -64,13 +64,13 @@ describe("request", () => {
       })
     )
 
-    const response = await request<{ message: string }>({
+    const response = request<{ message: string }>({
       url,
       auth: { username: "wrongusername", password: "wrongpassword" },
     })
 
     await expect(response).rejects.toThrow()
-  })**/
+  })
 
   it("should throw an error if the request times out", async () => {
     server.use(
