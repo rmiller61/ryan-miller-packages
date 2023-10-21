@@ -1,5 +1,11 @@
 # @social-hustle/utils-fetch
 
+## 2.0.0
+
+### Major Changes
+
+- implement all http methods
+
 ## 1.2.0
 
 ### Minor Changes
