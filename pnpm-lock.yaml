@@ -340,6 +340,7 @@ importers:
       "@radix-ui/react-select": 1.2.2
       "@radix-ui/react-slider": 1.1.2
       "@radix-ui/react-slot": 1.0.2
+      "@radix-ui/react-switch": 1.0.3
       "@social-hustle/utils-classnames": workspace:*
       "@ts-react/form": 1.8.1
       react-hook-form: 7.47.0
@@ -354,6 +355,7 @@ importers:
       "@radix-ui/react-select": 1.2.2_biqbaboplfbrettd7655fr4n2y
       "@radix-ui/react-slider": 1.1.2_biqbaboplfbrettd7655fr4n2y
       "@radix-ui/react-slot": 1.0.2_react@18.2.0
+      "@radix-ui/react-switch": 1.0.3_biqbaboplfbrettd7655fr4n2y
       "@social-hustle/utils-classnames": link:../../utils/classnames
       "@ts-react/form": 1.8.1_mnrmq6h7ggnax2556xc2ihvusu
       react-hook-form: 7.47.0_react@18.2.0
@@ -4865,6 +4867,34 @@ packages:
       "@babel/runtime": 7.23.2
       "@radix-ui/react-compose-refs": 1.0.1_react@18.2.0
       react: 18.2.0
+
+  /@radix-ui/react-switch/1.0.3_biqbaboplfbrettd7655fr4n2y:
+    resolution:
+      {
+        integrity: sha512-mxm87F88HyHztsI7N+ZUmEoARGkC22YVW5CaC+Byc+HRpuvCrOBPTAnXgf+tZ/7i0Sg/eOePGdMhUKhPaQEqow==,
+      }
+    peerDependencies:
+      "@types/react": "*"
+      "@types/react-dom": "*"
+      react: ^16.8 || ^17.0 || ^18.0
+      react-dom: ^16.8 || ^17.0 || ^18.0
+    peerDependenciesMeta:
+      "@types/react":
+        optional: true
+      "@types/react-dom":
+        optional: true
+    dependencies:
+      "@babel/runtime": 7.23.2
+      "@radix-ui/primitive": 1.0.1
+      "@radix-ui/react-compose-refs": 1.0.1_react@18.2.0
+      "@radix-ui/react-context": 1.0.1_react@18.2.0
+      "@radix-ui/react-primitive": 1.0.3_biqbaboplfbrettd7655fr4n2y
+      "@radix-ui/react-use-controllable-state": 1.0.1_react@18.2.0
+      "@radix-ui/react-use-previous": 1.0.1_react@18.2.0
+      "@radix-ui/react-use-size": 1.0.1_react@18.2.0
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: true
 
   /@radix-ui/react-toggle-group/1.0.4_biqbaboplfbrettd7655fr4n2y:
     resolution:

@@ -30,6 +30,7 @@
     "@radix-ui/react-select": "1.2.2",
     "@radix-ui/react-slider": "1.1.2",
     "@radix-ui/react-slot": "1.0.2",
+    "@radix-ui/react-switch": "1.0.3",
     "@social-hustle/utils-classnames": "workspace:*",
     "@ts-react/form": "1.8.1",
     "react-hook-form": "7.47.0",
