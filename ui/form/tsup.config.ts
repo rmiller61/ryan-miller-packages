@@ -13,6 +13,7 @@ const tsupConfig = defineConfig({
     "@radix-ui/react-slot",
     "@social-hustle/utils-classnames",
     "@hookform/resolvers",
+    "react-icons",
   ],
   splitting: false,
   minify: true,

@@ -343,9 +343,10 @@ importers:
       "@social-hustle/utils-classnames": workspace:*
       "@ts-react/form": 1.8.1
       react-hook-form: 7.47.0
+      react-icons: 4.10.1
       tailwindcss: 3.3.2
       zod: 3.22.4
-    dependencies:
+    devDependencies:
       "@hookform/resolvers": 3.3.2_react-hook-form@7.47.0
       "@radix-ui/react-checkbox": 1.0.4_biqbaboplfbrettd7655fr4n2y
       "@radix-ui/react-label": 2.0.2_biqbaboplfbrettd7655fr4n2y
@@ -356,6 +357,7 @@ importers:
       "@social-hustle/utils-classnames": link:../../utils/classnames
       "@ts-react/form": 1.8.1_mnrmq6h7ggnax2556xc2ihvusu
       react-hook-form: 7.47.0_react@18.2.0
+      react-icons: 4.10.1_react@18.2.0
       tailwindcss: 3.3.2
       zod: 3.22.4
 
@@ -3135,7 +3137,7 @@ packages:
       react-hook-form: ^7.0.0
     dependencies:
       react-hook-form: 7.47.0_react@18.2.0
-    dev: false
+    dev: true
 
   /@humanwhocodes/config-array/0.11.11:
     resolution:
@@ -3887,7 +3889,7 @@ packages:
       "@radix-ui/react-use-size": 1.0.1_react@18.2.0
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
-    dev: false
+    dev: true
 
   /@radix-ui/react-collection/1.0.3_biqbaboplfbrettd7655fr4n2y:
     resolution:
@@ -4339,7 +4341,7 @@ packages:
       "@radix-ui/react-primitive": 1.0.3_biqbaboplfbrettd7655fr4n2y
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
-    dev: false
+    dev: true
 
   /@radix-ui/react-popper/1.1.2_biqbaboplfbrettd7655fr4n2y:
     resolution:
@@ -4501,7 +4503,7 @@ packages:
       "@radix-ui/react-use-layout-effect": 1.0.1_react@18.2.0
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
-    dev: false
+    dev: true
 
   /@radix-ui/react-primitive/1.0.2_biqbaboplfbrettd7655fr4n2y:
     resolution:
@@ -4592,7 +4594,7 @@ packages:
       "@radix-ui/react-use-size": 1.0.1_react@18.2.0
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
-    dev: false
+    dev: true
 
   /@radix-ui/react-roving-focus/1.0.4_biqbaboplfbrettd7655fr4n2y:
     resolution:
@@ -4815,7 +4817,7 @@ packages:
       "@radix-ui/react-use-size": 1.0.1_react@18.2.0
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
-    dev: false
+    dev: true
 
   /@radix-ui/react-slot/1.0.1_react@18.2.0:
     resolution:
@@ -7792,7 +7794,7 @@ packages:
       react: 18.2.0
       react-hook-form: 7.47.0_react@18.2.0
       zod: 3.22.4
-    dev: false
+    dev: true
 
   /@tsconfig/node10/1.0.9:
     resolution:
@@ -19833,7 +19835,7 @@ packages:
       react: ^16.8.0 || ^17 || ^18
     dependencies:
       react: 18.2.0
-    dev: false
+    dev: true
 
   /react-icons/4.10.1_react@18.2.0:
     resolution:
@@ -19844,7 +19846,6 @@ packages:
       react: "*"
     dependencies:
       react: 18.2.0
-    dev: false
 
   /react-inspector/6.0.2_react@18.2.0:
     resolution:
@@ -24488,4 +24489,3 @@ packages:
       {
         integrity: sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==,
       }
-    dev: false
