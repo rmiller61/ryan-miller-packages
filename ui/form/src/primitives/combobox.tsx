@@ -187,7 +187,7 @@ const frameworks = [
   },
 ]
 
-export function ComboboxDemo() {
+export function Combobox() {
   const [open, setOpen] = React.useState(false)
   const [value, setValue] = React.useState("")
 
@@ -202,7 +202,7 @@ export function ComboboxDemo() {
         <button
           role="combobox"
           aria-expanded={open}
-          className="w-[200px] justify-between"
+          className="input-combobox w-[200px] justify-between"
           aria-controls={contentId}
         >
           {value
