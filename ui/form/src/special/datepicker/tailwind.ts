@@ -1,6 +1,30 @@
 import plugin from "tailwindcss/plugin"
 
-const twPlugin = plugin(function ({ addBase }) {
+const DEFAULT_VALUES = {
+  colors: {
+    borderColor: `#aeaeae`,
+    color: `#000`,
+    backgroundColor: `#fff`,
+  },
+  fontSize: `0.8rem`,
+  borderRadius: "0.3rem",
+  header: {
+    backgroundColor: `#f0f0f0`,
+    borderColor: `#aeaeae`,
+    color: `#000`,
+  },
+  days: {
+    current: {
+      backgroundColor: `#216ba5`,
+      color: `#fff`,
+    },
+    hover: {
+      backgroundColor: `#f0f0f0`,
+    },
+  },
+}
+
+const twPlugin = plugin(function ({ addBase, theme }) {
   addBase({
     ".react-datepicker__year-read-view--down-arrow,.react-datepicker__month-read-view--down-arrow, .react-datepicker__month-year-read-view--down-arrow, .react-datepicker__navigation-icon::before":
       {
@@ -78,11 +102,16 @@ const twPlugin = plugin(function ({ addBase }) {
 
     ".react-datepicker": {
       fontFamily: "inherit",
-      fontSize: "0.8rem",
-      backgroundColor: "#fff",
-      color: "#000",
-      border: "1px solid #aeaeae",
-      borderRadius: "0.3rem",
+      fontSize: theme("datepicker.fontSize", DEFAULT_VALUES.fontSize),
+      backgroundColor: theme(
+        "datepicker.colors.backgroundColor",
+        DEFAULT_VALUES.colors.backgroundColor
+      ),
+      color: theme("datepicker.colors.color", DEFAULT_VALUES.colors.color),
+      borderWidth: "1px",
+      borderStyle: "solid",
+      borderColor: theme("datepicker.colors.borderColor", DEFAULT_VALUES.colors.borderColor),
+      borderRadius: theme("datepicker.borderRadius", DEFAULT_VALUES.borderRadius),
       display: "inline-block",
       position: "relative",
     },
@@ -136,11 +165,17 @@ const twPlugin = plugin(function ({ addBase }) {
 
     ".react-datepicker__header": {
       textAlign: "center",
-      backgroundColor: "#f0f0f0",
-      borderBottom: "1px solid #aeaeae",
+      backgroundColor: theme(
+        "datepicker.header.backgroundColor",
+        DEFAULT_VALUES.header.backgroundColor
+      ),
+      borderBottomWidth: "1px",
+      borderBottomStyle: "solid",
+      borderBottomColor: theme("datepicker.header.borderColor", DEFAULT_VALUES.header.borderColor),
       borderTopLeftRadius: "0.3rem",
       padding: "8px 0",
       position: "relative",
+      color: theme("datepicker.header.color", DEFAULT_VALUES.header.color),
     },
     ".react-datepicker__header--time": {
       paddingBottom: "8px",
@@ -163,7 +198,7 @@ const twPlugin = plugin(function ({ addBase }) {
     ".react-datepicker__current-month,.react-datepicker-time__header,.react-datepicker-year-header":
       {
         marginTop: "0",
-        color: "#000",
+        color: theme("datepicker.header.color", DEFAULT_VALUES.header.color),
         fontWeight: "bold",
         fontSize: "0.944rem",
       },
@@ -414,7 +449,10 @@ const twPlugin = plugin(function ({ addBase }) {
     ".react-datepicker__day:hover, .react-datepicker__month-text:hover, .react-datepicker__quarter-text:hover, .react-datepicker__year-text:hover":
       {
         borderRadius: "0.3rem",
-        backgroundColor: "#f0f0f0",
+        backgroundColor: theme(
+          "datepicker.days.hover.backgroundColor",
+          DEFAULT_VALUES.days.hover.backgroundColor
+        ),
       },
     ".react-datepicker__day--today, .react-datepicker__month-text--today, .react-datepicker__quarter-text--today, .react-datepicker__year-text--today":
       {
@@ -465,8 +503,11 @@ const twPlugin = plugin(function ({ addBase }) {
     ".react-datepicker__day--selected, .react-datepicker__day--in-selecting-range, .react-datepicker__day--in-range,.react-datepicker__month-text--selected,.react-datepicker__month-text--in-selecting-range,.react-datepicker__month-text--in-range,.react-datepicker__quarter-text--selected,.react-datepicker__quarter-text--in-selecting-range,.react-datepicker__quarter-text--in-range,.react-datepicker__year-text--selected,.react-datepicker__year-text--in-selecting-range,.react-datepicker__year-text--in-range":
       {
         borderRadius: "0.3rem",
-        backgroundColor: "#216ba5",
-        color: "#fff",
+        backgroundColor: theme(
+          "datepicker.days.current.backgroundColor",
+          DEFAULT_VALUES.days.current.backgroundColor
+        ),
+        color: theme("datepicker.days.current.color", DEFAULT_VALUES.days.current.color),
       },
     ".react-datepicker__day--selected:hover, .react-datepicker__day--in-selecting-range:hover, .react-datepicker__day--in-range:hover,.react-datepicker__month-text--selected:hover,.react-datepicker__month-text--in-selecting-range:hover,.react-datepicker__month-text--in-range:hover,.react-datepicker__quarter-text--selected:hover,.react-datepicker__quarter-text--in-selecting-range:hover,.react-datepicker__quarter-text--in-range:hover,.react-datepicker__year-text--selected:hover,.react-datepicker__year-text--in-selecting-range:hover,.react-datepicker__year-text--in-range:hover":
       {

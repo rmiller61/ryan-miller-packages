@@ -1,3 +1,4 @@
+import datepickerPlugin from "./src/special/datepicker/tailwind"
 import plugin from "./tailwind.plugin"
 import type { Config } from "tailwindcss"
 import { fontFamily } from "tailwindcss/defaultTheme"
@@ -5,7 +6,7 @@ import { fontFamily } from "tailwindcss/defaultTheme"
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
-  plugins: [plugin],
+  plugins: [plugin, datepickerPlugin],
   extend: {
     colors: {
       border: "hsl(var(--border))",
