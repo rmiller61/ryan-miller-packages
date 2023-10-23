@@ -109,6 +109,7 @@ const twPlugin = plugin(function ({ addBase, theme }) {
       borderRadius: theme("datepicker.borderRadius", DEFAULT_VALUES.borderRadius),
       display: "inline-block",
       position: "relative",
+      lineHeight: "normal",
     },
 
     ".react-datepicker--time-only .react-datepicker__triangle": {
