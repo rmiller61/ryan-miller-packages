@@ -29,7 +29,7 @@ const twPlugin = plugin(function ({ addBase, theme }) {
         borderColor: "#ccc",
         borderStyle: "solid",
         borderWidth: "3px 3px 0 0",
-        content: "",
+        content: '""',
         display: "block",
         height: "9px",
         position: "absolute",
