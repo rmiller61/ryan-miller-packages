@@ -1,11 +1,9 @@
 import plugin from "tailwindcss/plugin"
 
 const DEFAULT_VALUES = {
-  colors: {
-    borderColor: `#aeaeae`,
-    color: `#000`,
-    backgroundColor: `#fff`,
-  },
+  borderColor: `#aeaeae`,
+  color: `#000`,
+  backgroundColor: `#fff`,
   fontSize: `0.8rem`,
   borderRadius: "0.3rem",
   header: {
@@ -103,14 +101,11 @@ const twPlugin = plugin(function ({ addBase, theme }) {
     ".react-datepicker": {
       fontFamily: "inherit",
       fontSize: theme("datepicker.fontSize", DEFAULT_VALUES.fontSize),
-      backgroundColor: theme(
-        "datepicker.colors.backgroundColor",
-        DEFAULT_VALUES.colors.backgroundColor
-      ),
-      color: theme("datepicker.colors.color", DEFAULT_VALUES.colors.color),
+      backgroundColor: theme("datepicker.backgroundColor", DEFAULT_VALUES.backgroundColor),
+      color: theme("datepicker.color", DEFAULT_VALUES.color),
       borderWidth: "1px",
       borderStyle: "solid",
-      borderColor: theme("datepicker.colors.borderColor", DEFAULT_VALUES.colors.borderColor),
+      borderColor: theme("datepicker.borderColor", DEFAULT_VALUES.borderColor),
       borderRadius: theme("datepicker.borderRadius", DEFAULT_VALUES.borderRadius),
       display: "inline-block",
       position: "relative",
