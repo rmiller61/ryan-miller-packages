@@ -1,19 +1,8 @@
-import { DatePicker as DefaultDatepicker, type DatePickerProps } from "."
+/* eslint-disable react-hooks/rules-of-hooks */
+
+import { DatePicker, type DatePickerProps } from "."
 import type { Meta, StoryObj } from "@storybook/react"
 import { useState } from "react"
-
-const DatePicker = (props: DatePickerProps) => {
-  const [startDate, setStartDate] = useState(new Date())
-  return (
-    <DefaultDatepicker
-      {...props}
-      selected={startDate}
-      onChange={(date) => {
-        if (date && date instanceof Date) setStartDate(date)
-      }}
-    />
-  )
-}
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
@@ -25,8 +14,46 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const Primary: Story = {
+export const Default: Story = {
   args: {
     className: "",
+  },
+  render: (props) => {
+    const [startDate, setStartDate] = useState(new Date())
+    return (
+      <DatePicker
+        {...props}
+        selected={startDate}
+        onChange={(date) => {
+          if (date && date instanceof Date) setStartDate(date)
+        }}
+      />
+    )
+  },
+}
+
+export const Range: Story = {
+  args: {
+    className: "",
+  },
+  render: (props) => {
+    const [startDate, setStartDate] = useState(new Date())
+    const [endDate, setEndDate] = useState(null)
+    const onChange = (dates) => {
+      const [start, end] = dates
+      setStartDate(start)
+      setEndDate(end)
+    }
+    return (
+      <DatePicker
+        {...props}
+        selected={startDate}
+        onChange={onChange}
+        startDate={startDate}
+        endDate={endDate}
+        selectsRange
+        inline
+      />
+    )
   },
 }
