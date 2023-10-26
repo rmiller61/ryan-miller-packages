@@ -199,4 +199,5 @@ export {
   FormDescription,
   FormMessage,
   FormField,
+  type FormProps,
 }
