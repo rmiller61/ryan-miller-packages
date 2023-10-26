@@ -1,5 +1,11 @@
 # @social-hustle/ui-form
 
+## 1.0.2
+
+### Patch Changes
+
+- delete legacy classNames
+
 ## 1.0.1
 
 ### Patch Changes
