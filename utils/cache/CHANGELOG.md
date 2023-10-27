@@ -1,5 +1,11 @@
 # @social-hustle/utils-cache
 
+## 1.2.2
+
+### Patch Changes
+
+- upgrade upstash redis
+
 ## 1.2.1
 
 ### Patch Changes
