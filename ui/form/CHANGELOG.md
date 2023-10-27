@@ -1,5 +1,11 @@
 # @social-hustle/ui-form
 
+## 1.0.3
+
+### Patch Changes
+
+- slider composition
+
 ## 1.0.2
 
 ### Patch Changes
