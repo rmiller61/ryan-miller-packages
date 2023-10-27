@@ -103,10 +103,10 @@ describe("request", () => {
     await expect(response).rejects.toThrow()
   })
 
-  it("should throw if the status code is not in the 2xx - 3xx range", async () => {
+  it("should throw if the status code is not in the 2xx range", async () => {
     server.use(
       rest.get(url, (req, res, ctx) => {
-        return res(ctx.status(400))
+        return res(ctx.status(300))
       })
     )
 
@@ -115,7 +115,7 @@ describe("request", () => {
     await expect(response).rejects.toThrow()
   })
 
-  it("should throw if the status code is 3xx and custom validation fails", async () => {
+  it("should pass custom validation", async () => {
     server.use(
       rest.get(url, (req, res, ctx) => {
         return res(ctx.status(300))
@@ -124,9 +124,9 @@ describe("request", () => {
 
     const response = request<{ message: string }>({
       url,
-      validateStatus: (status) => status >= 200 && status < 300,
+      validateStatus: (status) => status >= 200 && status < 400,
     })
 
-    await expect(response).rejects.toThrow()
+    await expect(response).resolves.toBeDefined()
   })
 })

@@ -31,7 +31,7 @@ const configDefaults: RequestConfigDefaults = {
   responseEncoding: "utf8",
   xsrfCookieName: "XSRF-TOKEN",
   xsrfHeaderName: "X-XSRF-TOKEN",
-  validateStatus: (status) => status >= 200 && status < 400,
+  validateStatus: (status) => status >= 200 && status < 300,
   statusCodeMap: new Map([
     [200, "OK"],
     [201, "Created"],
