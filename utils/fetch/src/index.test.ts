@@ -129,4 +129,20 @@ describe("request", () => {
 
     await expect(response).resolves.toBeDefined()
   })
+
+  it("custom fetcher should work", async () => {
+    server.use(
+      rest.get(url, (req, res, ctx) => {
+        const headers = req.headers.all()
+        return res(ctx.json({ message: "hello", headers }))
+      })
+    )
+
+    const response = await request<{ message: string }>({
+      url,
+      fetch: (_, opts) => fetch(_, { ...opts, headers: { ...opts?.headers, "X-Test": "test" } }),
+    })
+
+    expect(response.data).toStrictEqual({ message: "hello", headers: { "x-test": "test" } })
+  })
 })
