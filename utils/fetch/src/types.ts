@@ -110,4 +110,19 @@ export type RequestConfigDefaults = Required<Pick<RequestConfig, RequestConfigDe
 export type RequestConfigWithDefaults = Omit<RequestConfig, RequestConfigDefaultKeys> &
   RequestConfigDefaults
 
-export type StatusCode = 200 | 201 | 202 | 400 | 401 | 403 | 404 | 405 | 500 | 502 | 503
+export type StatusCode =
+  | 200
+  | 201
+  | 202
+  | 301
+  | 302
+  | 307
+  | 308
+  | 400
+  | 401
+  | 403
+  | 404
+  | 405
+  | 500
+  | 502
+  | 503

@@ -102,4 +102,47 @@ describe("request", () => {
 
     await expect(response).rejects.toThrow()
   })
+
+  it("should throw if the status code is not in the 2xx range", async () => {
+    server.use(
+      rest.get(url, (req, res, ctx) => {
+        return res(ctx.status(300))
+      })
+    )
+
+    const response = request<{ message: string }>({ url })
+
+    await expect(response).rejects.toThrow()
+  })
+
+  it("should pass custom validation", async () => {
+    server.use(
+      rest.get(url, (req, res, ctx) => {
+        return res(ctx.status(300))
+      })
+    )
+
+    const response = request<{ message: string }>({
+      url,
+      validateStatus: (status) => status >= 200 && status < 400,
+    })
+
+    await expect(response).resolves.toBeDefined()
+  })
+
+  it("custom fetcher should work", async () => {
+    server.use(
+      rest.get(url, (req, res, ctx) => {
+        const headers = req.headers.all()
+        return res(ctx.json({ message: "hello", headers }))
+      })
+    )
+
+    const response = await request<{ message: string }>({
+      url,
+      fetch: (_, opts) => fetch(_, { ...opts, headers: { ...opts?.headers, "X-Test": "test" } }),
+    })
+
+    expect(response.data).toStrictEqual({ message: "hello", headers: { "x-test": "test" } })
+  })
 })
