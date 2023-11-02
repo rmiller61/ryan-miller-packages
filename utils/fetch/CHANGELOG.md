@@ -1,5 +1,11 @@
 # @social-hustle/utils-fetch
 
+## 2.0.1
+
+### Patch Changes
+
+- add test for custom fetcher
+
 ## 2.0.0
 
 ### Major Changes
