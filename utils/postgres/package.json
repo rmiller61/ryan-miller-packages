@@ -42,7 +42,8 @@
     "@types/ws": "8.5.5",
     "@vercel/postgres": "0.5.1",
     "dockerode": "4.0.0",
-    "drizzle-orm": "0.29.0"
+    "drizzle-orm": "0.29.0",
+    "get-port": "7.0.0"
   },
   "publishConfig": {
     "access": "public"
