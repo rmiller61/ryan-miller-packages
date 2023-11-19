@@ -32,11 +32,17 @@
     "test:watch": "vitest",
     "tsc": "tsc -p tsconfig.json"
   },
+  "dependencies": {
+    "@neondatabase/serverless": "0.6.0",
+    "ws": "8.13.0"
+  },
   "devDependencies": {
     "@edge-runtime/types": "2.1.5",
     "@neondatabase/serverless": "0.6.0",
     "@types/ws": "8.5.5",
-    "ws": "8.13.0"
+    "@vercel/postgres": "0.5.1",
+    "dockerode": "4.0.0",
+    "drizzle-orm": "0.29.0"
   },
   "publishConfig": {
     "access": "public"

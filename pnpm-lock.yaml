@@ -586,19 +586,29 @@ importers:
   utils/objects: {}
 
   utils/postgres:
+    dependencies:
+      "@neondatabase/serverless":
+        specifier: 0.6.0
+        version: 0.6.0
+      ws:
+        specifier: 8.13.0
+        version: 8.13.0
     devDependencies:
       "@edge-runtime/types":
         specifier: 2.1.5
         version: 2.1.5
-      "@neondatabase/serverless":
-        specifier: 0.6.0
-        version: 0.6.0
       "@types/ws":
         specifier: 8.5.5
         version: 8.5.5
-      ws:
-        specifier: 8.13.0
-        version: 8.13.0
+      "@vercel/postgres":
+        specifier: 0.5.1
+        version: 0.5.1
+      dockerode:
+        specifier: ^4.0.0
+        version: 4.0.0
+      drizzle-orm:
+        specifier: 0.29.0
+        version: 0.29.0(@neondatabase/serverless@0.6.0)(@vercel/postgres@0.5.1)
 
   utils/strings:
     devDependencies:
@@ -2366,6 +2376,13 @@ packages:
       "@babel/helper-validator-identifier": 7.22.20
       to-fast-properties: 2.0.0
 
+  /@balena/dockerignore@1.0.2:
+    resolution:
+      {
+        integrity: sha512-wMue2Sy4GAVTk6Ic4tJVcnfdau+gx2EnG7S+uAEe+TWJFqE4YoWN4/H8MSLj4eYJKxGg26lZwboEniNiNwZQ6Q==,
+      }
+    dev: true
+
   /@base2/pretty-print-object@1.0.1:
     resolution:
       {
@@ -3788,7 +3805,6 @@ packages:
       }
     dependencies:
       "@types/pg": 8.6.6
-    dev: true
 
   /@next/env@13.5.4:
     resolution:
@@ -7829,7 +7845,6 @@ packages:
       "@types/node": 20.5.1
       pg-protocol: 1.6.0
       pg-types: 2.2.0
-    dev: true
 
   /@types/prettier@2.7.3:
     resolution:
@@ -8462,6 +8477,19 @@ packages:
       "@biomejs/biome": 1.3.1
       crypto-js: 4.2.0
     dev: false
+
+  /@vercel/postgres@0.5.1:
+    resolution:
+      {
+        integrity: sha512-JKl8QOBIDnifhkxAhIKtY0A5Tb8oWBf2nzZhm0OH7Ffjsl0hGVnDL2w1/FCfpX8xna3JAWM034NGuhZfTFdmiw==,
+      }
+    engines: { node: ">=14.6" }
+    dependencies:
+      "@neondatabase/serverless": 0.6.0
+      bufferutil: 4.0.8
+      utf-8-validate: 6.0.3
+      ws: 8.14.2(bufferutil@4.0.8)(utf-8-validate@6.0.3)
+    dev: true
 
   /@vitejs/plugin-react-swc@3.4.0(vite@4.4.11):
     resolution:
@@ -9431,6 +9459,15 @@ packages:
       minimalistic-assert: 1.0.1
       safer-buffer: 2.1.2
 
+  /asn1@0.2.6:
+    resolution:
+      {
+        integrity: sha512-ix/FxPn0MDjeyJ7i/yoHGFt/EX6LyNbxSEhPPXODPL+KB0VPk86UYfL0lMdy+KCnv+fmvIzySwaK5COwqVbWTQ==,
+      }
+    dependencies:
+      safer-buffer: 2.1.2
+    dev: true
+
   /assert@2.1.0:
     resolution:
       {
@@ -9743,6 +9780,15 @@ packages:
     engines: { node: ">=10.0.0" }
     dev: true
 
+  /bcrypt-pbkdf@1.0.2:
+    resolution:
+      {
+        integrity: sha512-qeFIXtP4MSoi6NLqO12WfqARWWuCKi2Rn/9hJLEmtB5yTNr9DqFWkJRCf2qShWzPeAMRnOgCrq0sg/KLv5ES9w==,
+      }
+    dependencies:
+      tweetnacl: 0.14.5
+    dev: true
+
   /better-opn@3.0.2:
     resolution:
       {
@@ -10043,6 +10089,27 @@ packages:
     dependencies:
       base64-js: 1.5.1
       ieee754: 1.2.1
+
+  /bufferutil@4.0.8:
+    resolution:
+      {
+        integrity: sha512-4T53u4PdgsXqKaIctwF8ifXlRTTmEPJ8iEPWFdGZvcf7sbwYo6FKFEX9eNNAnzFZ7EzJAQ3CJeOtCRA4rDp7Pw==,
+      }
+    engines: { node: ">=6.14.2" }
+    requiresBuild: true
+    dependencies:
+      node-gyp-build: 4.7.0
+    dev: true
+
+  /buildcheck@0.0.6:
+    resolution:
+      {
+        integrity: sha512-8f9ZJCUXyT1M35Jx7MkBgmBMo3oHTTBIPLiY9xyL0pl3T5RwcPEY8cUHr5LBNfu/fk6c2T4DJZuVM/8ZZT2D2A==,
+      }
+    engines: { node: ">=10.0.0" }
+    requiresBuild: true
+    dev: true
+    optional: true
 
   /builtin-status-codes@3.0.0:
     resolution:
@@ -11108,6 +11175,19 @@ packages:
       path-type: 4.0.0
       typescript: 5.2.2
 
+  /cpu-features@0.0.9:
+    resolution:
+      {
+        integrity: sha512-AKjgn2rP2yJyfbepsmLfiYcmtNn/2eUvocUyM/09yB0YDiz39HteK/5/T4Onf0pmdYDMgkBoGvRLvEguzyL7wQ==,
+      }
+    engines: { node: ">=10.0.0" }
+    requiresBuild: true
+    dependencies:
+      buildcheck: 0.0.6
+      nan: 2.18.0
+    dev: true
+    optional: true
+
   /create-ecdh@4.0.4:
     resolution:
       {
@@ -11867,6 +11947,35 @@ packages:
         integrity: sha512-+HlytyjlPKnIG8XuRG8WvmBP8xs8P71y+SKKS6ZXWoEgLuePxtDoUEiH7WkdePWrQ5JBpE6aoVqfZfJUQkjXwA==,
       }
 
+  /docker-modem@5.0.1:
+    resolution:
+      {
+        integrity: sha512-vqrE/nrweCyzmCpVpdFRC41qS+tfTF+IoUKlTZr52O82urbUqdfyJBGWMvT01pYUprWepLr8IkyVTEWJKRTQSg==,
+      }
+    engines: { node: ">= 8.0" }
+    dependencies:
+      debug: 4.3.4
+      readable-stream: 3.6.2
+      split-ca: 1.0.1
+      ssh2: 1.14.0
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
+  /dockerode@4.0.0:
+    resolution:
+      {
+        integrity: sha512-3LF7/3MPz5+9RsUo91rD0MCcx0yxjC9bnbtgtVjOLKyKxlZSJ7/Kk3OPAgARlwlWHqXwAGYhmkAHYx7IwD0tJQ==,
+      }
+    engines: { node: ">= 8.0" }
+    dependencies:
+      "@balena/dockerignore": 1.0.2
+      docker-modem: 5.0.1
+      tar-fs: 2.0.1
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
   /doctrine@2.1.0:
     resolution:
       {
@@ -12014,6 +12123,75 @@ packages:
         integrity: sha512-IPzF4w4/Rd94bA9imS68tZBaYyBWSCE47V1RGuMrB94iyTOIEwRmVL2x/4An+6mETpLrKJ5hQkB8W4kFAadeIQ==,
       }
     engines: { node: ">=12" }
+
+  /drizzle-orm@0.29.0(@neondatabase/serverless@0.6.0)(@vercel/postgres@0.5.1):
+    resolution:
+      {
+        integrity: sha512-AC+CuW4GezVjsZDGU9u9B4HyikudOyYVhjm6he3Xn1D6Kky7bHGKob97MMX2piO+t9b6UuajLzlii/T/lu1qwA==,
+      }
+    peerDependencies:
+      "@aws-sdk/client-rds-data": ">=3"
+      "@cloudflare/workers-types": ">=3"
+      "@libsql/client": "*"
+      "@neondatabase/serverless": ">=0.1"
+      "@opentelemetry/api": ^1.4.1
+      "@planetscale/database": ">=1"
+      "@types/better-sqlite3": "*"
+      "@types/pg": "*"
+      "@types/sql.js": "*"
+      "@vercel/postgres": "*"
+      better-sqlite3: ">=7"
+      bun-types: "*"
+      knex: "*"
+      kysely: "*"
+      mysql2: ">=2"
+      pg: ">=8"
+      postgres: ">=3"
+      sql.js: ">=1"
+      sqlite3: ">=5"
+    peerDependenciesMeta:
+      "@aws-sdk/client-rds-data":
+        optional: true
+      "@cloudflare/workers-types":
+        optional: true
+      "@libsql/client":
+        optional: true
+      "@neondatabase/serverless":
+        optional: true
+      "@opentelemetry/api":
+        optional: true
+      "@planetscale/database":
+        optional: true
+      "@types/better-sqlite3":
+        optional: true
+      "@types/pg":
+        optional: true
+      "@types/sql.js":
+        optional: true
+      "@vercel/postgres":
+        optional: true
+      better-sqlite3:
+        optional: true
+      bun-types:
+        optional: true
+      knex:
+        optional: true
+      kysely:
+        optional: true
+      mysql2:
+        optional: true
+      pg:
+        optional: true
+      postgres:
+        optional: true
+      sql.js:
+        optional: true
+      sqlite3:
+        optional: true
+    dependencies:
+      "@neondatabase/serverless": 0.6.0
+      "@vercel/postgres": 0.5.1
+    dev: true
 
   /duplexer3@0.1.5:
     resolution:
@@ -17254,6 +17432,15 @@ packages:
       object-assign: 4.1.1
       thenify-all: 1.6.0
 
+  /nan@2.18.0:
+    resolution:
+      {
+        integrity: sha512-W7tfG7vMOGtD30sHoZSSc/JVYiyDPEyQVso/Zz+/uQd0B0L46gtC+pHha5FFMRpil6fm/AoEcRWyOVi4+E/f8w==,
+      }
+    requiresBuild: true
+    dev: true
+    optional: true
+
   /nano-css@5.3.5(react-dom@18.2.0)(react@18.2.0):
     resolution:
       {
@@ -17430,6 +17617,14 @@ packages:
         integrity: sha512-dPEtOeMvF9VMcYV/1Wb8CPoVAXtp6MKMlcbAt4ddqmGqUJ6fQZFXkNZNkNlfevtNkGtaSoXf/vNNNSvgrdXwtA==,
       }
     engines: { node: ">= 6.13.0" }
+    dev: true
+
+  /node-gyp-build@4.7.0:
+    resolution:
+      {
+        integrity: sha512-PbZERfeFdrHQOOXiAKOY0VPbykZy90ndPKk0d+CFDegTKmWp1VgOTz2xACVbr1BjCWxrQp68CXtvNsveFhqDJg==,
+      }
+    hasBin: true
     dev: true
 
   /node-int64@0.4.0:
@@ -18223,14 +18418,12 @@ packages:
         integrity: sha512-WCtabS6t3c8SkpDBUlb1kjOs7l66xsGdKpIPZsg4wR+B3+u9UAum2odSsF9tnvxg80h4ZxLWMy4pRjOsFIqQpw==,
       }
     engines: { node: ">=4.0.0" }
-    dev: true
 
   /pg-protocol@1.6.0:
     resolution:
       {
         integrity: sha512-M+PDm637OY5WM307051+bsDia5Xej6d9IR4GwJse1qA1DIhiKlksvrneZOYQq42OM+spubpcNYEo2FcKQrDk+Q==,
       }
-    dev: true
 
   /pg-types@2.2.0:
     resolution:
@@ -18244,7 +18437,6 @@ packages:
       postgres-bytea: 1.0.0
       postgres-date: 1.0.7
       postgres-interval: 1.2.0
-    dev: true
 
   /picocolors@1.0.0:
     resolution:
@@ -18534,7 +18726,6 @@ packages:
         integrity: sha512-VpZrUqU5A69eQyW2c5CA1jtLecCsN2U/bD6VilrFDWq5+5UIEVO7nazS3TEcHf1zuPYO/sqGvUvW62g86RXZuA==,
       }
     engines: { node: ">=4" }
-    dev: true
 
   /postgres-bytea@1.0.0:
     resolution:
@@ -18542,7 +18733,6 @@ packages:
         integrity: sha512-xy3pmLuQqRBZBXDULy7KbaitYqLcmxigw14Q5sj8QBVLqEwXfeybIKVWiqAXTlcvdvb0+xkOtDbfQMOf4lST1w==,
       }
     engines: { node: ">=0.10.0" }
-    dev: true
 
   /postgres-date@1.0.7:
     resolution:
@@ -18550,7 +18740,6 @@ packages:
         integrity: sha512-suDmjLVQg78nMK2UZ454hAG+OAW+HQPZ6n++TNDUX+L0+uUlLywnoxJKDou51Zm+zTCjrCl0Nq6J9C5hP9vK/Q==,
       }
     engines: { node: ">=0.10.0" }
-    dev: true
 
   /postgres-interval@1.2.0:
     resolution:
@@ -18560,7 +18749,6 @@ packages:
     engines: { node: ">=0.10.0" }
     dependencies:
       xtend: 4.0.2
-    dev: true
 
   /preferred-pm@3.1.2:
     resolution:
@@ -19006,7 +19194,7 @@ packages:
       cross-fetch: 4.0.0
       debug: 4.3.4
       devtools-protocol: 0.0.1179426
-      ws: 8.14.2
+      ws: 8.14.2(bufferutil@4.0.8)(utf-8-validate@6.0.3)
     transitivePeerDependencies:
       - bufferutil
       - encoding
@@ -20764,6 +20952,13 @@ packages:
       jpeg-js: 0.4.4
     dev: true
 
+  /split-ca@1.0.1:
+    resolution:
+      {
+        integrity: sha512-Q5thBSxp5t8WPTTJQS59LrGqOZqOsrhDGDVm8azCqIBjSBd7nd9o2PM+mDulQQkh8h//4U6hFZnc/mul8t5pWQ==,
+      }
+    dev: true
+
   /split2@3.2.2:
     resolution:
       {
@@ -20779,6 +20974,21 @@ packages:
         integrity: sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==,
       }
     dev: false
+
+  /ssh2@1.14.0:
+    resolution:
+      {
+        integrity: sha512-AqzD1UCqit8tbOKoj6ztDDi1ffJZ2rV2SwlgrVVrHPkV5vWqGJOVp5pmtj18PunkPJAuKQsnInyKV+/Nb2bUnA==,
+      }
+    engines: { node: ">=10.16.0" }
+    requiresBuild: true
+    dependencies:
+      asn1: 0.2.6
+      bcrypt-pbkdf: 1.0.2
+    optionalDependencies:
+      cpu-features: 0.0.9
+      nan: 2.18.0
+    dev: true
 
   /stack-generator@2.0.10:
     resolution:
@@ -21307,6 +21517,18 @@ packages:
         integrity: sha512-GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ==,
       }
     engines: { node: ">=6" }
+
+  /tar-fs@2.0.1:
+    resolution:
+      {
+        integrity: sha512-6tzWDMeroL87uF/+lin46k+Q+46rAJ0SyPGz7OW7wTgblI273hsBqk2C1j0/xNadNLKDTUL9BukSjB7cwgmlPA==,
+      }
+    dependencies:
+      chownr: 1.1.4
+      mkdirp-classic: 0.5.3
+      pump: 3.0.0
+      tar-stream: 2.2.0
+    dev: true
 
   /tar-fs@2.1.1:
     resolution:
@@ -22106,6 +22328,13 @@ packages:
       turbo-windows-arm64: 1.10.15
     dev: false
 
+  /tweetnacl@0.14.5:
+    resolution:
+      {
+        integrity: sha512-KXXFFdAbFXY4geFIwoyNK+f5Z1b7swfXABfL7HXCmoIWMKU3dmS26672A4EeQtDzLKy7SXmfBu51JolvEKwtGA==,
+      }
+    dev: true
+
   /type-check@0.4.0:
     resolution:
       {
@@ -22673,6 +22902,17 @@ packages:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
       react: 18.2.0
+
+  /utf-8-validate@6.0.3:
+    resolution:
+      {
+        integrity: sha512-uIuGf9TWQ/y+0Lp+KGZCMuJWc3N9BHA+l/UmHd/oUHwJJDeysyTRxNQVkbzsIWfGFbRe3OcgML/i0mvVRPOyDA==,
+      }
+    engines: { node: ">=6.14.2" }
+    requiresBuild: true
+    dependencies:
+      node-gyp-build: 4.7.0
+    dev: true
 
   /utf8-byte-length@1.0.4:
     resolution:
@@ -23461,7 +23701,7 @@ packages:
       utf-8-validate:
         optional: true
 
-  /ws@8.14.2:
+  /ws@8.14.2(bufferutil@4.0.8)(utf-8-validate@6.0.3):
     resolution:
       {
         integrity: sha512-wEBG1ftX4jcglPxgFCMJmZ2PLtSbJ2Peg6TmpJFTbe9GZYOQCDPdMYu/Tm0/bGZkw8paZnJY45J4K2PZrLYq8g==,
@@ -23475,6 +23715,9 @@ packages:
         optional: true
       utf-8-validate:
         optional: true
+    dependencies:
+      bufferutil: 4.0.8
+      utf-8-validate: 6.0.3
     dev: true
 
   /ws@8.5.0:
