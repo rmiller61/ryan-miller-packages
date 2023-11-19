@@ -604,7 +604,7 @@ importers:
         specifier: 0.5.1
         version: 0.5.1
       dockerode:
-        specifier: ^4.0.0
+        specifier: 4.0.0
         version: 4.0.0
       drizzle-orm:
         specifier: 0.29.0
@@ -8951,7 +8951,7 @@ packages:
       ws: 8.14.2(bufferutil@4.0.8)(utf-8-validate@6.0.3)
     dev: true
 
-  /@vitejs/plugin-react-swc@3.4.0(vite@4.4.11):
+  /@vitejs/plugin-react-swc@3.4.0(vite@5.0.0):
     resolution:
       {
         integrity: sha512-m7UaA4Uvz82N/0EOVpZL4XsFIakRqrFKeSNxa1FBLSXGvWrWRBwmZb4qxk+ZIVAZcW3c3dn5YosomDgx62XWcQ==,
