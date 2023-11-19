@@ -3,15 +3,6 @@ import type { CacheEntry, Cache } from "cachified"
 import { cachified, totalTtl } from "cachified"
 import { type CacheOptions } from "common/types"
 
-let upstashRedisClient: Redis | undefined
-
-if (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN) {
-  upstashRedisClient = new Redis({
-    url: `${process.env.UPSTASH_REDIS_REST_URL}`,
-    token: `${process.env.UPSTASH_REDIS_REST_TOKEN}`,
-  })
-}
-
 export function upstashRedisAdapter(redisCache: Redis): Cache {
   return {
     async set(key, value) {
@@ -42,13 +33,12 @@ export function upstashRedisAdapter(redisCache: Redis): Cache {
 }
 
 export async function getUpstashRedisValue<T extends unknown>(
-  options: CacheOptions<T>
+  options: CacheOptions<T>,
+  upstashRedisClient: Redis = new Redis({
+    url: `${process.env.UPSTASH_REDIS_REST_URL}`,
+    token: `${process.env.UPSTASH_REDIS_REST_TOKEN}`,
+  })
 ): Promise<T> {
-  if (!upstashRedisClient) {
-    throw new Error(
-      "Upstash Redis client is not defined. Check to make sure you've included the UPSTASH_REDIS_REST_URL and/or UPSTASH_REDIS_REST_TOKEN environment variables."
-    )
-  }
   const cache = upstashRedisAdapter(upstashRedisClient)
   const cachedValue = await cachified({
     cache,
