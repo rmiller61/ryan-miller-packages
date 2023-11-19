@@ -1,5 +1,11 @@
 # @social-hustle/utils-cache
 
+## 2.0.0
+
+### Major Changes
+
+- add tests, don't provide redis client
+
 ## 1.2.2
 
 ### Patch Changes
