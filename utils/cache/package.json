@@ -45,6 +45,7 @@
   "devDependencies": {
     "@upstash/redis": "1.24.1",
     "cachified": "3.5.4",
+    "isomorphic-fetch": "3.0.0",
     "lru-cache": "10.0.0",
     "msw": "1.3.1"
   },

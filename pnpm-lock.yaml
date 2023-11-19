@@ -550,6 +550,9 @@ importers:
         specifier: 10.0.0
         version: 10.0.0
     devDependencies:
+      isomorphic-fetch:
+        specifier: 3.0.0
+        version: 3.0.0
       msw:
         specifier: 1.3.1
         version: 1.3.1(typescript@5.2.2)
@@ -3993,7 +3996,7 @@ packages:
       react-refresh: 0.11.0
       schema-utils: 3.3.0
       source-map: 0.7.4
-      webpack: 5.88.2(@swc/core@1.3.92)(esbuild@0.18.20)
+      webpack: 5.88.2(@swc/core@1.3.92)(esbuild@0.15.18)
 
   /@polka/url@1.0.0-next.23:
     resolution:
@@ -6800,7 +6803,7 @@ packages:
       react-docgen-typescript: 2.2.2(typescript@5.2.2)
       tslib: 2.6.2
       typescript: 5.2.2
-      webpack: 5.88.2(@swc/core@1.3.92)(esbuild@0.18.20)
+      webpack: 5.88.2(@swc/core@1.3.92)(esbuild@0.15.18)
     transitivePeerDependencies:
       - supports-color
 
@@ -9632,7 +9635,7 @@ packages:
       "@babel/core": 7.23.2
       find-cache-dir: 4.0.0
       schema-utils: 4.2.0
-      webpack: 5.88.2(@swc/core@1.3.92)(esbuild@0.18.20)
+      webpack: 5.88.2(@swc/core@1.3.92)(esbuild@0.15.18)
 
   /babel-plugin-add-react-displayname@0.0.5:
     resolution:
@@ -11250,7 +11253,7 @@ packages:
       postcss-modules-values: 4.0.0(postcss@8.4.31)
       postcss-value-parser: 4.2.0
       semver: 7.5.4
-      webpack: 5.88.2(@swc/core@1.3.92)(esbuild@0.18.20)
+      webpack: 5.88.2(@swc/core@1.3.92)(esbuild@0.15.18)
 
   /css-select@4.3.0:
     resolution:
@@ -13772,7 +13775,7 @@ packages:
       semver: 7.5.4
       tapable: 2.2.1
       typescript: 5.2.2
-      webpack: 5.88.2(@swc/core@1.3.92)(esbuild@0.18.20)
+      webpack: 5.88.2(@swc/core@1.3.92)(esbuild@0.15.18)
 
   /form-data@4.0.0:
     resolution:
@@ -14643,7 +14646,7 @@ packages:
       lodash: 4.17.21
       pretty-error: 4.0.0
       tapable: 2.2.1
-      webpack: 5.88.2(@swc/core@1.3.92)(esbuild@0.18.20)
+      webpack: 5.88.2(@swc/core@1.3.92)(esbuild@0.15.18)
 
   /htmlparser2@6.1.0:
     resolution:
@@ -17466,7 +17469,7 @@ packages:
       url: 0.11.3
       util: 0.12.5
       vm-browserify: 1.1.2
-      webpack: 5.88.2(@swc/core@1.3.92)(esbuild@0.18.20)
+      webpack: 5.88.2(@swc/core@1.3.92)(esbuild@0.15.18)
 
   /node-releases@2.0.13:
     resolution:
@@ -20186,7 +20189,7 @@ packages:
     dependencies:
       klona: 2.0.6
       neo-async: 2.6.2
-      webpack: 5.88.2(@swc/core@1.3.92)(esbuild@0.18.20)
+      webpack: 5.88.2(@swc/core@1.3.92)(esbuild@0.15.18)
 
   /sax@1.3.0:
     resolution:
@@ -21108,7 +21111,7 @@ packages:
     peerDependencies:
       webpack: ^5.0.0
     dependencies:
-      webpack: 5.88.2(@swc/core@1.3.92)(esbuild@0.18.20)
+      webpack: 5.88.2(@swc/core@1.3.92)(esbuild@0.15.18)
 
   /styled-jsx@5.1.1(@babel/core@7.23.2)(react@18.2.0):
     resolution:
@@ -21207,7 +21210,7 @@ packages:
       webpack: ">=2"
     dependencies:
       "@swc/core": 1.3.92
-      webpack: 5.88.2(@swc/core@1.3.92)(esbuild@0.18.20)
+      webpack: 5.88.2(@swc/core@1.3.92)(esbuild@0.15.18)
 
   /symbol-tree@3.2.4:
     resolution:
@@ -21461,6 +21464,7 @@ packages:
       serialize-javascript: 6.0.1
       terser: 5.21.0
       webpack: 5.88.2(@swc/core@1.3.92)(esbuild@0.18.20)
+    dev: true
 
   /terser@5.21.0:
     resolution:
@@ -23066,7 +23070,7 @@ packages:
       mime-types: 2.1.35
       range-parser: 1.2.1
       schema-utils: 4.2.0
-      webpack: 5.88.2(@swc/core@1.3.92)(esbuild@0.18.20)
+      webpack: 5.88.2(@swc/core@1.3.92)(esbuild@0.15.18)
 
   /webpack-hot-middleware@2.25.4:
     resolution:
@@ -23174,6 +23178,7 @@ packages:
       - "@swc/core"
       - esbuild
       - uglify-js
+    dev: true
 
   /well-known-symbols@2.0.0:
     resolution:
