@@ -4,7 +4,8 @@
     "baseUrl": "src",
     "paths": {
       ".": ["."]
-    }
+    },
+    "types": ["@edge-runtime/types", "@types/node", "@types/testing-library__jest-dom"]
   },
   "include": [".", ".eslintrc.js"],
   "exclude": [
