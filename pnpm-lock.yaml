@@ -319,8 +319,8 @@ importers:
         specifier: 6.7.1
         version: 6.7.1(eslint@8.44.0)
       eslint-plugin-prettier:
-        specifier: 4.2.1
-        version: 4.2.1(eslint-config-prettier@8.8.0)(eslint@8.44.0)(prettier@2.8.2)
+        specifier: 5.0.1
+        version: 5.0.1(eslint-config-prettier@8.8.0)(eslint@8.44.0)(prettier@3.1.0)
       eslint-plugin-react:
         specifier: 7.32.0
         version: 7.32.0(eslint@8.44.0)
@@ -13321,24 +13321,28 @@ packages:
       semver: 6.3.1
     dev: true
 
-  /eslint-plugin-prettier@4.2.1(eslint-config-prettier@8.8.0)(eslint@8.44.0)(prettier@2.8.2):
+  /eslint-plugin-prettier@5.0.1(eslint-config-prettier@8.8.0)(eslint@8.44.0)(prettier@3.1.0):
     resolution:
       {
-        integrity: sha512-f/0rXLXUt0oFYs8ra4w49wYZBG5GKZpAYsJSm6rnYL5uVDjd+zowwMwVZHnAjf4edNrKpCDYfXDgmRE/Ak7QyQ==,
+        integrity: sha512-m3u5RnR56asrwV/lDC4GHorlW75DsFfmUcjfCYylTUs85dBRnB7VM6xG8eCMJdeDRnppzmxZVf1GEPJvl1JmNg==,
       }
-    engines: { node: ">=12.0.0" }
+    engines: { node: ^14.18.0 || >=16.0.0 }
     peerDependencies:
-      eslint: ">=7.28.0"
+      "@types/eslint": ">=8.0.0"
+      eslint: ">=8.0.0"
       eslint-config-prettier: "*"
-      prettier: ">=2.0.0"
+      prettier: ">=3.0.0"
     peerDependenciesMeta:
+      "@types/eslint":
+        optional: true
       eslint-config-prettier:
         optional: true
     dependencies:
       eslint: 8.44.0
       eslint-config-prettier: 8.8.0(eslint@8.44.0)
-      prettier: 2.8.2
+      prettier: 3.1.0
       prettier-linter-helpers: 1.0.0
+      synckit: 0.8.5
     dev: true
 
   /eslint-plugin-react-hooks@4.6.0(eslint@8.44.0):
@@ -19144,6 +19148,15 @@ packages:
       }
     engines: { node: ">=10.13.0" }
     hasBin: true
+
+  /prettier@3.1.0:
+    resolution:
+      {
+        integrity: sha512-TQLvXjq5IAibjh8EpBIkNKxO749UEWABoiIZehEPiY4GNpVdhaFKqSTu+QrlU6D2dPAfubRmtJTi4K4YkQ5eXw==,
+      }
+    engines: { node: ">=14" }
+    hasBin: true
+    dev: true
 
   /pretty-error@4.0.0:
     resolution:
