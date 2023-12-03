@@ -33,6 +33,8 @@ export function Skeleton({
             } as CSSProperties
           }
           className={cn("loading-skeleton", className)}
+          aria-live="polite"
+          aria-busy={true}
         />
       ))}
     </Wrapper>
