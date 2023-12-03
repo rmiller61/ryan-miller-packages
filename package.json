@@ -62,6 +62,7 @@
     "@vitest/ui": "^0.32.0",
     "babel-loader": "^8.3.0",
     "commitizen": "4.2.6",
+    "dotenv": "^16.3.1",
     "eslint": "8.31.0",
     "eslint-config-social-hustle": "workspace:*",
     "husky": "8.0.3",
@@ -83,9 +84,6 @@
     "vite-tsconfig-paths": "4.2.1",
     "vitest": "0.34.6",
     "zod": "^3.22.4"
-  },
-  "devDependencies": {
-    "dotenv": "^16.3.1"
   },
   "packageManager": "pnpm@7.29.3",
   "engines": {
