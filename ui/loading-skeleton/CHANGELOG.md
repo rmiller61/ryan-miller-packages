@@ -1,5 +1,11 @@
 # @social-hustle/ui-loading-skeleton
 
+## 3.0.0
+
+### Major Changes
+
+- make composition api more compatible with react-loading-skeleton
+
 ## 2.0.2
 
 ### Patch Changes

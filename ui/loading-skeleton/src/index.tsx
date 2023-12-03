@@ -1,3 +1,4 @@
-import { LoadingSkeleton } from "components/Skeleton"
+import { Skeleton } from "Skeleton"
 
-export default LoadingSkeleton
+export * from "Skeleton"
+export default Skeleton
