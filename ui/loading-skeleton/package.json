@@ -26,6 +26,7 @@
     "tailwindcss": "3.3.2"
   },
   "peerDependencies": {
+    "@social-hustle/utils-arrays": "workspace:*",
     "@social-hustle/utils-classnames": "workspace:*",
     "tailwindcss": "3.3.2"
   },
