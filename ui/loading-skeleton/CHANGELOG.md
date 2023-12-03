@@ -1,5 +1,11 @@
 # @social-hustle/ui-loading-skeleton
 
+## 3.1.0
+
+### Minor Changes
+
+- add accessibility
+
 ## 3.0.0
 
 ### Major Changes
