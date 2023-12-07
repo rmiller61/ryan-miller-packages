@@ -6,11 +6,6 @@
       ".": ["."]
     }
   },
-  "ts-node": {
-    "compilerOptions": {
-      "module": "commonjs"
-    }
-  },
   "include": [".", ".eslintrc.js", ".storybook/**/*"],
   "exclude": [
     "node_modules",

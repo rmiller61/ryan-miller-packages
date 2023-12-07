@@ -4,8 +4,7 @@
     "baseUrl": "src",
     "paths": {
       ".": ["."]
-    },
-    "module": "commonjs"
+    }
   },
   "include": ["src/**/*"],
   "exclude": ["src/**/*.test.ts"]
