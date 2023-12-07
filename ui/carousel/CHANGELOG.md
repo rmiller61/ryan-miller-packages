@@ -1,5 +1,13 @@
 # @social-hustle/ui-carousel
 
+## 3.0.1
+
+### Patch Changes
+
+- e036529: sunset commonjs module settings
+- Updated dependencies [e036529]
+  - @social-hustle/utils-arrays@1.1.1
+
 ## 3.0.0
 
 ### Patch Changes

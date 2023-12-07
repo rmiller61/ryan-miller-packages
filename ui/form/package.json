@@ -1,6 +1,6 @@
 {
   "name": "@social-hustle/ui-form",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Form component for React applications",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

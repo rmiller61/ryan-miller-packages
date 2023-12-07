@@ -1,5 +1,11 @@
 # @social-hustle/ui-loaders
 
+## 1.2.1
+
+### Patch Changes
+
+- e036529: sunset commonjs module settings
+
 ## 1.2.0
 
 ### Minor Changes
