@@ -443,8 +443,8 @@ importers:
         specifier: workspace:*
         version: link:../../utils/numbers
       framer-motion:
-        specifier: ^10.10.0
-        version: 10.16.5(react-dom@18.2.0)(react@18.2.0)
+        specifier: 10.16.15
+        version: 10.16.15(react-dom@18.2.0)(react@18.2.0)
       tailwindcss:
         specifier: 3.3.2
         version: 3.3.2(ts-node@10.9.1)
@@ -14611,10 +14611,10 @@ packages:
       }
     dev: true
 
-  /framer-motion@10.16.5(react-dom@18.2.0)(react@18.2.0):
+  /framer-motion@10.16.15(react-dom@18.2.0)(react@18.2.0):
     resolution:
       {
-        integrity: sha512-GEzVjOYP2MIpV9bT/GbhcsBNoImG3/2X3O/xVNWmktkv9MdJ7P/44zELm/7Fjb+O3v39SmKFnoDQB32giThzpg==,
+        integrity: sha512-BapW1EKc/Sgph1rKEwL9bFt2B79z7bu7jN4Up1jGUaTE78WBsVO+6eCmoUZsQH0hHtRUDnnTqjjBbM7dk9Kp8A==,
       }
     peerDependencies:
       react: ^18.0.0
