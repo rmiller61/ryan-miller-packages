@@ -436,6 +436,9 @@ importers:
       "@social-hustle/utils-arrays":
         specifier: workspace:*
         version: link:../../utils/arrays
+      "@social-hustle/utils-hooks":
+        specifier: workspace:*
+        version: link:../../utils/hooks
       "@social-hustle/utils-numbers":
         specifier: workspace:*
         version: link:../../utils/numbers
