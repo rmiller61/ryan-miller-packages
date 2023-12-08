@@ -38,7 +38,7 @@ export const Primary: Story = {
         style={{ width: "100%" }}
       />
     )),
-    moveBy: 1,
+    //moveBy: 1,
     visibleItems,
   },
 }

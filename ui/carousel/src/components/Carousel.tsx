@@ -4,11 +4,11 @@ import { swipePower } from "../utils"
 import { Virtualizer } from "./Virtualizer"
 import { arrayFromNumber } from "@social-hustle/utils-arrays"
 import cn from "@social-hustle/utils-classnames"
+import { useDimensions } from "@social-hustle/utils-hooks"
 import { getMin, getMax, clamp } from "@social-hustle/utils-numbers"
 import type { PanInfo } from "framer-motion"
 import { animate, motion, MotionStyle, useMotionValue } from "framer-motion"
 import { Children, useEffect, useState, useRef } from "react"
-import { useMeasure } from "react-use"
 
 export default function Carousel({
   children,
@@ -22,8 +22,8 @@ export default function Carousel({
   },
   swipePowerThreshold = 10000,
   swipeThreshold = 0.9,
-  moveBy = 1,
   controls,
+  ...props
 }: CarouselProps) {
   const x = useMotionValue(0)
   const childrenArray = Children.toArray(children)
@@ -36,6 +36,8 @@ export default function Carousel({
    * Create an array created from the # of children provided
    */
   const visualRange = arrayFromNumber(childCount)
+
+  const moveBy = props.moveBy ?? visibleItemsNumber
 
   // Note: these are offset by 1 to account for the fact that the first index will be 0
 
@@ -53,7 +55,7 @@ export default function Carousel({
     (i) => i - Math.floor(visibleItemsNumber / 2)
   )
 
-  const [ref, { width }] = useMeasure<HTMLDivElement>()
+  const [ref, { width }] = useDimensions<HTMLDivElement>()
   const [page, setPage] = useState(0)
 
   /** Pixel value to translate the carousel */
