@@ -2,7 +2,7 @@ import type { ValueAnimationTransition } from "framer-motion"
 import { ValueAnimationOptions } from "framer-motion"
 
 /** Either a single static number or a map of breakpoints and numbers */
-export type VisibleItems = number | Map<number, number>
+export type VisibleItems = number | Record<number, number>
 
 export interface CarouselOptions {
   /** Number of items that should be shown within the carousel bounds */

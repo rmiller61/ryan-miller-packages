@@ -8,11 +8,18 @@ export const useVisibleItems = (visibleItems: VisibleItems): number => {
   /** Return early if we already have a number */
   if (typeof visibleItems === "number") return visibleItems
 
-  if (!visibleItems.get(0)) {
-    visibleItems.set(0, 1)
-  }
+  /** Otherwise, we have an array of breakpoints */
+  const breakpoints = Object.keys(visibleItems).map(Number)
 
-  const visibleItemsArray = Array.from(visibleItems.keys()).sort((a, b) => a - b)
+  /** Sort the breakpoints in ascending order */
+  breakpoints.sort((a, b) => a - b)
 
-  return visibleItems.get(getCurrentBreakpoint(visibleItemsArray, windowWidth)) ?? 1
+  /** Get the current breakpoint */
+  const breakpoint = getCurrentBreakpoint(breakpoints, windowWidth)
+
+  /** Return the number of visible items for the current breakpoint */
+  const visibleItemCount = visibleItems[breakpoint]
+
+  /** Return 1 if we don't have a visible item count */
+  return visibleItemCount || 1
 }

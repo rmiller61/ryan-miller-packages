@@ -5,10 +5,10 @@ import { CarouselProps } from "../types"
 import Carousel from "./Carousel"
 import type { Meta, StoryObj } from "@storybook/react"
 
-const visibleItems: VisibleItems = new Map([
-  [600, 2],
-  [900, 3],
-])
+const visibleItems: VisibleItems = {
+  600: 2,
+  900: 3,
+}
 
 const images = [
   "https://unsplash.com/photos/1527pjeb6jg/download?force=true&w=640",
