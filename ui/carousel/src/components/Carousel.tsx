@@ -23,6 +23,7 @@ export default function Carousel({
   swipePowerThreshold = 10000,
   swipeThreshold = 0.9,
   controls,
+  infinite = false,
   ...props
 }: CarouselProps) {
   const x = useMotionValue(0)

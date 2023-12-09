@@ -24,6 +24,8 @@ export interface CarouselOptions {
   /** Number of carousel items to translate on a swipe */
   moveBy?: number
   controls?: CarouselControls
+  /** Whether the carousel should loop infinitely */
+  infinite?: boolean
 }
 
 type CarouselControlPosition = "before" | "after"
