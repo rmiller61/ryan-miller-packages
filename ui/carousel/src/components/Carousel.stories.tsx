@@ -39,6 +39,7 @@ const args = {
   )),
   moveBy: 1,
   visibleItems,
+  height: 275,
 }
 
 export const Default: Story = {
@@ -58,4 +59,12 @@ export const WithControls: Story = {
       ),
     },
   },
+  decorators: [
+    (Story) => (
+      <div className="relative">
+        {/* 👇 Decorators in Storybook also accept a function. Replace <Story/> with Story() to enable it  */}
+        <Story />
+      </div>
+    ),
+  ],
 }

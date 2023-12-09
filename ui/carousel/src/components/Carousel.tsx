@@ -8,7 +8,7 @@ import { useDimensions } from "@social-hustle/utils-hooks"
 import { getMin, getMax, clamp } from "@social-hustle/utils-numbers"
 import type { PanInfo } from "framer-motion"
 import { animate, motion, MotionStyle, useMotionValue } from "framer-motion"
-import { Children, useEffect, useState, useRef } from "react"
+import { Children, useEffect, useState, type CSSProperties } from "react"
 
 export default function Carousel({
   children,
@@ -24,6 +24,7 @@ export default function Carousel({
   swipeThreshold = 0.9,
   controls,
   infinite = false,
+  height,
   ...props
 }: CarouselProps) {
   const x = useMotionValue(0)
@@ -82,6 +83,8 @@ export default function Carousel({
     return { left, right }
   }
 
+  const carouselHeight = typeof height === "number" ? `${height}px` : height
+
   const handleEndDrag = (e: Event, dragProps: PanInfo) => {
     const { offset, velocity } = dragProps
     const swipe = swipePower(offset.x, velocity.x)
@@ -114,7 +117,14 @@ export default function Carousel({
         controls.render({
           setPage: (val: number) => setPage(page + val),
         })}
-      <div className={cn("carouselWrapper", wrapperClassName)}>
+      <div
+        className={cn("carouselWrapper", wrapperClassName)}
+        style={
+          {
+            "--carousel-height": carouselHeight,
+          } as CSSProperties
+        }
+      >
         <motion.div
           ref={ref}
           className={cn("carousel", className)}
@@ -126,6 +136,7 @@ export default function Carousel({
             x,
           }}
           dragConstraints={calculateDragConstraints()}
+          //onDrag={(event, info) => console.log({ event, info })}
         >
           <Virtualizer
             index={page}

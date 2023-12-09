@@ -26,6 +26,9 @@ export interface CarouselOptions {
   controls?: CarouselControls
   /** Whether the carousel should loop infinitely */
   infinite?: boolean
+  /** Whether the carousel should be draggable */
+  draggable?: boolean
+  height: number | string
 }
 
 type CarouselControlPosition = "before" | "after"

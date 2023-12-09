@@ -6,7 +6,7 @@ const twPlugin = plugin(function ({ addUtilities, addComponents, e, config }) {
     // ...
     ".carouselWrapper": {
       width: "100%",
-      height: "500px",
+      height: "var(--carousel-height)",
       overflow: "hidden",
     },
     ".carousel": {
