@@ -18,7 +18,7 @@ const images = [
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
-  title: "Carousel",
+  title: "Legacy Carousel",
   component: Carousel,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {},
@@ -56,6 +56,8 @@ export const Infinite: Story = {
 export const WithControls: Story = {
   args: {
     ...args,
+    draggable: false,
+    infinite: true,
     controls: {
       position: "after",
       render: ({ setPage, isFirst, page }) => (

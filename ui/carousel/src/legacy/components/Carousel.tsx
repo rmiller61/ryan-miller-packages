@@ -8,7 +8,22 @@ import { useDimensions } from "@social-hustle/utils-hooks"
 import { getMin, getMax, clamp } from "@social-hustle/utils-numbers"
 import type { PanInfo } from "framer-motion"
 import { animate, motion, MotionStyle, useMotionValue } from "framer-motion"
-import { Children, useEffect, useState, type CSSProperties } from "react"
+import { Children, useEffect, useState, useReducer, type CSSProperties } from "react"
+
+interface State {
+  dragging: boolean
+  page: number
+}
+
+type Action =
+  | {
+      type: "SET_DRAGGING"
+      dragging: boolean
+    }
+  | {
+      type: "SET_PAGE"
+      page: number
+    }
 
 export default function Carousel({
   children,
@@ -25,6 +40,7 @@ export default function Carousel({
   controls,
   infinite = false,
   height,
+  draggable = true,
   ...props
 }: CarouselProps) {
   const x = useMotionValue(0)
@@ -42,7 +58,37 @@ export default function Carousel({
   }).map((i) => i - Math.floor(visibleItemsNumber / 2))
 
   const [ref, { width }] = useDimensions<HTMLDivElement>()
-  const [page, setPage] = useState(0)
+  //const [page, setPage] = useState(0)
+
+  const [{ page, dragging }, dispatch] = useReducer(
+    (state: State, action: Action): State => {
+      switch (action.type) {
+        case "SET_DRAGGING":
+          return {
+            ...state,
+            dragging: action.dragging,
+          }
+        case "SET_PAGE":
+          return {
+            ...state,
+            page: action.page,
+          }
+        default:
+          return state
+      }
+    },
+    {
+      dragging: false,
+      page: 0,
+    }
+  )
+
+  const setPage = (page: number) => {
+    dispatch({
+      type: "SET_PAGE",
+      page,
+    })
+  }
 
   /** Pixel value to translate the carousel */
   const moveByPx = width / visibleItemsNumber
@@ -83,7 +129,7 @@ export default function Carousel({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, width])
 
-  const isDisabled = childCount < visibleItemsNumber
+  const isDisabled = !draggable || childCount < visibleItemsNumber
 
   return (
     <>
@@ -109,7 +155,7 @@ export default function Carousel({
           className={cn("carousel", className)}
           draggable={!isDisabled}
           drag={isDisabled ? false : "x"}
-          dragElastic={0}
+          dragElastic={1}
           onDragEnd={handleEndDrag}
           style={{
             x,

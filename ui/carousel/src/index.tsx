@@ -1,3 +1,3 @@
-import Carousel from "./components/Carousel"
+import Carousel from "./legacy/components/Carousel"
 
 export default Carousel
