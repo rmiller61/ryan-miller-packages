@@ -27,18 +27,35 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
+const args = {
+  children: images.map((src, index) => (
+    <img
+      key={index}
+      src={src}
+      draggable={false}
+      alt="Mountain"
+      style={{ width: "100%" }}
+    />
+  )),
+  moveBy: 1,
+  visibleItems,
+}
+
 export const Default: Story = {
+  args,
+}
+
+export const WithControls: Story = {
   args: {
-    children: images.map((src, index) => (
-      <img
-        key={index}
-        src={src}
-        draggable={false}
-        alt="Mountain"
-        style={{ width: "100%" }}
-      />
-    )),
-    //moveBy: 1,
-    visibleItems,
+    ...args,
+    controls: {
+      position: "after",
+      render: ({ setPage }) => (
+        <>
+          <button onClick={() => setPage(1)}> &lt; </button>
+          <button onClick={() => setPage(-1)}> &gt; </button>
+        </>
+      ),
+    },
   },
 }
