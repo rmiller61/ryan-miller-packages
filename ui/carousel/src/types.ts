@@ -35,6 +35,10 @@ type CarouselControlPosition = "before" | "after"
 
 type CarouselControlProps = {
   setPage: (page: number) => void
+  page: number
+  pageCount: number
+  isFirst: boolean
+  isLast: boolean
 }
 
 type CarouselControls = {

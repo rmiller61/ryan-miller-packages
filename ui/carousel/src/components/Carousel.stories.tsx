@@ -51,10 +51,24 @@ export const WithControls: Story = {
     ...args,
     controls: {
       position: "after",
-      render: ({ setPage }) => (
+      render: ({ setPage, isFirst, page }) => (
         <>
-          <button onClick={() => setPage(1)}> &lt; </button>
-          <button onClick={() => setPage(-1)}> &gt; </button>
+          <button
+            className="absolute left-0 top-1/2 -mt-5 flex h-10 w-10 items-center justify-center bg-white"
+            onClick={() => setPage(1)}
+            disabled={isFirst}
+          >
+            {" "}
+            &lt;{" "}
+          </button>
+          <button
+            className="absolute right-0 top-1/2 -mt-5 flex h-10 w-10 items-center justify-center bg-white"
+            onClick={() => setPage(-1)}
+            disabled={page === 2}
+          >
+            {" "}
+            &gt;{" "}
+          </button>
         </>
       ),
     },

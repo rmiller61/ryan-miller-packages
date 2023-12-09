@@ -116,6 +116,10 @@ export default function Carousel({
         controls.position === "before" &&
         controls.render({
           setPage: (val: number) => setPage(page + val),
+          page,
+          pageCount: childCount,
+          isFirst: page === 0,
+          isLast: page === childCount - 1,
         })}
       <div
         className={cn("carouselWrapper", wrapperClassName)}
@@ -159,6 +163,10 @@ export default function Carousel({
         controls.position === "after" &&
         controls.render({
           setPage: (val: number) => setPage(page + val),
+          page,
+          pageCount: childCount,
+          isFirst: page === 0,
+          isLast: page === childCount - 1,
         })}
     </>
   )
