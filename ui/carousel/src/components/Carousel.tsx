@@ -1,8 +1,8 @@
 import { useVisibleItems } from "../hooks/useVisibleItems"
+import { useVisualRange } from "../hooks/useVisualRange"
 import type { CarouselProps } from "../types"
 import { swipePower } from "../utils"
 import { Virtualizer } from "./Virtualizer"
-import { arrayFromNumber } from "@social-hustle/utils-arrays"
 import cn from "@social-hustle/utils-classnames"
 import { useDimensions } from "@social-hustle/utils-hooks"
 import { getMin, getMax, clamp } from "@social-hustle/utils-numbers"
@@ -33,38 +33,13 @@ export default function Carousel({
 
   const visibleItemsNumber = useVisibleItems(visibleItems)
 
-  /**
-   * Create an array created from the # of children provided
-   */
-  const visualRange = arrayFromNumber(childCount)
-
   const moveBy = props.moveBy ?? visibleItemsNumber
 
-  // Note: these are offset by 1 to account for the fact that the first index will be 0
-
-  /**
-   * Prepend items outside the visual range of the carousel.
-   * By default, the length of the array is equal to the # of visible items so
-   * that the carousel can appear to be 'infinite' even when dragged to its maximum.
-   */
-  const prepend = arrayFromNumber(moveBy).map((i) => getMin(visualRange) - i - 1)
-
-  /**
-   * Append items outside the visual range of the carousel.
-   * By default, the length of the array is equal to the # of visible items so
-   * that the carousel can appear to be 'infinite' even when dragged to its maximum.
-   */
-  const append = arrayFromNumber(moveBy).map((i) => getMax(visualRange) + i + 1)
-
-  /**
-   * Append/prepend items outside the visual range of the carousel
-   * to create a smooth transition when dragging.
-   */
-  const visualRangeWithDuplicates = [...visualRange, ...prepend, ...append].sort((a, b) => a - b)
-
-  const offsetVisualRangeWithDuplicates = visualRangeWithDuplicates.map(
-    (i) => i - Math.floor(visibleItemsNumber / 2)
-  )
+  const offsetVisualRangeWithDuplicates = useVisualRange({
+    childCount,
+    moveBy,
+    isInfinite: infinite,
+  }).map((i) => i - Math.floor(visibleItemsNumber / 2))
 
   const [ref, { width }] = useDimensions<HTMLDivElement>()
   const [page, setPage] = useState(0)

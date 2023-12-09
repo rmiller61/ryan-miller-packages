@@ -46,6 +46,13 @@ export const Default: Story = {
   args,
 }
 
+export const Infinite: Story = {
+  args: {
+    ...args,
+    infinite: true,
+  },
+}
+
 export const WithControls: Story = {
   args: {
     ...args,
