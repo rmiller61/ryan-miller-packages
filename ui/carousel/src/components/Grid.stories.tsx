@@ -117,3 +117,23 @@ export const WithNavigation: Story = {
     ),
   ],
 }
+
+export const WithNavigationAndProgress: Story = {
+  args: {
+    ...args,
+    renderAfter: (props) => (
+      <>
+        <NavButtons {...props} />
+        <ProgressBar {...props} />
+      </>
+    ),
+  },
+  decorators: [
+    (Story) => (
+      <div className="relative">
+        {/* 👇 Decorators in Storybook also accept a function. Replace <Story/> with Story() to enable it  */}
+        <Story />
+      </div>
+    ),
+  ],
+}
