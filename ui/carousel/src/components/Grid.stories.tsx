@@ -3,7 +3,7 @@
 import { Grid, type GridCarouselProps, type RenderPropProps } from "./Grid"
 import { clamp } from "@social-hustle/utils-numbers"
 import type { Meta, StoryObj } from "@storybook/react"
-import { useTransform, motion, animate, useSpring } from "framer-motion"
+import { useTransform, motion, animate, useSpring, useMotionValueEvent } from "framer-motion"
 import { useState } from "react"
 import { GoChevronLeft, GoChevronRight } from "react-icons/go"
 
@@ -35,12 +35,17 @@ const NavButtons = ({ x, boundingBox, itemCount, gap, constraints }: RenderPropP
   const totalGap = gap * (itemCount - 1)
   const itemWith = (boundingBox.width - totalGap) / itemCount + gap
   const [offset, setOffset] = useState(0)
+
   const paginate = (val: number) => {
-    void animate(x, offset + val, {
-      type: "spring",
-      bounce: 0,
-    })
-    setOffset(offset + val)
+    const isAnimating = x.isAnimating()
+    const newX = offset + val
+    if (!isAnimating) {
+      void animate(x, clamp(newX, [constraints.left, constraints.right]), {
+        type: "spring",
+        bounce: 0,
+      })
+      setOffset(offset + val)
+    }
   }
   return (
     <>
