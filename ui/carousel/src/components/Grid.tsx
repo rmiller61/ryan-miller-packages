@@ -1,24 +1,11 @@
+import { CarouselContextProvider } from "../common/context"
+import type { CarouselProps } from "../common/types"
 import cn from "@social-hustle/utils-classnames"
 import { useDimensions, useResizeObserver } from "@social-hustle/utils-hooks"
-import {
-  motion,
-  useMotionValue,
-  MotionValue,
-  type DraggableProps,
-  useMotionValueEvent,
-} from "framer-motion"
-import { Children, useState, type CSSProperties, createContext, useContext } from "react"
+import type { MotionValue} from "framer-motion";
+import { motion, useMotionValue, type DraggableProps } from "framer-motion"
+import { Children, useState, type CSSProperties } from "react"
 import { useWindowSize } from "react-use"
-
-const CarouselContext = createContext<{
-  dragging: boolean
-  x: MotionValue<number>
-}>({
-  dragging: false,
-  x: new MotionValue(),
-})
-
-export const useCarouselContext = () => useContext(CarouselContext)
 
 export interface RenderPropProps {
   x: MotionValue
@@ -32,14 +19,9 @@ type RenderProp = (props: RenderPropProps) => JSX.Element
 
 type XConstraints = Pick<DOMRectReadOnly, "left" | "right">
 
-export interface GridCarouselProps {
-  children: JSX.Element[]
-  wrapperClassName?: string
-  itemClassName?: string
-  className?: string
+export interface GridCarouselProps extends CarouselProps {
   renderBefore?: RenderProp
   renderAfter?: RenderProp
-  dragProps?: Omit<DraggableProps, "drag" | "dragConstraints">
   calculateConstraints?: ({
     width,
     windowWidth,
@@ -92,11 +74,9 @@ export const Grid = ({
   })
 
   return (
-    <CarouselContext.Provider
-      value={{
-        dragging,
-        x,
-      }}
+    <CarouselContextProvider
+      dragging={dragging}
+      x={x}
     >
       {renderBefore && renderBefore(renderProps)}
       <div
@@ -132,6 +112,6 @@ export const Grid = ({
         </motion.div>
       </div>
       {renderAfter && renderAfter(renderProps)}
-    </CarouselContext.Provider>
+    </CarouselContextProvider>
   )
 }

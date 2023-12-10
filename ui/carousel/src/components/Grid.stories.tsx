@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 
-import { Grid, type GridCarouselProps, type RenderPropProps, useCarouselContext } from "./Grid"
+import { useCarouselMotionValue } from "../common/context"
+import { Grid, type GridCarouselProps, type RenderPropProps } from "./Grid"
 import cn from "@social-hustle/utils-classnames"
 import { useDimensions } from "@social-hustle/utils-hooks"
 import { clamp } from "@social-hustle/utils-numbers"
@@ -148,7 +149,7 @@ const ParallaxItem = ({ src }: { src: string }) => {
   const outputStart = 0
   const outputEnd = itemDimensions.width - imgDimensions.width
 
-  const { x: xVal } = useCarouselContext()
+  const xVal = useCarouselMotionValue()
 
   const x = useSpring(useTransform(xVal, [inputStart, inputEnd], [outputStart, outputEnd]), {
     stiffness: 400,
