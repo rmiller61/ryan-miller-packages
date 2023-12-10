@@ -427,7 +427,7 @@ importers:
         specifier: ^1.1.1
         version: link:../../utils/arrays
       "@social-hustle/utils-hooks":
-        specifier: 1.0.0
+        specifier: 1.1.0
         version: link:../../utils/hooks
       "@social-hustle/utils-numbers":
         specifier: ^1.2.1
