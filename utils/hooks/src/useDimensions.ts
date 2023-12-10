@@ -22,5 +22,5 @@ export function useDimensions<T extends HTMLElement>() {
       setDimensions(node.getBoundingClientRect())
     }
   })
-  return [ref, dimensions] as const
+  return [ref, dimensions, node] as const
 }
