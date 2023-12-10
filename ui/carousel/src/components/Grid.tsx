@@ -7,15 +7,20 @@ import {
   type DraggableProps,
   useMotionValueEvent,
 } from "framer-motion"
-import { Children, useState } from "react"
+import { Children, useState, type CSSProperties } from "react"
 import { useWindowSize } from "react-use"
 
 export interface RenderPropProps {
   x: MotionValue
   boundingBox: DOMRectReadOnly
+  itemCount: number
+  gap: number
+  constraints: XConstraints
 }
 
 type RenderProp = (props: RenderPropProps) => JSX.Element
+
+type XConstraints = Pick<DOMRectReadOnly, "left" | "right">
 
 export interface GridCarouselProps {
   children: JSX.Element[]
@@ -24,11 +29,15 @@ export interface GridCarouselProps {
   className?: string
   renderBefore?: RenderProp
   renderAfter?: RenderProp
-  dragProps?: Omit<DraggableProps, "drag">
-  calculateConstraints?: ({ width, windowWidth }: { width: number; windowWidth: number }) => {
-    left: number
-    right: number
-  }
+  dragProps?: Omit<DraggableProps, "drag" | "dragConstraints">
+  calculateConstraints?: ({
+    width,
+    windowWidth,
+  }: {
+    width: number
+    windowWidth: number
+  }) => XConstraints
+  gap?: number
 }
 
 export const Grid = ({
@@ -39,11 +48,14 @@ export const Grid = ({
   renderAfter,
   renderBefore,
   dragProps,
-  calculateConstraints,
+  gap = 0,
+  calculateConstraints = ({ width, windowWidth }) => ({
+    left: windowWidth - width,
+    right: 0,
+  }),
 }: GridCarouselProps) => {
   const x = useMotionValue(0)
   const items = Children.toArray(children)
-  //console.log(x.isAnimating())
 
   const [ref, boundingBox] = useDimensions<HTMLDivElement>()
 
@@ -51,29 +63,40 @@ export const Grid = ({
 
   const { width: windowWidth } = useWindowSize()
 
+  const constraints = calculateConstraints({ width: boundingBox.width, windowWidth })
+
+  const renderProps: RenderPropProps = {
+    x,
+    boundingBox,
+    itemCount: items.length,
+    constraints,
+    gap,
+  }
+
   return (
     <>
-      {renderBefore && renderBefore({ x, boundingBox })}
+      {renderBefore && renderBefore(renderProps)}
       <div
         data-dragging={dragging}
         className={cn(
           "group flex flex-nowrap overflow-hidden data-[dragging=false]:cursor-grab data-[dragging=true]:cursor-grabbing",
           wrapperClassName
         )}
+        style={
+          {
+            "--gap": `${gap}px`,
+          } as CSSProperties
+        }
       >
         <motion.div
           {...dragProps}
           ref={ref}
           drag="x"
           style={{ x }}
-          className={cn("grid auto-cols-[1fr] grid-flow-col", className)}
+          className={cn("grid auto-cols-[1fr] grid-flow-col gap-[var(--gap)]", className)}
           onDragStart={() => setDragging(true)}
           onDragEnd={() => setDragging(false)}
-          dragConstraints={
-            calculateConstraints
-              ? calculateConstraints({ width: boundingBox.width, windowWidth })
-              : dragProps?.dragConstraints
-          }
+          dragConstraints={calculateConstraints({ width: boundingBox.width, windowWidth })}
         >
           {items.map((item, index) => (
             <div
@@ -85,7 +108,7 @@ export const Grid = ({
           ))}
         </motion.div>
       </div>
-      {renderAfter && renderAfter({ x, boundingBox })}
+      {renderAfter && renderAfter(renderProps)}
     </>
   )
 }
