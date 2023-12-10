@@ -209,6 +209,7 @@ export const WithNavigationAndProgress: Story = {
 export const WithContextProvider: Story = {
   args: {
     ...args,
+    resetOnResize: true,
   },
   decorators: [
     (Story, ctx) => (
@@ -221,7 +222,7 @@ export const WithContextProvider: Story = {
             <Story
               {...ctx}
               args={{
-                ...args,
+                ...ctx.args,
                 children: filteredImages.map((image, index) => (
                   <img
                     key={index}

@@ -1,5 +1,5 @@
 import cn from "@social-hustle/utils-classnames"
-import { useDimensions } from "@social-hustle/utils-hooks"
+import { useDimensions, useResizeObserver } from "@social-hustle/utils-hooks"
 import {
   motion,
   useMotionValue,
@@ -38,6 +38,7 @@ export interface GridCarouselProps {
     windowWidth: number
   }) => XConstraints
   gap?: number
+  resetOnResize?: boolean
 }
 
 export const Grid = ({
@@ -53,11 +54,12 @@ export const Grid = ({
     left: windowWidth - width,
     right: 0,
   }),
+  resetOnResize = false,
 }: GridCarouselProps) => {
   const x = useMotionValue(0)
   const items = Children.toArray(children)
 
-  const [ref, boundingBox] = useDimensions<HTMLDivElement>()
+  const [ref, boundingBox, node] = useDimensions<HTMLDivElement>()
 
   const [dragging, setDragging] = useState(false)
 
@@ -72,6 +74,12 @@ export const Grid = ({
     constraints,
     gap,
   }
+
+  useResizeObserver(node, () => {
+    if (resetOnResize) {
+      x.set(0)
+    }
+  })
 
   return (
     <>
