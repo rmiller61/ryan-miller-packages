@@ -1,12 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
 
-import { Grid, type GridCarouselProps, type RenderPropProps } from "./Grid"
+import { Grid, type GridCarouselProps, type RenderPropProps, useCarouselContext } from "./Grid"
 import cn from "@social-hustle/utils-classnames"
+import { useDimensions } from "@social-hustle/utils-hooks"
 import { clamp } from "@social-hustle/utils-numbers"
 import type { Meta, StoryObj } from "@storybook/react"
 import { useTransform, motion, animate, useSpring, useMotionValueEvent } from "framer-motion"
 import { useState, createContext } from "react"
 import { GoChevronLeft, GoChevronRight } from "react-icons/go"
+import { useWindowSize } from "react-use"
 
 const images = [
   `https://loremflickr.com/600/600?random=1`,
@@ -135,6 +137,45 @@ const CategoriesContextProvider = ({
   )
 }
 
+const ParallaxItem = ({ src }: { src: string }) => {
+  const [itemRef, itemDimensions] = useDimensions<HTMLDivElement>()
+  const [imgRef, imgDimensions] = useDimensions<HTMLDivElement>()
+  const { width: windowWidth } = useWindowSize()
+
+  const inputStart = windowWidth - itemDimensions.x
+  const inputEnd = -itemDimensions.x - itemDimensions.width
+
+  const outputStart = 0
+  const outputEnd = itemDimensions.width - imgDimensions.width
+
+  const { x: xVal } = useCarouselContext()
+
+  const x = useSpring(useTransform(xVal, [inputStart, inputEnd], [outputStart, outputEnd]), {
+    stiffness: 400,
+    damping: 90,
+  })
+
+  return (
+    <div
+      ref={itemRef}
+      className="relative h-96 overflow-hidden"
+    >
+      <motion.div
+        ref={imgRef}
+        className="absolute left-0 top-0 h-full w-[600px] overflow-hidden"
+        style={{ x }}
+      >
+        <img
+          src={src}
+          draggable={false}
+          alt=""
+          className="absolute inset-0 h-full w-full origin-center object-cover"
+        />
+      </motion.div>
+    </div>
+  )
+}
+
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
   title: "Grid Carousel",
@@ -241,4 +282,14 @@ export const WithContextProvider: Story = {
   ],
 }
 
-// Parallax
+export const Parallax: Story = {
+  args: {
+    ...args,
+    children: images.map((src, index) => (
+      <ParallaxItem
+        key={index}
+        src={src}
+      />
+    )),
+  },
+}
