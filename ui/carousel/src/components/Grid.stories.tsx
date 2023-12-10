@@ -1,10 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { Grid, type GridCarouselProps, type RenderPropProps } from "./Grid"
+import cn from "@social-hustle/utils-classnames"
 import { clamp } from "@social-hustle/utils-numbers"
 import type { Meta, StoryObj } from "@storybook/react"
 import { useTransform, motion, animate, useSpring, useMotionValueEvent } from "framer-motion"
-import { useState } from "react"
+import { useState, createContext } from "react"
 import { GoChevronLeft, GoChevronRight } from "react-icons/go"
 
 const images = [
@@ -15,6 +16,41 @@ const images = [
   `https://loremflickr.com/600/600?random=5`,
   `https://loremflickr.com/600/600?random=6`,
   `https://loremflickr.com/600/600?random=7`,
+]
+
+const imagesWithContext = [
+  {
+    src: `https://loremflickr.com/600/600?random=1`,
+    categories: ["Nature"],
+  },
+  {
+    src: `https://loremflickr.com/600/600?random=2`,
+    categories: ["Technology"],
+  },
+  {
+    src: `https://loremflickr.com/600/600?random=3`,
+    categories: ["Nature"],
+  },
+  {
+    src: `https://loremflickr.com/600/600?random=4`,
+    categories: ["Nature", "Technology"],
+  },
+  {
+    src: `https://loremflickr.com/600/600?random=5`,
+    categories: ["Nature"],
+  },
+  {
+    src: `https://loremflickr.com/600/600?random=6`,
+    categories: ["Technology"],
+  },
+  {
+    src: `https://loremflickr.com/600/600?random=7`,
+    categories: ["Nature"],
+  },
+  {
+    src: `https://loremflickr.com/600/600?random=8`,
+    categories: ["Technology"],
+  },
 ]
 
 const ProgressBar = ({ x, constraints }: RenderPropProps) => {
@@ -64,6 +100,38 @@ const NavButtons = ({ x, boundingBox, itemCount, gap, constraints }: RenderPropP
         <GoChevronRight />
       </button>
     </>
+  )
+}
+
+const CategoriesContext = createContext<{ category: string }>({
+  category: "Nature",
+})
+
+const CategoriesContextProvider = ({
+  children,
+}: {
+  children: (category: string) => JSX.Element
+}) => {
+  const [category, setCategory] = useState("Nature")
+
+  return (
+    <CategoriesContext.Provider value={{ category }}>
+      <div className="my-5 flex items-center justify-center gap-5 text-xl">
+        <button
+          onClick={() => setCategory("Nature")}
+          className={cn("px-4 py-2", category === "Nature" ? "text-red-500" : "text-black")}
+        >
+          Nature
+        </button>
+        <button
+          onClick={() => setCategory("Technology")}
+          className={cn("px-4 py-2", category === "Technology" ? "text-red-500" : "text-black")}
+        >
+          Technology
+        </button>
+      </div>
+      {children(category)}
+    </CategoriesContext.Provider>
   )
 }
 
@@ -137,3 +205,39 @@ export const WithNavigationAndProgress: Story = {
     ),
   ],
 }
+
+export const WithContextProvider: Story = {
+  args: {
+    ...args,
+  },
+  decorators: [
+    (Story, ctx) => (
+      <CategoriesContextProvider>
+        {(category) => {
+          const filteredImages = imagesWithContext.filter((image) =>
+            image.categories.includes(category)
+          )
+          return (
+            <Story
+              {...ctx}
+              args={{
+                ...args,
+                children: filteredImages.map((image, index) => (
+                  <img
+                    key={index}
+                    src={image.src}
+                    draggable={false}
+                    alt=""
+                    style={{ width: "100%" }}
+                  />
+                )),
+              }}
+            />
+          )
+        }}
+      </CategoriesContextProvider>
+    ),
+  ],
+}
+
+// Parallax
