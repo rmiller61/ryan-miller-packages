@@ -3,12 +3,22 @@ import { useDimensions, useResizeObserver } from "@social-hustle/utils-hooks"
 import {
   motion,
   useMotionValue,
-  type MotionValue,
+  MotionValue,
   type DraggableProps,
   useMotionValueEvent,
 } from "framer-motion"
-import { Children, useState, type CSSProperties } from "react"
+import { Children, useState, type CSSProperties, createContext, useContext } from "react"
 import { useWindowSize } from "react-use"
+
+const CarouselContext = createContext<{
+  dragging: boolean
+  x: MotionValue<number>
+}>({
+  dragging: false,
+  x: new MotionValue(),
+})
+
+export const useCarouselContext = () => useContext(CarouselContext)
 
 export interface RenderPropProps {
   x: MotionValue
@@ -82,7 +92,12 @@ export const Grid = ({
   })
 
   return (
-    <>
+    <CarouselContext.Provider
+      value={{
+        dragging,
+        x,
+      }}
+    >
       {renderBefore && renderBefore(renderProps)}
       <div
         data-dragging={dragging}
@@ -117,6 +132,6 @@ export const Grid = ({
         </motion.div>
       </div>
       {renderAfter && renderAfter(renderProps)}
-    </>
+    </CarouselContext.Provider>
   )
 }
