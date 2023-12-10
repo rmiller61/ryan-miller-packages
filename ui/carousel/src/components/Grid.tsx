@@ -10,7 +10,7 @@ import {
 import { Children, useState } from "react"
 import { useWindowSize } from "react-use"
 
-interface RenderPropProps {
+export interface RenderPropProps {
   x: MotionValue
   boundingBox: DOMRectReadOnly
 }
