@@ -28,6 +28,7 @@
     "@commitlint/cli": "17.4.2",
     "@commitlint/config-conventional": "17.4.2",
     "@commitlint/types": "^17.4.0",
+    "@faker-js/faker": "^8.3.1",
     "@manypkg/cli": "^0.20.0",
     "@social-hustle/config-postcss": "workspace:*",
     "@social-hustle/config-prettier": "workspace:*",
