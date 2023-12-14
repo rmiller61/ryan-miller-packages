@@ -15,13 +15,14 @@ export interface RenderPropProps {
   constraints: XConstraints
 }
 
-type RenderProp = (props: RenderPropProps) => JSX.Element
-
 type XConstraints = Pick<DOMRectReadOnly, "left" | "right">
 
-export interface GridCarouselProps extends CarouselProps {
-  renderBefore?: RenderProp
-  renderAfter?: RenderProp
+export interface GridCarouselProps extends CarouselProps<RenderPropProps> {
+  /**
+   *
+   * Function that returns the x-axis constraints for the carousel.
+   * @default ({ width, windowWidth }) => ({ left: windowWidth - width, right: 0 })
+   */
   calculateConstraints?: ({
     width,
     windowWidth,
@@ -29,7 +30,17 @@ export interface GridCarouselProps extends CarouselProps {
     width: number
     windowWidth: number
   }) => XConstraints
+  /**
+   *
+   * The gap between each item in the grid.
+   * @default 0
+   */
   gap?: number
+  /**
+   *
+   * Whether or not to reset the carousel when the window resizes.
+   * @default false
+   */
   resetOnResize?: boolean
 }
 

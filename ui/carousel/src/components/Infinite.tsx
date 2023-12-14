@@ -59,8 +59,6 @@ interface RenderPropProps {
   page: number
 }
 
-type RenderProp = (props: RenderPropProps) => JSX.Element
-
 interface CarouselItemComponentProps {
   /** Width of the carousel item as a percentage */
   width: number
@@ -127,7 +125,7 @@ const Virtualizer = ({
   )
 }
 
-export interface InfiniteCarouselProps extends CarouselProps {
+export interface InfiniteCarouselProps extends CarouselProps<RenderPropProps> {
   /** Number of items that should be shown within the carousel bounds */
   visibleItems?: VisibleItems
   /** Px value that needs to be exceeded to swipe */
@@ -136,11 +134,18 @@ export interface InfiniteCarouselProps extends CarouselProps {
    * E.g. given a moveByPx of 500 and a swipeThreshold of 0.5, the drag offset has to be >= 250px to trigger a swipe
    */
   swipeThreshold?: number
-  /** Number of carousel items to translate on a swipe */
+  /**
+   * Number of carousel items to translate on a swipe
+   * @default 1
+   */
   moveBy?: number
+  /** The height of the carousel. This is required because each carousel item is absolutely positioned. */
   height: number | string
-  renderBefore?: RenderProp
-  renderAfter?: RenderProp
+  /** Value to debounce the drag transition by.
+   * E.g. if debounceBy is 200, the carousel will debounce the drag transition by 200ms.
+   * NOTE: this is only used when dragging the carousel, not when controlling the carousel via the setPage function.
+   * @default 200
+   */
   debounceBy?: number
 }
 
