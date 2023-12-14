@@ -173,6 +173,7 @@ export const InfiniteCarousel = ({
   height,
   dragProps,
   debounceBy = 200,
+  draggable = true,
 }: InfiniteCarouselProps) => {
   const x = useMotionValue(0)
   const childrenArray = Children.toArray(children)
@@ -282,7 +283,7 @@ export const InfiniteCarousel = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, width])
 
-  const isDisabled = childCount < visibleItemsNumber
+  const isDisabled = childCount < visibleItemsNumber || !draggable
 
   const renderProps: RenderPropProps = {
     setPage,

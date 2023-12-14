@@ -217,6 +217,7 @@ export const WithNavigation: Story = {
   args: {
     ...args,
     renderAfter: (props) => <NavButtons {...props} />,
+    draggable: false,
   },
   decorators: [
     (Story) => (

@@ -2,7 +2,7 @@ import { CarouselContextProvider } from "../common/context"
 import type { CarouselProps } from "../common/types"
 import cn from "@social-hustle/utils-classnames"
 import { useDimensions, useResizeObserver } from "@social-hustle/utils-hooks"
-import type { MotionValue} from "framer-motion";
+import type { MotionValue } from "framer-motion"
 import { motion, useMotionValue, type DraggableProps } from "framer-motion"
 import { Children, useState, type CSSProperties } from "react"
 import { useWindowSize } from "react-use"
@@ -47,6 +47,7 @@ export const Grid = ({
     right: 0,
   }),
   resetOnResize = false,
+  draggable = true,
 }: GridCarouselProps) => {
   const x = useMotionValue(0)
   const items = Children.toArray(children)
@@ -94,7 +95,8 @@ export const Grid = ({
         <motion.div
           {...dragProps}
           ref={ref}
-          drag="x"
+          draggable={draggable}
+          drag={draggable ? "x" : false}
           style={{ x }}
           className={cn("grid auto-cols-[1fr] grid-flow-col gap-[var(--gap)]", className)}
           onDragStart={() => setDragging(true)}

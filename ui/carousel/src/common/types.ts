@@ -6,4 +6,5 @@ export interface CarouselProps {
   className?: string
   dragProps?: Omit<DraggableProps, "drag" | "dragConstraints">
   children: JSX.Element[]
+  draggable?: boolean
 }
