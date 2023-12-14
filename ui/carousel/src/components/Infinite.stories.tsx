@@ -3,6 +3,7 @@
 import { InfiniteCarousel, type VisibleItems } from "./Infinite"
 import { arrayFromNumber } from "@social-hustle/utils-arrays"
 import type { Meta, StoryObj } from "@storybook/react"
+import { motion } from "framer-motion"
 import { GoChevronLeft, GoChevronRight } from "react-icons/go"
 
 const visibleItems: VisibleItems = {
@@ -44,17 +45,17 @@ export const Default: Story = {
 export const WithControls: Story = {
   args: {
     ...args,
-    renderAfter: ({ setPage }) => (
+    renderAfter: ({ setPage, page }) => (
       <>
         <button
           className="absolute left-0 top-1/2 -mt-5 flex h-10 w-10 items-center justify-center bg-white"
-          onClick={() => setPage(1)}
+          onClick={() => setPage(page + 1)}
         >
           <GoChevronLeft />
         </button>
         <button
           className="absolute right-0 top-1/2 -mt-5 flex h-10 w-10 items-center justify-center bg-white"
-          onClick={() => setPage(-1)}
+          onClick={() => setPage(page - 1)}
         >
           <GoChevronRight />
         </button>
@@ -69,4 +70,28 @@ export const WithControls: Story = {
       </div>
     ),
   ],
+}
+
+export const WithPagination: Story = {
+  args: {
+    ...args,
+    renderAfter: ({ setPage, page }) => (
+      <div className="mt-10 flex px-20">
+        {images.map((_, index) => (
+          <button
+            key={index}
+            className="relative h-0.5 flex-1 bg-black"
+            onClick={() => setPage(index)}
+          >
+            {index === page && (
+              <motion.div
+                layoutId="active"
+                className="absolute inset-x-0 -top-[1px] h-1 w-full bg-zinc-500"
+              />
+            )}
+          </button>
+        ))}
+      </div>
+    ),
+  },
 }
