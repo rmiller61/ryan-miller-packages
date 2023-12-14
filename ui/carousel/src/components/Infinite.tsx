@@ -1,5 +1,6 @@
 import { CarouselContextProvider } from "../common/context"
 import type { CarouselProps } from "../common/types"
+import { swipePower } from "../common/utils"
 import { arrayFromNumber } from "@social-hustle/utils-arrays"
 import cn from "@social-hustle/utils-classnames"
 import { useDimensions } from "@social-hustle/utils-hooks"
@@ -45,10 +46,6 @@ export const useVisibleItems = (visibleItems: VisibleItems): number => {
 
   /** Return 1 if we don't have a visible item count */
   return visibleItemCount || 1
-}
-
-const swipePower = (offset: number, velocity: number) => {
-  return Math.abs(offset) * velocity
 }
 
 /** Either a single static number or an object mapping breakpoints and numbers */
