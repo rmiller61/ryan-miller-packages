@@ -29,7 +29,7 @@ const args = {
       key={index}
       className="flex h-full w-full items-center justify-center border border-white bg-black text-2xl text-white"
     >
-      {index + 1}
+      {index}
     </div>
   )),
   moveBy: 1,

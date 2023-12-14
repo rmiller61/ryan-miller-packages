@@ -5,15 +5,10 @@ import cn from "@social-hustle/utils-classnames"
 import { useDimensions } from "@social-hustle/utils-hooks"
 import { getMin, getMax, clamp } from "@social-hustle/utils-numbers"
 import type { PanInfo } from "framer-motion"
-import {
-  animate,
-  motion,
-  type ValueAnimationTransition,
-  useMotionValue,
-  useMotionValueEvent,
-} from "framer-motion"
-import { Children, useEffect, useState, useMemo, type CSSProperties, useReducer } from "react"
+import { animate, motion, useMotionValue } from "framer-motion"
+import { Children, useEffect, useMemo, type CSSProperties, useReducer } from "react"
 import { useWindowSize } from "react-use"
+import { useDebouncedCallback } from "use-debounce"
 
 const getCurrentBreakpoint = (arr: number[], windowWidth: number) => {
   let breakpoint = 0
@@ -135,8 +130,6 @@ const Virtualizer = ({
 export interface InfiniteCarouselProps extends CarouselProps {
   /** Number of items that should be shown within the carousel bounds */
   visibleItems?: VisibleItems
-  /** Motion transition options */
-  transition?: ValueAnimationTransition<number>
   /** Px value that needs to be exceeded to swipe */
   swipePowerThreshold?: number
   /** Integer between 0 and 1 denoting how much the drag offset has to satisfy the moveByPx value for a swipe to occur
@@ -148,12 +141,12 @@ export interface InfiniteCarouselProps extends CarouselProps {
   height: number | string
   renderBefore?: RenderProp
   renderAfter?: RenderProp
+  debounceBy?: number
 }
 
 interface State {
   dragging: boolean
   page: number
-  animating: boolean
 }
 
 type Action =
@@ -165,10 +158,6 @@ type Action =
       type: "SET_PAGE"
       page: number
     }
-  | {
-      type: "SET_ANIMATING"
-      animating: boolean
-    }
 
 export const InfiniteCarousel = ({
   children,
@@ -176,10 +165,6 @@ export const InfiniteCarousel = ({
   wrapperClassName = "",
   itemClassName = "",
   visibleItems = 2,
-  transition = {
-    type: "spring",
-    bounce: 0,
-  },
   swipePowerThreshold = 10000,
   swipeThreshold = 0.9,
   moveBy = 1,
@@ -187,13 +172,14 @@ export const InfiniteCarousel = ({
   renderBefore,
   height,
   dragProps,
+  debounceBy = 200,
 }: InfiniteCarouselProps) => {
   const x = useMotionValue(0)
   const childrenArray = Children.toArray(children)
   const childCount = Children.count(children)
 
   const visibleItemsNumber = useVisibleItems(visibleItems)
-  const [{ page, dragging, animating }, dispatch] = useReducer(
+  const [{ page, dragging }, dispatch] = useReducer(
     (state: State, action: Action): State => {
       switch (action.type) {
         case "SET_DRAGGING":
@@ -213,13 +199,11 @@ export const InfiniteCarousel = ({
     {
       dragging: false,
       page: 0,
-      animating: false,
     }
   )
 
   const setDragging = (dragging: boolean) => dispatch({ type: "SET_DRAGGING", dragging })
   const setPage = (page: number) => dispatch({ type: "SET_PAGE", page })
-  const setAnimating = (animating: boolean) => dispatch({ type: "SET_ANIMATING", animating })
 
   //console.log(page)
 
@@ -227,7 +211,7 @@ export const InfiniteCarousel = ({
    * Create a range of numbers from -visibleItems/2 to visibleItems/2
    * Create an array created from the # of children provided
    */
-  const visualRange = arrayFromNumber(childCount)
+  const visualRange = arrayFromNumber(visibleItemsNumber)
 
   // Note: these are offset by 1 to account for the fact that the first index will be 0
 
@@ -241,6 +225,10 @@ export const InfiniteCarousel = ({
    */
   const visualRangeWithDuplicates = [...visualRange, ...prepend, ...append].sort((a, b) => a - b)
 
+  /**
+   * Offset the visual range by half the number of visible items
+   * to center the carousel
+   */
   const offsetVisualRangeWithDuplicates = visualRangeWithDuplicates.map(
     (i) => i - Math.floor(visibleItemsNumber / 2)
   )
@@ -261,44 +249,46 @@ export const InfiniteCarousel = ({
     return { left, right }
   }
 
-  const handleEndDrag = (e: Event, dragProps: PanInfo) => {
-    const isAnimating = x.isAnimating()
-    const { offset, velocity } = dragProps
-    const swipe = swipePower(offset.x, velocity.x)
+  const handleEndDrag = useDebouncedCallback(
+    (e: Event, dragProps: PanInfo) => {
+      const { offset, velocity } = dragProps
+      const swipe = swipePower(offset.x, velocity.x)
 
-    const swipePxThreshold = moveByPx * clamp(swipeThreshold, [0, 1])
+      const swipePxThreshold = moveByPx * clamp(swipeThreshold, [0, 1])
 
-    //setDragging(false)
+      setDragging(false)
 
-    //if (isAnimating) return
-
-    // If dragging RTL
-    if (offset.x < -swipePxThreshold || swipe < -swipePowerThreshold) {
-      setPage(page + moveBy)
-      // If dragging LTR
-    } else if (offset.x > swipePxThreshold || swipe > swipePowerThreshold) {
-      setPage(page - moveBy)
-    } else {
-      void animate(x, calculateNewX(), transition)
+      // If dragging RTL
+      if (offset.x < -swipePxThreshold || swipe < -swipePowerThreshold) {
+        setPage(page + moveBy)
+        // If dragging LTR
+      } else if (offset.x > swipePxThreshold || swipe > swipePowerThreshold) {
+        setPage(page - moveBy)
+      } else {
+        void animate(x, calculateNewX())
+      }
+    },
+    debounceBy,
+    {
+      leading: true,
     }
-  }
+  )
 
   useEffect(() => {
-    const controls = animate(x, calculateNewX(), transition)
-    return controls.stop
+    const controls = animate(x, calculateNewX())
+    return () => {
+      controls.stop()
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, width])
 
-  const isDisabled = childCount < visibleItemsNumber || animating
+  const isDisabled = childCount < visibleItemsNumber
 
   const renderProps: RenderPropProps = {
     setPage,
     page,
   }
   const carouselHeight = typeof height === "number" ? `${height}px` : height
-
-  useMotionValueEvent(x, "animationStart", () => setAnimating(true))
-  useMotionValueEvent(x, "animationComplete", () => setAnimating(false))
 
   return (
     <CarouselContextProvider
@@ -319,6 +309,7 @@ export const InfiniteCarousel = ({
         )}
       >
         <motion.div
+          {...dragProps}
           ref={ref}
           className={cn("relative h-full w-full", className)}
           draggable={!isDisabled}
