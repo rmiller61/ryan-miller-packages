@@ -204,7 +204,7 @@ export const InfiniteCarousel = ({
   )
 
   const setDragging = (dragging: boolean) => dispatch({ type: "SET_DRAGGING", dragging })
-  const setPage = (page: number) => dispatch({ type: "SET_PAGE", page })
+  const setPage = (v: number) => dispatch({ type: "SET_PAGE", page: page + v })
 
   //console.log(page)
 
@@ -261,10 +261,10 @@ export const InfiniteCarousel = ({
 
       // If dragging RTL
       if (offset.x < -swipePxThreshold || swipe < -swipePowerThreshold) {
-        setPage(page + moveBy)
+        setPage(moveBy)
         // If dragging LTR
       } else if (offset.x > swipePxThreshold || swipe > swipePowerThreshold) {
-        setPage(page - moveBy)
+        setPage(-moveBy)
       } else {
         void animate(x, calculateNewX())
       }
@@ -317,7 +317,7 @@ export const InfiniteCarousel = ({
           drag={isDisabled ? false : "x"}
           dragElastic={0}
           onDragEnd={handleEndDrag}
-          //onDragStart={() => setDragging(true)}
+          onDragStart={() => setDragging(true)}
           style={{
             x,
           }}
