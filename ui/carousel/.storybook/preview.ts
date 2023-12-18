@@ -1,3 +1,11 @@
 import { basePreview } from "@social-hustle/config-storybook"
+import type { Preview } from "@storybook/react"
 
-export default basePreview
+const preview: Preview = {
+  ...basePreview,
+  parameters: {
+    ...basePreview.parameters,
+    layout: "fullscreen",
+  },
+}
+export default preview
