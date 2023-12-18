@@ -1,10 +1,24 @@
 {
   "name": "@social-hustle/ui-carousel",
   "version": "3.0.1",
-  "description": "Customizable, reusable & headless Framer Motion carousel component",
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
+  "description": "Customizable, reusable & headless Framer Motion components for creating carousels",
+  "exports": {
+    "./grid": {
+      "import": "./dist/Grid.mjs",
+      "types": "./dist/Grid.d.ts"
+    },
+    "./infinite": {
+      "import": "./dist/Infinite.mjs",
+      "types": "./dist/Infinite.d.ts"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/*"
+      ]
+    }
+  },
   "files": [
     "dist",
     "tailwind.plugin.ts"
