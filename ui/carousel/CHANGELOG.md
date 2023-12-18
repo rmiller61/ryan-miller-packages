@@ -1,5 +1,11 @@
 # @social-hustle/ui-carousel
 
+## 4.0.0
+
+### Major Changes
+
+- split grid + infinite packages
+
 ## 3.0.1
 
 ### Patch Changes
