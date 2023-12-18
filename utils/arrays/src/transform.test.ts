@@ -1,10 +1,34 @@
-import { removeDuplicates, arrayFromNumber, sliceIntoChunks, shuffleArray } from "./transform"
+import {
+  removeDuplicates,
+  removeDuplicateObjects,
+  arrayFromNumber,
+  sliceIntoChunks,
+  shuffleArray,
+} from "./transform"
 import { it, describe, expect } from "vitest"
 
 describe("array transform utility", () => {
   describe("removeDuplicates", () => {
     it("should remove duplicates from array", () => {
       expect(removeDuplicates([1, 2, 3, 4, 5, 1, 2, 3, 4, 5])).toEqual([1, 2, 3, 4, 5])
+    })
+  })
+
+  describe("removeDuplicateObjects", () => {
+    it("should remove duplicate objects from array", () => {
+      expect(
+        removeDuplicateObjects(
+          [
+            { name: "John" },
+            { name: "Sara" },
+            { name: "Sara" },
+            { name: "Lynn" },
+            { name: "Jake" },
+            { name: "Jake" },
+          ],
+          "name"
+        )
+      ).toEqual([{ name: "John" }, { name: "Sara" }, { name: "Lynn" }, { name: "Jake" }])
     })
   })
 

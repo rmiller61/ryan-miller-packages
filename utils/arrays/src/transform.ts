@@ -1,10 +1,28 @@
+import type { Primitive, RecordKey } from "@social-hustle/utils-types"
+
 /**
  * Collection of functions that transform arrays
  * or create new arrays from another input (of any type)
  */
 
-export const removeDuplicates = <T extends unknown>(arr: T[]) => {
+export const removeDuplicates = <T extends Primitive>(arr: T[]) => {
   return [...new Set(arr)]
+}
+
+export const removeDuplicateObjects = <T extends Record<RecordKey, unknown>>(
+  arr: T[],
+  key: keyof T
+) => {
+  const map = new Map<T[keyof T], T>()
+
+  arr.forEach((item) => {
+    const value = item[key]
+    map.set(value, item)
+  })
+
+  const uniqueList = Array.from(map.values())
+  console.log(uniqueList)
+  return uniqueList
 }
 
 export const arrayFromNumber = (number: number): number[] => Array.from(Array(number).keys())
