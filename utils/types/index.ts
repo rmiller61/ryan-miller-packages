@@ -31,3 +31,5 @@ export type RecordKey = string | number | symbol
 export type RecursiveObject<T> = {
   [K in RecordKey]: T | RecursiveObject<T>
 }
+
+export type Primitive = string | number | boolean | bigint | symbol | undefined | null
