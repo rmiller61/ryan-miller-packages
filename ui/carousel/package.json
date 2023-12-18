@@ -1,6 +1,6 @@
 {
   "name": "@social-hustle/ui-carousel",
-  "version": "4.0.0",
+  "version": "5.0.0",
   "description": "Customizable, reusable & headless Framer Motion components for creating carousels",
   "exports": {
     "./grid": {
@@ -37,7 +37,7 @@
     "tsc": "tsc -p tsconfig.json"
   },
   "devDependencies": {
-    "@social-hustle/utils-arrays": "^1.1.1",
+    "@social-hustle/utils-arrays": "^1.2.0",
     "@social-hustle/utils-hooks": "1.1.0",
     "@social-hustle/utils-numbers": "^1.2.1",
     "framer-motion": "10.16.15",
@@ -50,7 +50,7 @@
     "use-debounce": "10.0.0"
   },
   "peerDependencies": {
-    "@social-hustle/utils-arrays": "^1.1.1",
+    "@social-hustle/utils-arrays": "^1.2.0",
     "@social-hustle/utils-hooks": "1.1.0",
     "@social-hustle/utils-numbers": "^1.2.1",
     "framer-motion": "10.16.15",

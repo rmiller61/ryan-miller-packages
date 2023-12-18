@@ -1,5 +1,11 @@
 # @social-hustle/utils-arrays
 
+## 1.2.0
+
+### Minor Changes
+
+- add method to remove duplicate objects
+
 ## 1.1.1
 
 ### Patch Changes
