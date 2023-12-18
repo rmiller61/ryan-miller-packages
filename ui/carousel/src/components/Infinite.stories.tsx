@@ -2,6 +2,7 @@
 
 import { InfiniteCarousel, type VisibleItems } from "./Infinite"
 import { arrayFromNumber } from "@social-hustle/utils-arrays"
+import { wrap } from "@social-hustle/utils-numbers"
 import type { Meta, StoryObj } from "@storybook/react"
 import { motion } from "framer-motion"
 import { GoChevronLeft, GoChevronRight } from "react-icons/go"
@@ -75,23 +76,26 @@ export const WithControls: Story = {
 export const WithPagination: Story = {
   args: {
     ...args,
-    renderAfter: ({ setPage, page }) => (
-      <div className="mt-10 flex px-20">
-        {images.map((_, index) => (
-          <button
-            key={index}
-            className="relative h-0.5 flex-1 bg-black"
-            onClick={() => setPage(index)}
-          >
-            {index === page && (
-              <motion.div
-                layoutId="active"
-                className="absolute inset-x-0 -top-[1px] h-1 w-full bg-zinc-500"
-              />
-            )}
-          </button>
-        ))}
-      </div>
-    ),
+    renderAfter: ({ setPage, page }) => {
+      const wrappedPage = wrap(page, [0, images.length])
+      return (
+        <div className="mt-10 flex px-20">
+          {images.map((_, index) => (
+            <button
+              key={index}
+              className="relative h-0.5 flex-1 bg-black"
+              onClick={() => setPage(index)}
+            >
+              {index === wrappedPage && (
+                <motion.div
+                  layoutId="active"
+                  className="absolute inset-x-0 -top-[1px] h-1 w-full bg-zinc-500"
+                />
+              )}
+            </button>
+          ))}
+        </div>
+      )
+    },
   },
 }
