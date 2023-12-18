@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 
-import { InfiniteCarousel, type VisibleItems } from "./Infinite"
+import { InfiniteCarousel, type VisibleItems } from "../components/Infinite"
 import { arrayFromNumber } from "@social-hustle/utils-arrays"
 import { wrap } from "@social-hustle/utils-numbers"
 import type { Meta, StoryObj } from "@storybook/react"

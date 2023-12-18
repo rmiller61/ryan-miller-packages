@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { useCarouselMotionValue } from "../common/context"
-import { Grid, type GridCarouselProps, type RenderPropProps } from "./Grid"
+import { Grid, type GridCarouselProps, type RenderPropProps } from "../components/Grid"
 import cn from "@social-hustle/utils-classnames"
 import { useDimensions } from "@social-hustle/utils-hooks"
 import { clamp } from "@social-hustle/utils-numbers"
