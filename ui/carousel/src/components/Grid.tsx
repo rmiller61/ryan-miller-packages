@@ -94,7 +94,8 @@ export const Grid = ({
       <div
         data-dragging={dragging}
         className={cn(
-          "group flex flex-nowrap overflow-hidden data-[dragging=false]:cursor-grab data-[dragging=true]:cursor-grabbing",
+          "group flex flex-nowrap overflow-hidden",
+          dragging && "data-[dragging=false]:cursor-grab data-[dragging=true]:cursor-grabbing",
           wrapperClassName
         )}
         style={

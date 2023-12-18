@@ -46,6 +46,7 @@ export const Default: Story = {
 export const WithControls: Story = {
   args: {
     ...args,
+    draggable: false,
     renderAfter: ({ setPage, page }) => (
       <>
         <button

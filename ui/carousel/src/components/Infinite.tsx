@@ -307,7 +307,8 @@ export const InfiniteCarousel = ({
           } as CSSProperties
         }
         className={cn(
-          "h-[var(--carousel-height)] w-full overflow-hidden data-[dragging=false]:cursor-grab data-[dragging=true]:cursor-grabbing",
+          "h-[var(--carousel-height)] w-full overflow-hidden",
+          !isDisabled && "data-[dragging=false]:cursor-grab data-[dragging=true]:cursor-grabbing",
           wrapperClassName
         )}
       >
