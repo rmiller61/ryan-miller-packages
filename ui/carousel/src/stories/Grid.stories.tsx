@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { useCarouselMotionValue } from "../common/context"
-import { Grid, type GridCarouselProps, type RenderPropProps } from "../components/Grid"
+import { GridCarousel, type GridCarouselProps, type RenderPropProps } from "../components/Grid"
 import cn from "@social-hustle/utils-classnames"
 import { useDimensions } from "@social-hustle/utils-hooks"
 import { clamp } from "@social-hustle/utils-numbers"
@@ -180,10 +180,10 @@ const ParallaxItem = ({ src }: { src: string }) => {
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
   title: "Grid Carousel",
-  component: Grid,
+  component: GridCarousel,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {},
-} satisfies Meta<typeof Grid>
+} satisfies Meta<typeof GridCarousel>
 
 export default meta
 type Story = StoryObj<typeof meta>

@@ -44,7 +44,7 @@ export interface GridCarouselProps extends CarouselProps<RenderPropProps> {
   resetOnResize?: boolean
 }
 
-export const Grid = ({
+export const GridCarousel = ({
   children,
   wrapperClassName,
   itemClassName,
