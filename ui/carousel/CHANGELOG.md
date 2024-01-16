@@ -1,5 +1,11 @@
 # @social-hustle/ui-carousel
 
+## 5.1.0
+
+### Minor Changes
+
+- add carousel enabled logic
+
 ## 5.0.0
 
 ### Patch Changes
