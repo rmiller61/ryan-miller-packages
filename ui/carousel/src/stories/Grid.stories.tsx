@@ -295,3 +295,18 @@ export const Parallax: Story = {
     )),
   },
 }
+
+export const DisabledOnDesktop: Story = {
+  args: {
+    ...args,
+    children: images.slice(0, 3).map((src, index) => (
+      <img
+        key={index}
+        src={src}
+        draggable={false}
+        alt=""
+        style={{ width: "100%" }}
+      />
+    )),
+  },
+}

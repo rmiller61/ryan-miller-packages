@@ -13,6 +13,7 @@ export interface RenderPropProps {
   itemCount: number
   gap: number
   constraints: XConstraints
+  enabled: boolean
 }
 
 type XConstraints = Pick<DOMRectReadOnly, "left" | "right">
@@ -42,6 +43,12 @@ export interface GridCarouselProps extends CarouselProps<RenderPropProps> {
    * @default false
    */
   resetOnResize?: boolean
+  /**
+   * Disable the carousel when the width of the carousel is less than the width of the window,
+   * i.e. when the carousel does not overflow.
+   * @default true
+   */
+  disableOnInsufficientWidth?: boolean
 }
 
 export const GridCarousel = ({
@@ -59,6 +66,7 @@ export const GridCarousel = ({
   }),
   resetOnResize = false,
   draggable = true,
+  disableOnInsufficientWidth = true,
 }: GridCarouselProps) => {
   const x = useMotionValue(0)
   const items = Children.toArray(children)
@@ -71,12 +79,15 @@ export const GridCarousel = ({
 
   const constraints = calculateConstraints({ width: boundingBox.width, windowWidth })
 
+  const enabled = disableOnInsufficientWidth && boundingBox.width <= windowWidth ? false : draggable
+
   const renderProps: RenderPropProps = {
     x,
     boundingBox,
     itemCount: items.length,
     constraints,
     gap,
+    enabled,
   }
 
   useResizeObserver(node, () => {
@@ -107,8 +118,8 @@ export const GridCarousel = ({
         <motion.div
           {...dragProps}
           ref={ref}
-          draggable={draggable}
-          drag={draggable ? "x" : false}
+          draggable={enabled}
+          drag={enabled ? "x" : false}
           style={{ x }}
           className={cn("grid auto-cols-[1fr] grid-flow-col gap-[var(--gap)]", className)}
           onDragStart={() => setDragging(true)}
