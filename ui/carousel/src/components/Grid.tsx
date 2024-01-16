@@ -100,6 +100,7 @@ export const GridCarousel = ({
     <CarouselContextProvider
       dragging={dragging}
       x={x}
+      enabled={enabled}
     >
       {renderBefore && renderBefore(renderProps)}
       <div

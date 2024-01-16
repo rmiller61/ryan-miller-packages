@@ -297,6 +297,7 @@ export const InfiniteCarousel = ({
     <CarouselContextProvider
       dragging={dragging}
       x={x}
+      enabled={!isDisabled}
     >
       {renderBefore && renderBefore(renderProps)}
       <div

@@ -4,11 +4,13 @@ import { createContext, useContext } from "react"
 export interface CarouselContextProps {
   dragging: boolean
   x: MotionValue<number>
+  enabled: boolean
 }
 
 export const CarouselContext = createContext<CarouselContextProps>({
   dragging: false,
   x: new MotionValue(),
+  enabled: true,
 })
 
 export const useCarouselContext = () => useContext(CarouselContext)
@@ -21,11 +23,13 @@ export const CarouselContextProvider = ({
   dragging,
   x,
   children,
+  enabled,
 }: CarouselContextProps & { children: React.ReactNode }) => (
   <CarouselContext.Provider
     value={{
       dragging,
       x,
+      enabled,
     }}
   >
     {children}
