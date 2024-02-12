@@ -9,6 +9,9 @@
   ],
   "scripts": {
     "build": "tsup",
+    "build:storybook": "storybook build",
+    "dev": "tsup --watch",
+    "dev:storybook": "storybook dev -p 6006",
     "lint": "eslint",
     "test": "vitest run --passWithNoTests",
     "test:coverage": "vitest run --coverage",

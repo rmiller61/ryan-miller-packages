@@ -7,5 +7,5 @@ module.exports = {
     project: ["./tsconfig.json"],
   },
 
-  extends: ["eslint-config-social-hustle"],
+  extends: ["eslint-config-social-hustle", "plugin:storybook/recommended"],
 }
