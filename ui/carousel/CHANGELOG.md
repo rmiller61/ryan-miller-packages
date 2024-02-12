@@ -1,5 +1,11 @@
 # @social-hustle/ui-carousel
 
+## 5.2.0
+
+### Minor Changes
+
+- add prop to start InfiniteCarousel at a custom index
+
 ## 5.1.0
 
 ### Minor Changes
