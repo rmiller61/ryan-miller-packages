@@ -100,3 +100,31 @@ export const WithPagination: Story = {
     },
   },
 }
+
+export const StartAtMiddle: Story = {
+  args: {
+    ...args,
+    startAt: 4,
+    renderAfter: ({ setPage, page }) => {
+      const wrappedPage = wrap(page, [0, images.length])
+      return (
+        <div className="mt-10 flex px-20">
+          {images.map((_, index) => (
+            <button
+              key={index}
+              className="relative h-0.5 flex-1 bg-black"
+              onClick={() => setPage(index)}
+            >
+              {index === wrappedPage && (
+                <motion.div
+                  layoutId="active"
+                  className="absolute inset-x-0 -top-[1px] h-1 w-full bg-zinc-500"
+                />
+              )}
+            </button>
+          ))}
+        </div>
+      )
+    },
+  },
+}
