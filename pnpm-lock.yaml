@@ -600,6 +600,9 @@ importers:
         specifier: ^1.2.1
         version: link:../numbers
     devDependencies:
+      "@raidipesh78/re-motion":
+        specifier: ^2.0.1
+        version: 2.1.1(react@18.2.0)
       react:
         specifier: 18.2.0
         version: 18.2.0
@@ -6121,6 +6124,17 @@ packages:
       }
     dependencies:
       "@babel/runtime": 7.23.2
+
+  /@raidipesh78/re-motion@2.1.1(react@18.2.0):
+    resolution:
+      {
+        integrity: sha512-SkIyiLYVYyMKEW9J920KSyah8FHrAI9xPfJ0J+hr4llHTiwYBRVnrbHFP/LlmBzVw4ApUIy+pDt1f14jCRPEpg==,
+      }
+    peerDependencies:
+      react: ^18.0.0
+    dependencies:
+      react: 18.2.0
+    dev: true
 
   /@rollup/pluginutils@5.0.5:
     resolution:
