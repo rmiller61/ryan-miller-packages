@@ -427,7 +427,7 @@ importers:
   ui/carousel:
     devDependencies:
       "@social-hustle/utils-arrays":
-        specifier: ^1.1.1
+        specifier: ^1.2.0
         version: link:../../utils/arrays
       "@social-hustle/utils-hooks":
         specifier: 1.1.0
@@ -595,6 +595,10 @@ importers:
   utils/files: {}
 
   utils/hooks:
+    dependencies:
+      "@social-hustle/utils-numbers":
+        specifier: ^1.2.1
+        version: link:../numbers
     devDependencies:
       react:
         specifier: 18.2.0
