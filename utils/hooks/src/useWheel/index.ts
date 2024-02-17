@@ -10,40 +10,35 @@ import * as React from "react"
 export function useWheel(callback: UseWheelCallback) {
   const gesture = React.useRef(new WheelGesture()).current
 
-  return useRecognizer([["wheel", gesture, callback]])
+  return useRecognizer([gesture, callback])
 }
 
-type UseRecognizerHandlerType = Array<
-  [key: "drag" | "wheel" | "move" | "scroll", gesture: any, callback: any, config?: any]
->
+type UseRecognizerHandlerType = [gesture: WheelGesture, callback: any]
 
-export const useRecognizer = (handlers: UseRecognizerHandlerType) => {
+export const useRecognizer = (handler: UseRecognizerHandlerType) => {
   const ref = React.useRef<any>()
   const elementRefs = React.useRef<Array<any>>([])
-  const subscribers = React.useRef<
-    Map<string, { keyIndex: number; gesture: any; unsubscribe: any }>
-  >(new Map()).current
+  const subscribers = React.useRef<Map<string, { gesture: WheelGesture; unsubscribe: any }>>(
+    new Map()
+  ).current
 
   // re-initiate callback on change
   React.useEffect(() => {
-    for (let [, { keyIndex, gesture }] of subscribers.entries()) {
-      const [, , callback] = handlers[keyIndex]!
+    for (let [, { gesture }] of subscribers.entries()) {
+      const [, callback] = handler
       gesture.applyCallback(callback)
     }
-  }, [handlers])
+  }, [handler])
 
   React.useEffect(() => {
-    handlers.forEach(([key, gesture, callback, config], keyIndex) => {
-      subscribers.set(key, {
-        keyIndex,
-        gesture,
-        unsubscribe: gesture.applyGesture({
-          targetElement: ref.current,
-          targetElements: elementRefs.current,
-          callback,
-          config,
-        }),
-      })
+    const [gesture, callback] = handler
+    subscribers.set("wheel", {
+      gesture,
+      unsubscribe: gesture.applyGesture({
+        targetElement: ref.current,
+        targetElements: elementRefs.current,
+        callback,
+      }),
     })
 
     return () => {

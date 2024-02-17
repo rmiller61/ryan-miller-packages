@@ -4,69 +4,20 @@ import { clamp } from "@social-hustle/utils-numbers"
 const LINE_HEIGHT = 40
 const PAGE_HEIGHT = 800
 
-type MouseEventType =
-  | "click"
-  | "dblclick"
-  | "mousedown"
-  | "mousemove"
-  | "mouseup"
-  | "touchstart"
-  | "touchmove"
-  | "touchend"
-  | "mouseenter"
-  | "mouseleave"
-  | "mouseout"
-  | "mouseover"
-  | "scroll"
-  | "wheel"
-  | "contextmenu"
-
 type DomTargetTypes = Array<Window | Document | HTMLElement>
 
 /**
  * Attach single document / window event / HTMLElement
  */
-function attachEvent(
-  domTargets: DomTargetTypes,
-  event: MouseEventType,
-  callback: (e: any) => void,
-  capture: any = false
-) {
+function attachEvent(domTargets: DomTargetTypes, callback: (e: any) => void, capture: any = false) {
   domTargets.forEach((target) => {
-    target.addEventListener(event, callback, capture)
+    target.addEventListener("wheel", callback, capture)
   })
 
   return function () {
     domTargets.forEach((target) => {
-      target.removeEventListener(event, callback, capture)
+      target.removeEventListener("wheel", callback, capture)
     })
-  }
-}
-
-/**
- * Attach multiple document / window event / HTMLElement
- */
-export function attachEvents(
-  domTargets: DomTargetTypes,
-  events: Array<[event: MouseEventType, callback: (e: any) => void, capture?: any]>
-) {
-  const subscribers = new Map()
-
-  events.forEach(function ([event, callback, capture = false]) {
-    subscribers.set(event, attachEvent(domTargets, event, callback, capture))
-  })
-
-  return function (eventKeys?: Array<string>) {
-    for (const [eventKey, subscriber] of subscribers.entries()) {
-      if (!eventKeys) {
-        subscriber()
-        return
-      }
-
-      if (eventKeys.indexOf(eventKey) !== -1) {
-        subscriber()
-      }
-    }
   }
 }
 
@@ -76,7 +27,6 @@ export class WheelGesture {
   isActive: boolean = false
   targetElement?: HTMLElement // represents the bounded element
   targetElements: Array<HTMLElement> = [] // represents the bounded elements
-  config?: any
   callback?: (event: WheelEventType) => void
   _subscribe?: (eventKeys?: Array<string>) => void
   static _VELOCITY_LIMIT: number = 20
@@ -96,7 +46,7 @@ export class WheelGesture {
   // initialize the events
   _initEvents() {
     if (this.targetElement) {
-      this._subscribe = attachEvents([this.targetElement], [["wheel", this.onWheel.bind(this)]])
+      this._subscribe = attachEvent([this.targetElement], this.onWheel.bind(this))
     }
   }
 
@@ -138,17 +88,14 @@ export class WheelGesture {
     targetElement,
     targetElements,
     callback,
-    config,
   }: {
     targetElement?: any
     targetElements?: any
     callback: <T>(event: T) => void
-    config?: any
   }) {
     this.targetElement = targetElement
     this.targetElements = targetElements.map((element: { current: any }) => element.current)
     this.callback = callback
-    this.config = config
 
     // initialize events
     this._initEvents()
