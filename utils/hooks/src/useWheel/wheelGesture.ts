@@ -22,7 +22,6 @@ function attachEvent(domTargets: DomTargetTypes, callback: (e: any) => void, cap
 }
 
 export class WheelGesture {
-  currentIndex?: number
   lastTimeStamp: number = Date.now()
   isActive: boolean = false
   targetElement?: HTMLElement // represents the bounded element
@@ -91,7 +90,7 @@ export class WheelGesture {
   }: {
     targetElement?: any
     targetElements?: any
-    callback: <T>(event: T) => void
+    callback: (event: WheelEventType) => void
   }) {
     this.targetElement = targetElement
     this.targetElements = targetElements.map((element: { current: any }) => element.current)
