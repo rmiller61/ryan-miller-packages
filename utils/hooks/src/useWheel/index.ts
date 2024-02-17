@@ -17,7 +17,6 @@ type UseRecognizerHandlerType = [gesture: WheelGesture, callback: UseWheelCallba
 
 export const useRecognizer = <T extends HTMLElement>(handler: UseRecognizerHandlerType) => {
   const ref = React.useRef<T | null>(null)
-  const elementRefs = React.useRef<Array<any>>([])
   const subscribers = React.useRef<Map<string, { gesture: WheelGesture; unsubscribe: any }>>(
     new Map()
   ).current
@@ -36,7 +35,6 @@ export const useRecognizer = <T extends HTMLElement>(handler: UseRecognizerHandl
       gesture,
       unsubscribe: gesture.applyGesture({
         targetElement: ref.current,
-        targetElements: elementRefs.current,
         callback,
       }),
     })
@@ -48,13 +46,7 @@ export const useRecognizer = <T extends HTMLElement>(handler: UseRecognizerHandl
     }
   }, [])
 
-  return (index?: number) => {
-    if (index === null || index === undefined) {
-      return { ref }
-    } else {
-      elementRefs.current[index] = elementRefs.current[index] || React.createRef()
-
-      return { ref: elementRefs.current[index] }
-    }
+  return () => {
+    return { ref }
   }
 }

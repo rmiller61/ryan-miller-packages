@@ -25,7 +25,6 @@ export class WheelGesture {
   lastTimeStamp: number = Date.now()
   isActive: boolean = false
   targetElement?: HTMLElement // represents the bounded element
-  targetElements: Array<HTMLElement> = [] // represents the bounded elements
   callback?: (event: WheelEventType) => void
   _subscribe?: (eventKeys?: Array<string>) => void
   static _VELOCITY_LIMIT: number = 20
@@ -85,15 +84,12 @@ export class WheelGesture {
   // apply gesture
   applyGesture({
     targetElement,
-    targetElements,
     callback,
   }: {
     targetElement?: any
-    targetElements?: any
     callback: (event: WheelEventType) => void
   }) {
     this.targetElement = targetElement
-    this.targetElements = targetElements.map((element: { current: any }) => element.current)
     this.callback = callback
 
     // initialize events
