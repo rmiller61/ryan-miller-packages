@@ -4,6 +4,7 @@ import {
   arrayFromNumber,
   sliceIntoChunks,
   shuffleArray,
+  duplicateArray,
 } from "./transform"
 import { it, describe, expect } from "vitest"
 
@@ -54,6 +55,12 @@ describe("array transform utility", () => {
       expect(shuffleArray([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])).not.toEqual([
         1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
       ])
+    })
+  })
+
+  describe("duplicateArray", () => {
+    it("should duplicate array", () => {
+      expect(duplicateArray([1, 2, 3], 3)).toEqual([1, 2, 3, 1, 2, 3, 1, 2, 3])
     })
   })
 })

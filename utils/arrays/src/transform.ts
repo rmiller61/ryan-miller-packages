@@ -21,7 +21,7 @@ export const removeDuplicateObjects = <T extends Record<RecordKey, unknown>>(
   })
 
   const uniqueList = Array.from(map.values())
-  console.log(uniqueList)
+  //console.log(uniqueList)
   return uniqueList
 }
 
@@ -49,4 +49,8 @@ export const shuffleArray = <T extends unknown>(array: T[]): T[] => {
   }
 
   return array
+}
+
+export const duplicateArray = <T extends unknown>(array: T[], times: number): T[] => {
+  return Array.from({ length: times }, () => array).flat()
 }
