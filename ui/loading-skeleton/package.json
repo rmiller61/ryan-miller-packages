@@ -1,6 +1,6 @@
 {
   "name": "@social-hustle/ui-loading-skeleton",
-  "version": "4.0.0",
+  "version": "5.0.0",
   "description": "Basic styled loading skeleton",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

@@ -1,5 +1,11 @@
 # @social-hustle/utils-arrays
 
+## 1.3.0
+
+### Minor Changes
+
+- 668aa43: add duplicateArray method
+
 ## 1.2.0
 
 ### Minor Changes
