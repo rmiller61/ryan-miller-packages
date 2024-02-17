@@ -1,5 +1,12 @@
 # @social-hustle/ui-loading-skeleton
 
+## 5.0.0
+
+### Patch Changes
+
+- Updated dependencies [668aa43]
+  - @social-hustle/utils-arrays@1.3.0
+
 ## 4.0.0
 
 ### Patch Changes

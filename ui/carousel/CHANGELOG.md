@@ -1,5 +1,18 @@
 # @social-hustle/ui-carousel
 
+## 6.0.0
+
+### Patch Changes
+
+- Updated dependencies [668aa43]
+  - @social-hustle/utils-arrays@1.3.0
+
+## 5.2.0
+
+### Minor Changes
+
+- add prop to start InfiniteCarousel at a custom index
+
 ## 5.1.0
 
 ### Minor Changes

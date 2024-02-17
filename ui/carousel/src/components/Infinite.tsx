@@ -144,6 +144,8 @@ export interface InfiniteCarouselProps extends CarouselProps<RenderPropProps> {
    * @default 200
    */
   debounceBy?: number
+  /** The starting page/index. Defaults to 0 */
+  startAt?: number
 }
 
 interface State {
@@ -176,6 +178,7 @@ export const InfiniteCarousel = ({
   dragProps,
   debounceBy = 200,
   draggable = true,
+  startAt = 0,
 }: InfiniteCarouselProps) => {
   const x = useMotionValue(0)
   const childrenArray = Children.toArray(children)
@@ -201,7 +204,7 @@ export const InfiniteCarousel = ({
     },
     {
       dragging: false,
-      page: 0,
+      page: startAt,
     }
   )
 
