@@ -10,7 +10,7 @@ import * as React from "react"
 
 type UseRecognizerHandlerType = [wheelGesture: WheelGesture, callback: UseWheelCallback]
 
-export function useWheel<T extends HTMLElement>(callback: UseWheelCallback) {
+export function useWheel<T extends HTMLElement = any>(callback: UseWheelCallback) {
   const ref = React.useRef<T | null>(null)
   const wheelGesture = useConstant(() => new WheelGesture())
   const handler: UseRecognizerHandlerType = [wheelGesture, callback]

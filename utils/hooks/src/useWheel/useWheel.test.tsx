@@ -7,7 +7,7 @@ import * as React from "react"
 
 const WheelDemo = () => {
   const [left, setLeft] = React.useState(0)
-  const bind = useWheel<HTMLDivElement>(function (params) {
+  const bind = useWheel(function (params) {
     //console.log(params)
     setLeft(params.movementX)
   })
