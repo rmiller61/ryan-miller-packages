@@ -8,18 +8,18 @@ import type { UseWheelCallback } from "./types"
 import { WheelGesture } from "./wheelGesture"
 import * as React from "react"
 
-type UseRecognizerHandlerType = [gesture: WheelGesture, callback: UseWheelCallback]
+type UseRecognizerHandlerType = [wheelGesture: WheelGesture, callback: UseWheelCallback]
 
 export function useWheel<T extends HTMLElement>(callback: UseWheelCallback) {
   const ref = React.useRef<T | null>(null)
-  const gesture = useConstant(() => new WheelGesture())
-  const handler: UseRecognizerHandlerType = [gesture, callback]
+  const wheelGesture = useConstant(() => new WheelGesture())
+  const handler: UseRecognizerHandlerType = [wheelGesture, callback]
 
   // re-initiate callback on change
   React.useEffect(() => {
-    const [gesture, callback] = handler
-    gesture.applyCallback(callback)
-    const unsubscribe = gesture.applyGesture({
+    const [wheelGesture, callback] = handler
+    wheelGesture.applyCallback(callback)
+    const unsubscribe = wheelGesture.applyGesture({
       targetElement: ref.current,
       callback,
     })
