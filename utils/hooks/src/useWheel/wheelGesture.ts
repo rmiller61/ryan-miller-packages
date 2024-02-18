@@ -1,15 +1,25 @@
 import type { Vector2, UseWheelCallback, WheelEventType } from "./types"
 import { clamp } from "@social-hustle/utils-numbers"
-import type { MotionValue } from "framer-motion";
+import type { MotionValue } from "framer-motion"
 import { motionValue } from "framer-motion"
 
 const LINE_HEIGHT = 40
 const PAGE_HEIGHT = 800
 
 export class WheelGesture {
+  /**
+   * Last time stamp for measuring time delta
+   */
   lastTimeStamp: number = Date.now()
+  /**
+   * Whether the gestured and any composed animations are active
+   */
   isActive: boolean = false
+  /**
+   * The target DOM element to attach the wheel event to
+   */
   targetElement?: HTMLElement | null
+
   callback?: (event: WheelEventType) => void
   subscribe?: (eventKeys?: Array<string>) => void
   static _VELOCITY_LIMIT: number = 20
@@ -47,7 +57,7 @@ export class WheelGesture {
     if (this.callback) {
       this.callback({
         target: this.targetElement,
-        isWheeling: this.isActive,
+        isActive: this.isActive,
         deltaX: this.delta.x,
         deltaY: this.delta.y,
         directionX: this.direction.x,

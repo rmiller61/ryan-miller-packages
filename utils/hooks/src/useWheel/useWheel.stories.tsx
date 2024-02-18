@@ -1,5 +1,5 @@
 import { useWheel } from "."
-import type { TransitionValueConfig } from "@raidipesh78/re-motion";
+import type { TransitionValueConfig } from "@raidipesh78/re-motion"
 import { makeAnimatedComponent, useTransition } from "@raidipesh78/re-motion"
 import type { Meta, StoryObj } from "@storybook/react"
 
@@ -62,8 +62,8 @@ const AnimatedBlock = makeAnimatedComponent("div")
 const WheelDemo = () => {
   const left = useAnimatedValue(0)
 
-  const bind = useWheel(function ({ movementX, isWheeling }) {
-    left.value = isWheeling ? movementX : 0
+  const bind = useWheel(function ({ movementX, isActive }) {
+    left.value = isActive ? movementX : 0
   })
   return (
     <AnimatedBlock
