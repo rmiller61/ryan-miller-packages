@@ -33,3 +33,29 @@ export type RecursiveObject<T> = {
 }
 
 export type Primitive = string | number | boolean | bigint | symbol | undefined | null
+
+export type CSSUnit =
+  | "em"
+  | "ex"
+  | "ch"
+  | "rem"
+  | "vw"
+  | "vh"
+  | "vmin"
+  | "vmax"
+  | "%"
+  | "px"
+  | "cm"
+  | "mm"
+  | "in"
+  | "pt"
+  | "pc"
+
+/**
+ * Utils for working with Maps
+ * @url https://stackoverflow.com/questions/60737502/what-is-the-equivalent-of-keyof-for-an-es-map-type
+ */
+export type KeyOfMap<M extends Map<unknown, unknown>> = M extends Map<infer K, unknown> ? K : never
+export type ValueOfMap<M extends Map<unknown, unknown>> = M extends Map<unknown, infer V>
+  ? V
+  : never

@@ -1,5 +1,15 @@
 # @social-hustle/utils-types
 
+## 1.3.0
+
+### Minor Changes
+
+- be3733f: add CSSUnit type
+
+### Patch Changes
+
+- add CSS and Map util types
+
 ## 1.2.0
 
 ### Minor Changes
