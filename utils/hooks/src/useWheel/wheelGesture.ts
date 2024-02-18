@@ -6,6 +6,14 @@ import { motionValue } from "framer-motion"
 const LINE_HEIGHT = 40
 const PAGE_HEIGHT = 800
 
+function attachEvent(target: HTMLElement, callback: (e: any) => void) {
+  target.addEventListener("wheel", callback, { passive: true })
+
+  return function () {
+    target.removeEventListener("wheel", callback)
+  }
+}
+
 export class WheelGesture {
   /**
    * Last time stamp for measuring time delta
@@ -23,7 +31,7 @@ export class WheelGesture {
    * Callback for wheel event, e.g. animating a value
    */
   callback?: (event: WheelEventType) => void
-  subscribe?: (eventKeys?: Array<string>) => void
+  subscribe?: () => void
   static _VELOCITY_LIMIT: number = 20
 
   isActiveID?: number | NodeJS.Timeout
@@ -47,11 +55,7 @@ export class WheelGesture {
   // initialize the events
   initEvents() {
     if (this.targetElement) {
-      const callback = this.onWheel.bind(this)
-      this.targetElement.addEventListener("wheel", callback)
-      return function () {
-        this.targetElement.removeEventListener("wheel", callback)
-      }
+      this.subscribe = attachEvent(this.targetElement, this.onWheel.bind(this))
     }
   }
 
