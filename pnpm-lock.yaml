@@ -603,6 +603,9 @@ importers:
       "@raidipesh78/re-motion":
         specifier: ^2.0.1
         version: 2.1.1(react@18.2.0)
+      framer-motion:
+        specifier: 10.16.15
+        version: 10.16.15(react-dom@18.2.0)(react@18.2.0)
       react:
         specifier: 18.2.0
         version: 18.2.0
