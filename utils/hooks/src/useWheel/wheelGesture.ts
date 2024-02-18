@@ -9,14 +9,14 @@ type DomTargetTypes = Array<Window | Document | HTMLElement>
 /**
  * Attach single document / window event / HTMLElement
  */
-function attachEvent(domTargets: DomTargetTypes, callback: (e: any) => void, capture: any = false) {
+function attachEvent(domTargets: DomTargetTypes, callback: (e: WheelEvent) => void) {
   domTargets.forEach((target) => {
-    target.addEventListener("wheel", callback, capture)
+    target.addEventListener("wheel", callback)
   })
 
   return function () {
     domTargets.forEach((target) => {
-      target.removeEventListener("wheel", callback, capture)
+      target.removeEventListener("wheel", callback)
     })
   }
 }
@@ -24,12 +24,12 @@ function attachEvent(domTargets: DomTargetTypes, callback: (e: any) => void, cap
 export class WheelGesture {
   lastTimeStamp: number = Date.now()
   isActive: boolean = false
-  targetElement?: HTMLElement // represents the bounded element
+  targetElement?: HTMLElement | null
   callback?: (event: WheelEventType) => void
   _subscribe?: (eventKeys?: Array<string>) => void
   static _VELOCITY_LIMIT: number = 20
 
-  isActiveID?: any
+  isActiveID?: number | NodeJS.Timeout
   movement: Vector2 = { x: 0, y: 0 }
   previousMovement: Vector2 = { x: 0, y: 0 }
   direction: Vector2 = { x: 0, y: 0 }
@@ -86,7 +86,7 @@ export class WheelGesture {
     targetElement,
     callback,
   }: {
-    targetElement?: any
+    targetElement?: HTMLElement | null
     callback: (event: WheelEventType) => void
   }) {
     this.targetElement = targetElement
