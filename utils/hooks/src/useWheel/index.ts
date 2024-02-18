@@ -4,11 +4,11 @@
  */
 
 import { useConstant } from "../useConstant"
-import type { UseWheelCallback } from "./types"
+import type { WheelEventType } from "./types"
 import { WheelGesture } from "./wheelGesture"
 import * as React from "react"
 
-export function useWheel<T extends HTMLElement = any>(callback: UseWheelCallback) {
+export function useWheel<T extends HTMLElement = any>(callback: (event: WheelEventType) => void) {
   const ref = React.useRef<T | null>(null)
   const wheelGesture = useConstant(() => new WheelGesture())
 

@@ -14,8 +14,3 @@ export type WheelEventType = {
 }
 
 export type Vector2 = { x: number; y: number }
-
-/**
- * Callback for wheel event, e.g. animating a value
- */
-export type UseWheelCallback = (event: WheelEventType) => void

@@ -1,4 +1,4 @@
-import type { Vector2, UseWheelCallback, WheelEventType } from "./types"
+import type { Vector2, WheelEventType } from "./types"
 import { clamp } from "@social-hustle/utils-numbers"
 import type { MotionValue } from "framer-motion"
 import { motionValue } from "framer-motion"
@@ -19,7 +19,9 @@ export class WheelGesture {
    * The target DOM element to attach the wheel event to
    */
   targetElement?: HTMLElement | null
-
+  /**
+   * Callback for wheel event, e.g. animating a value
+   */
   callback?: (event: WheelEventType) => void
   subscribe?: (eventKeys?: Array<string>) => void
   static _VELOCITY_LIMIT: number = 20
