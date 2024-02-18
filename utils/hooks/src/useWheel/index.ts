@@ -17,34 +17,20 @@ type UseRecognizerHandlerType = [gesture: WheelGesture, callback: UseWheelCallba
 
 export const useRecognizer = <T extends HTMLElement>(handler: UseRecognizerHandlerType) => {
   const ref = React.useRef<T | null>(null)
-  const subscribers = React.useRef<
-    Map<string, { gesture: WheelGesture; unsubscribe?: VoidFunction }>
-  >(new Map()).current
 
   // re-initiate callback on change
   React.useEffect(() => {
-    for (let [, { gesture }] of subscribers.entries()) {
-      const [, callback] = handler
-      gesture.applyCallback(callback)
-    }
-  }, [handler])
-
-  React.useEffect(() => {
     const [gesture, callback] = handler
-    subscribers.set("wheel", {
-      gesture,
-      unsubscribe: gesture.applyGesture({
-        targetElement: ref.current,
-        callback,
-      }),
+    gesture.applyCallback(callback)
+    const unsubscribe = gesture.applyGesture({
+      targetElement: ref.current,
+      callback,
     })
 
     return () => {
-      for (let [, { unsubscribe }] of subscribers.entries()) {
-        unsubscribe && unsubscribe()
-      }
+      unsubscribe && unsubscribe()
     }
-  }, [])
+  }, [handler])
 
   return () => {
     return { ref }
