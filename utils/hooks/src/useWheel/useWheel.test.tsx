@@ -3,10 +3,10 @@ import { render, screen, fireEvent } from "@testing-library/react"
 import { renderHook, act } from "@testing-library/react-hooks"
 import { it, describe, expect, vi } from "vitest"
 import "@testing-library/jest-dom/extend-expect"
-import { useState } from "react"
+import * as React from "react"
 
 const WheelDemo = () => {
-  const [left, setLeft] = useState(0)
+  const [left, setLeft] = React.useState(0)
   const bind = useWheel<HTMLDivElement>(function (params) {
     //console.log(params)
     setLeft(params.movementX)

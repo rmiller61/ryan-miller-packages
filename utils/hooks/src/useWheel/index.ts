@@ -3,6 +3,7 @@
  * Deal with it.
  */
 
+import { useConstant } from "../useConstant"
 import type { UseWheelCallback } from "./types"
 import { WheelGesture } from "./wheelGesture"
 import * as React from "react"
@@ -11,7 +12,7 @@ type UseRecognizerHandlerType = [gesture: WheelGesture, callback: UseWheelCallba
 
 export function useWheel<T extends HTMLElement>(callback: UseWheelCallback) {
   const ref = React.useRef<T | null>(null)
-  const gesture = React.useRef(new WheelGesture()).current
+  const gesture = useConstant(() => new WheelGesture())
   const handler: UseRecognizerHandlerType = [gesture, callback]
 
   // re-initiate callback on change
