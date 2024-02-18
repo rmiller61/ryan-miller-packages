@@ -25,7 +25,5 @@ export function useWheel<T extends HTMLElement = any>(callback: UseWheelCallback
     }
   }, [wheelGesture, callback])
 
-  return () => {
-    return { ref }
-  }
+  return ref
 }

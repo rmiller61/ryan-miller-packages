@@ -62,12 +62,12 @@ const AnimatedBlock = makeAnimatedComponent("div")
 const WheelDemo = () => {
   const left = useAnimatedValue(0)
 
-  const bind = useWheel(function ({ movementX, isActive }) {
+  const ref = useWheel(function ({ movementX, isActive }) {
     left.value = isActive ? movementX : 0
   })
   return (
     <AnimatedBlock
-      {...bind()} // bind here
+      ref={ref}
       style={{
         width: 100,
         height: 100,

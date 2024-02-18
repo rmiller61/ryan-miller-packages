@@ -7,13 +7,13 @@ import * as React from "react"
 
 const WheelDemo = () => {
   const [left, setLeft] = React.useState(0)
-  const bind = useWheel(function (params) {
+  const ref = useWheel(function (params) {
     //console.log(params)
     setLeft(params.movementX)
   })
   return (
     <div
-      {...bind()} // bind here
+      ref={ref}
       data-testid={"block"}
       style={{
         width: 100,
