@@ -14,7 +14,7 @@ export function useWheel<T extends HTMLElement = any>(callback: UseWheelCallback
 
   // re-initiate callback on change
   React.useEffect(() => {
-    wheelGesture.applyCallback(callback)
+    //wheelGesture.applyCallback(callback)
     const unsubscribe = wheelGesture.applyGesture({
       targetElement: ref.current,
       callback,

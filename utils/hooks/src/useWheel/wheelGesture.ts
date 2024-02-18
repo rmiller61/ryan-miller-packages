@@ -72,11 +72,6 @@ export class WheelGesture {
     }
   }
 
-  // re-apply new callback
-  applyCallback(callback: UseWheelCallback) {
-    this.callback = callback
-  }
-
   // apply gesture
   applyGesture({
     targetElement,
