@@ -1,32 +1,17 @@
 import type { Vector2, UseWheelCallback, WheelEventType } from "./types"
 import { clamp } from "@social-hustle/utils-numbers"
+import type { MotionValue } from "framer-motion";
+import { motionValue } from "framer-motion"
 
 const LINE_HEIGHT = 40
 const PAGE_HEIGHT = 800
-
-type DomTargetTypes = Array<Window | Document | HTMLElement>
-
-/**
- * Attach single document / window event / HTMLElement
- */
-function attachEvent(domTargets: DomTargetTypes, callback: (e: WheelEvent) => void) {
-  domTargets.forEach((target) => {
-    target.addEventListener("wheel", callback)
-  })
-
-  return function () {
-    domTargets.forEach((target) => {
-      target.removeEventListener("wheel", callback)
-    })
-  }
-}
 
 export class WheelGesture {
   lastTimeStamp: number = Date.now()
   isActive: boolean = false
   targetElement?: HTMLElement | null
   callback?: (event: WheelEventType) => void
-  _subscribe?: (eventKeys?: Array<string>) => void
+  subscribe?: (eventKeys?: Array<string>) => void
   static _VELOCITY_LIMIT: number = 20
 
   isActiveID?: number | NodeJS.Timeout
@@ -35,20 +20,30 @@ export class WheelGesture {
   direction: Vector2 = { x: 0, y: 0 }
   velocity: Vector2 = { x: 0, y: 0 }
   delta: Vector2 = { x: 0, y: 0 }
+  motionVector: {
+    x: MotionValue<number>
+    y: MotionValue<number>
+  } = {
+    x: motionValue(0),
+    y: motionValue(0),
+  }
 
   // Holds offsets
   offset: Vector2 = { x: 0, y: 0 }
   translation: Vector2 = { x: 0, y: 0 }
 
-  // @override
   // initialize the events
-  _initEvents() {
+  initEvents() {
     if (this.targetElement) {
-      this._subscribe = attachEvent([this.targetElement], this.onWheel.bind(this))
+      const callback = this.onWheel.bind(this)
+      this.targetElement.addEventListener("wheel", callback)
+      return function () {
+        this.targetElement.removeEventListener("wheel", callback)
+      }
     }
   }
 
-  _handleCallback() {
+  handleCallback() {
     if (this.callback) {
       this.callback({
         target: this.targetElement,
@@ -64,15 +59,6 @@ export class WheelGesture {
         velocityX: this.velocity.x,
         velocityY: this.velocity.y,
       })
-    }
-  }
-
-  // cancel events
-  // we only canceled down and move events because mouse up
-  // will not be triggered
-  _cancelEvents() {
-    if (this._subscribe) {
-      this._subscribe()
     }
   }
 
@@ -93,10 +79,10 @@ export class WheelGesture {
     this.callback = callback
 
     // initialize events
-    this._initEvents()
+    this.initEvents()
 
     // unbind
-    return () => this._subscribe && this._subscribe()
+    return () => this.subscribe && this.subscribe()
   }
 
   onWheel(event: WheelEvent) {
@@ -117,7 +103,7 @@ export class WheelGesture {
     this.isActiveID = setTimeout(() => {
       this.isActive = false
       this.translation = { x: this.offset.x, y: this.offset.y }
-      this._handleCallback()
+      this.handleCallback()
 
       this.velocity = { x: 0, y: 0 } // Reset Velocity
       this.movement = { x: 0, y: 0 }
@@ -160,6 +146,6 @@ export class WheelGesture {
       y: this.movement.y,
     }
 
-    this._handleCallback()
+    this.handleCallback()
   }
 }
