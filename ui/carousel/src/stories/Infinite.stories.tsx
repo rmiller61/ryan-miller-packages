@@ -29,7 +29,7 @@ const args = {
   children: images.map((src, index) => (
     <div
       key={index}
-      className="flex h-full w-full items-center justify-center border border-white bg-black text-2xl text-white"
+      className="flex h-[400px] w-full items-center justify-center border border-white bg-black text-2xl text-white"
     >
       {index}
     </div>

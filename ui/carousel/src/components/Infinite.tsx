@@ -308,10 +308,12 @@ export const InfiniteCarousel = ({
         style={
           {
             "--carousel-height": carouselHeight,
+            "--item-width": `${width / visibleItemsNumber}px`,
           } as CSSProperties
         }
         className={cn(
-          "h-[var(--carousel-height)] w-full overflow-hidden",
+          //"h-[var(--carousel-height)]",
+          "w-full overflow-hidden",
           !isDisabled && "data-[dragging=false]:cursor-grab data-[dragging=true]:cursor-grabbing",
           wrapperClassName
         )}
@@ -319,7 +321,10 @@ export const InfiniteCarousel = ({
         <motion.div
           {...dragProps}
           ref={ref}
-          className={cn("relative h-full w-full", className)}
+          className={cn(
+            "relative flex h-full w-full flex-nowrap items-stretch justify-start",
+            className
+          )}
           draggable={!isDisabled}
           drag={isDisabled ? false : "x"}
           dragElastic={0}
@@ -330,7 +335,7 @@ export const InfiniteCarousel = ({
           }}
           dragConstraints={calculateDragConstraints()}
         >
-          <Virtualizer
+          {/**<Virtualizer
             index={page}
             range={offsetVisualRangeWithDuplicates}
             itemProps={{
@@ -344,7 +349,17 @@ export const InfiniteCarousel = ({
               //console.log(childrenArray[imageIndex])
               return <>{childrenArray[imageIndex]}</>
             }}
-          </Virtualizer>
+          </Virtualizer>**/}
+          {childrenArray.map((child, index) => {
+            return (
+              <div
+                className={cn("w-[var(--item-width)] shrink-0", itemClassName)}
+                key={index}
+              >
+                {child}
+              </div>
+            )
+          })}
         </motion.div>
       </div>
       {renderAfter && renderAfter(renderProps)}
