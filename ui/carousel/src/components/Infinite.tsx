@@ -4,11 +4,11 @@ import { swipePower } from "../common/utils"
 import { arrayFromNumber } from "@social-hustle/utils-arrays"
 import cn from "@social-hustle/utils-classnames"
 import { useDimensions } from "@social-hustle/utils-hooks"
-import { getMin, getMax, clamp } from "@social-hustle/utils-numbers"
+import { getMin, getMax, clamp, wrap } from "@social-hustle/utils-numbers"
 import type { PanInfo } from "framer-motion"
-import { animate, motion, useMotionValue } from "framer-motion"
+import { animate, motion, useMotionValue, useMotionValueEvent } from "framer-motion"
 import { Children, useEffect, useMemo, type CSSProperties, useReducer } from "react"
-import { useWindowSize } from "react-use"
+import { useWindowSize, usePrevious } from "react-use"
 import { useDebouncedCallback } from "use-debounce"
 
 const getCurrentBreakpoint = (arr: number[], windowWidth: number) => {
@@ -76,19 +76,7 @@ const CarouselItem = ({ index, renderPage, width, className }: CarouselItemProps
   return (
     <div
       className={className}
-      style={{
-        position: "absolute",
-        width: `${itemWidth}%`,
-        height: "100%",
-        //x,
-        // Offset each item to center the carousel
-        left: `${(index + 1) * itemWidth}%`,
-        //right: `${index * 100}%`,
-      }}
-      //draggable
-      //drag="x"
-      //dragElastic={0}
-      //onDragEnd={onDragEnd}
+      data-index={index}
     >
       {child}
     </div>
@@ -125,7 +113,9 @@ const Virtualizer = ({
 export interface InfiniteCarouselProps extends CarouselProps<RenderPropProps> {
   /** Number of items that should be shown within the carousel bounds */
   visibleItems?: VisibleItems
-  /** Px value that needs to be exceeded to swipe */
+  /** Px value that needs to be exceeded to swipe.
+   * TODO: Why is the default value 10000?
+   */
   swipePowerThreshold?: number
   /** Integer between 0 and 1 denoting how much the drag offset has to satisfy the moveByPx value for a swipe to occur
    * E.g. given a moveByPx of 500 and a swipeThreshold of 0.5, the drag offset has to be >= 250px to trigger a swipe
@@ -180,7 +170,6 @@ export const InfiniteCarousel = ({
   draggable = true,
   startAt = 0,
 }: InfiniteCarouselProps) => {
-  const x = useMotionValue(0)
   const childrenArray = Children.toArray(children)
   const childCount = Children.count(children)
 
@@ -207,9 +196,6 @@ export const InfiniteCarousel = ({
       page: startAt,
     }
   )
-
-  const setDragging = (dragging: boolean) => dispatch({ type: "SET_DRAGGING", dragging })
-  const setPage = (page: number) => dispatch({ type: "SET_PAGE", page })
 
   //console.log(page)
 
@@ -249,28 +235,48 @@ export const InfiniteCarousel = ({
     return val
   }
 
+  const itemWidth = width / visibleItemsNumber
+
+  const x = useMotionValue(0)
+
+  const setDragging = (dragging: boolean) => dispatch({ type: "SET_DRAGGING", dragging })
+
+  const setPage = (page: number) => dispatch({ type: "SET_PAGE", page })
+
   const calculateDragConstraints = () => {
     const left = (page + moveBy) * -moveByPx
     const right = (page - moveBy) * -moveByPx
     return { left, right }
   }
 
+  /**
+   * The threshold in pixels that needs to be exceeded to trigger a `swipe`, which will move the carousel to the next page.
+   * This is calculated by multiplying the `moveByPx` value by the `swipeThreshold` prop.
+   * E.g. if `moveByPx` is 500 and `swipeThreshold` is 0.5, the `swipePxThreshold` will be 250.
+   * This means that the user has to drag the carousel by >= 250px to trigger a swipe.
+   */
+  const swipePxThreshold = moveByPx * clamp(swipeThreshold, [0, 1])
+
   const handleEndDrag = useDebouncedCallback(
     (e: Event, dragProps: PanInfo) => {
       const { offset, velocity } = dragProps
       const swipe = swipePower(offset.x, velocity.x)
-
-      const swipePxThreshold = moveByPx * clamp(swipeThreshold, [0, 1])
+      //console.log({ swipe, offsetX: offset.x, velocityX: velocity.x, swipePowerThreshold })
 
       setDragging(false)
 
       // If dragging RTL
       if (offset.x < -swipePxThreshold || swipe < -swipePowerThreshold) {
+        console.log("RTL")
         setPage(page + moveBy)
+
         // If dragging LTR
       } else if (offset.x > swipePxThreshold || swipe > swipePowerThreshold) {
+        console.log("LTR")
         setPage(page - moveBy)
       } else {
+        console.log("No swipe")
+        // If the user didn't drag far enough to trigger a swipe, animate the carousel back to original position
         void animate(x, calculateNewX())
       }
     },
@@ -281,6 +287,10 @@ export const InfiniteCarousel = ({
   )
 
   useEffect(() => {
+    /**
+     * When `page` changes, animate the carousel to the new position.
+     * This ensures that the carousel will snap to the new position and not get "stuck" between two pages.
+     */
     const controls = animate(x, calculateNewX())
     return () => {
       controls.stop()
@@ -294,7 +304,6 @@ export const InfiniteCarousel = ({
     setPage,
     page,
   }
-  const carouselHeight = typeof height === "number" ? `${height}px` : height
 
   return (
     <CarouselContextProvider
@@ -307,8 +316,8 @@ export const InfiniteCarousel = ({
         data-dragging={dragging}
         style={
           {
-            "--carousel-height": carouselHeight,
-            "--item-width": `${width / visibleItemsNumber}px`,
+            //"--carousel-height": carouselHeight,
+            "--item-width": `${itemWidth}px`,
           } as CSSProperties
         }
         className={cn(
@@ -321,6 +330,7 @@ export const InfiniteCarousel = ({
         <motion.div
           {...dragProps}
           ref={ref}
+          dragDirectionLock
           className={cn(
             "relative flex h-full w-full flex-nowrap items-stretch justify-start",
             className
@@ -335,11 +345,11 @@ export const InfiniteCarousel = ({
           }}
           dragConstraints={calculateDragConstraints()}
         >
-          {/**<Virtualizer
+          <Virtualizer
             index={page}
             range={offsetVisualRangeWithDuplicates}
             itemProps={{
-              className: itemClassName,
+              className: cn("w-[var(--item-width)] shrink-0", itemClassName),
               width: 100 / visibleItemsNumber,
             }}
           >
@@ -349,8 +359,8 @@ export const InfiniteCarousel = ({
               //console.log(childrenArray[imageIndex])
               return <>{childrenArray[imageIndex]}</>
             }}
-          </Virtualizer>**/}
-          {childrenArray.map((child, index) => {
+          </Virtualizer>
+          {/**childrenArray.map((child, index) => {
             return (
               <div
                 className={cn("w-[var(--item-width)] shrink-0", itemClassName)}
@@ -359,7 +369,7 @@ export const InfiniteCarousel = ({
                 {child}
               </div>
             )
-          })}
+          })**/}
         </motion.div>
       </div>
       {renderAfter && renderAfter(renderProps)}
