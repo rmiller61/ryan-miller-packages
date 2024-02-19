@@ -186,6 +186,7 @@ export const InfiniteCarousel = ({
           return {
             ...state,
             page: action.page,
+            //dragging: false,
           }
         default:
           return state
@@ -207,9 +208,28 @@ export const InfiniteCarousel = ({
 
   // Note: these are offset by 1 to account for the fact that the first index will be 0
 
-  const prepend = arrayFromNumber(moveBy).map((i) => getMin(visualRange) - i - 1)
+  /**const prepend = arrayFromNumber(moveBy).map((i) => getMin(visualRange) - i - 1)
 
-  const append = arrayFromNumber(moveBy).map((i) => getMax(visualRange) + i + 1)
+  const append = arrayFromNumber(moveBy).map((i) => getMax(visualRange) + i + 1)**/
+
+  const prepend = arrayFromNumber(visibleItemsNumber).map((i) => 0 - i - 1)
+
+  const append = arrayFromNumber(visibleItemsNumber).map((i) => childCount + i)
+
+  const prependedItems = prepend.reverse().map((i) => {
+    const modulo = wrap(i, [0, childCount])
+    //console.log(`Prepend index: ${modulo}`)
+    return childrenArray[modulo]
+  })
+
+  const appendedItems = append.map((i) => {
+    const modulo = wrap(i, [0, childCount])
+    //console.log(`Append index: ${modulo}`)
+    return childrenArray[modulo]
+  })
+
+  //const isLooped =
+  //console.log({ page })
 
   /**
    * Append/prepend items outside the visual range of the carousel
@@ -230,10 +250,10 @@ export const InfiniteCarousel = ({
   /** Pixel value to translate the carousel */
   const moveByPx = width / visibleItemsNumber
 
-  const calculateNewX = () => {
+  /**const calculateNewX = () => {
     const val = -page * moveByPx
     return val
-  }
+  }**/
 
   const itemWidth = width / visibleItemsNumber
 
@@ -241,7 +261,27 @@ export const InfiniteCarousel = ({
 
   const setDragging = (dragging: boolean) => dispatch({ type: "SET_DRAGGING", dragging })
 
-  const setPage = (page: number) => dispatch({ type: "SET_PAGE", page })
+  const min = -visibleItemsNumber
+  const max = childCount
+
+  const setPage = (page: number) => {
+    console.log({ page })
+    dispatch({ type: "SET_PAGE", page })
+    const animateTo = -page * moveByPx
+    void animate(x, animateTo).then(() => {
+      if (page === max) {
+        console.log("Loop should restart")
+        x.set(0)
+        dispatch({ type: "SET_PAGE", page: 0 })
+      }
+      if (page === min) {
+        const resetToPage = childCount - visibleItemsNumber
+        console.log(`Loop should restart at ${-resetToPage * moveByPx}`)
+        x.set(-resetToPage * moveByPx)
+        dispatch({ type: "SET_PAGE", page: resetToPage })
+      }
+    })
+  }
 
   const calculateDragConstraints = () => {
     const left = (page + moveBy) * -moveByPx
@@ -277,7 +317,8 @@ export const InfiniteCarousel = ({
       } else {
         console.log("No swipe")
         // If the user didn't drag far enough to trigger a swipe, animate the carousel back to original position
-        void animate(x, calculateNewX())
+        const animateTo = -page * moveByPx
+        void animate(x, animateTo)
       }
     },
     debounceBy,
@@ -286,17 +327,35 @@ export const InfiniteCarousel = ({
     }
   )
 
-  useEffect(() => {
-    /**
-     * When `page` changes, animate the carousel to the new position.
-     * This ensures that the carousel will snap to the new position and not get "stuck" between two pages.
-     */
-    const controls = animate(x, calculateNewX())
+  const wrappedPage = wrap(page, [0, childCount])
+
+  //console.log({ shouldRestartLoop, page })
+
+  const handleDragStart = () => {
+    setDragging(true)
+    /**if (shouldRestartLoop) {
+      dispatch({ type: "SET_PAGE", page: 0 })
+    }**/
+    //x.set(0)
+    //const xReset =
+    //const wrappedPage = wrap(page, [0, childCount])
+    //x.set(calculateNewX())
+    //console.log({ wrappedPage })
+  }
+
+  const shiftItemsBy = -width
+
+  //useEffect(() => {
+  /**
+   * When `page` changes, animate the carousel to the new position.
+   * This ensures that the carousel will snap to the new position and not get "stuck" between two pages.
+   */
+  /**const controls = animate(x, calculateNewX())
     return () => {
       controls.stop()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, width])
+    }**/
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  //}, [page, width])
 
   const isDisabled = childCount < visibleItemsNumber || !draggable
 
@@ -304,6 +363,14 @@ export const InfiniteCarousel = ({
     setPage,
     page,
   }
+
+  /**useMotionValueEvent(x, "animationComplete", () => {
+    console.log("Animation complete")
+  })
+
+  useMotionValueEvent(x, "change", (latestX) => {
+    console.log("Change", latestX)
+  })**/
 
   return (
     <CarouselContextProvider
@@ -339,13 +406,13 @@ export const InfiniteCarousel = ({
           drag={isDisabled ? false : "x"}
           dragElastic={0}
           onDragEnd={handleEndDrag}
-          onDragStart={() => setDragging(true)}
+          onDragStart={handleDragStart}
           style={{
             x,
           }}
           dragConstraints={calculateDragConstraints()}
         >
-          <Virtualizer
+          {/**<Virtualizer
             index={page}
             range={offsetVisualRangeWithDuplicates}
             itemProps={{
@@ -359,17 +426,49 @@ export const InfiniteCarousel = ({
               //console.log(childrenArray[imageIndex])
               return <>{childrenArray[imageIndex]}</>
             }}
-          </Virtualizer>
-          {/**childrenArray.map((child, index) => {
+          </Virtualizer> */}
+          {prependedItems.map((child, index) => {
             return (
               <div
+                //data-index={index}
                 className={cn("w-[var(--item-width)] shrink-0", itemClassName)}
                 key={index}
+                style={{
+                  transform: `translateX(${shiftItemsBy}px)`,
+                }}
               >
                 {child}
               </div>
             )
-          })**/}
+          })}
+          {childrenArray.map((child, index) => {
+            return (
+              <div
+                data-index={index}
+                className={cn("w-[var(--item-width)] shrink-0", itemClassName)}
+                key={index}
+                style={{
+                  transform: `translateX(${shiftItemsBy}px)`,
+                }}
+              >
+                {child}
+              </div>
+            )
+          })}
+          {appendedItems.map((child, index) => {
+            return (
+              <div
+                //data-index={index}
+                className={cn("w-[var(--item-width)] shrink-0", itemClassName)}
+                key={index}
+                style={{
+                  transform: `translateX(${shiftItemsBy}px)`,
+                }}
+              >
+                {child}
+              </div>
+            )
+          })}
         </motion.div>
       </div>
       {renderAfter && renderAfter(renderProps)}
