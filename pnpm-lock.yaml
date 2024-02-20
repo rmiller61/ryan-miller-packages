@@ -436,11 +436,8 @@ importers:
         specifier: ^1.2.1
         version: link:../../utils/numbers
       framer-motion:
-        specifier: 10.16.15
-        version: 10.16.15(react-dom@18.2.0)(react@18.2.0)
-      isomorphic-fetch:
-        specifier: 3.0.0
-        version: 3.0.0
+        specifier: 11.0.5
+        version: 11.0.5(react-dom@18.2.0)(react@18.2.0)
       react:
         specifier: 18.2.0
         version: 18.2.0
@@ -4516,6 +4513,7 @@ packages:
     dependencies:
       is-glob: 4.0.3
       micromatch: 4.0.5
+      napi-wasm: 1.1.0
     dev: true
     bundledDependencies:
       - napi-wasm
@@ -15098,27 +15096,6 @@ packages:
       }
     dev: true
 
-  /framer-motion@10.16.15(react-dom@18.2.0)(react@18.2.0):
-    resolution:
-      {
-        integrity: sha512-BapW1EKc/Sgph1rKEwL9bFt2B79z7bu7jN4Up1jGUaTE78WBsVO+6eCmoUZsQH0hHtRUDnnTqjjBbM7dk9Kp8A==,
-      }
-    peerDependencies:
-      react: ^18.0.0
-      react-dom: ^18.0.0
-    peerDependenciesMeta:
-      react:
-        optional: true
-      react-dom:
-        optional: true
-    dependencies:
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-      tslib: 2.6.2
-    optionalDependencies:
-      "@emotion/is-prop-valid": 0.8.8
-    dev: true
-
   /framer-motion@11.0.5(react-dom@18.2.0)(react@18.2.0):
     resolution:
       {
@@ -18929,6 +18906,13 @@ packages:
       {
         integrity: sha512-ONmRUqK7zj7DWX0D9ADe03wbwOBZxNAfF20PlGfCWQcD3+/MakShIHrMqx9YwPTfxDdF1zLeL+RGZiR9kGMLdg==,
       }
+
+  /napi-wasm@1.1.0:
+    resolution:
+      {
+        integrity: sha512-lHwIAJbmLSjF9VDRm9GoVOy9AGp3aIvkjv+Kvz9h16QR3uSVYH78PNQUnT2U4X53mhlnV2M7wrhibQ3GHicDmg==,
+      }
+    dev: true
 
   /natural-compare-lite@1.4.0:
     resolution:
