@@ -36,7 +36,6 @@ const args = {
   )),
   moveBy: 1,
   visibleItems,
-  height: `33vw`,
 }
 
 export const Default: Story = {

@@ -55,61 +55,6 @@ interface RenderPropProps {
   setPage: (page: number) => void
   page: number
 }
-
-interface CarouselItemComponentProps {
-  /** Width of the carousel item as a percentage */
-  width: number
-  className?: string
-}
-
-interface CarouselItemProps extends CarouselItemComponentProps {
-  index: number
-  renderPage: (props: { index: number }) => JSX.Element
-}
-
-const CarouselItem = ({ index, renderPage, width, className }: CarouselItemProps) => {
-  const child = useMemo(() => renderPage({ index }), [index, renderPage])
-
-  // Ensure width will be a valid percentage
-  const itemWidth = clamp(width, [1, 100])
-
-  return (
-    <div
-      className={className}
-      data-index={index}
-    >
-      {child}
-    </div>
-  )
-}
-
-const Virtualizer = ({
-  range,
-  children,
-  index,
-  itemProps,
-}: {
-  children: (props: { index: number }) => JSX.Element
-  index: number
-  range: number[]
-  itemProps: CarouselItemComponentProps
-}) => {
-  return (
-    <>
-      {range.map((rangeValue) => {
-        return (
-          <CarouselItem
-            {...itemProps}
-            key={rangeValue + index}
-            index={rangeValue + index}
-            renderPage={children}
-          />
-        )
-      })}
-    </>
-  )
-}
-
 export interface InfiniteCarouselProps extends CarouselProps<RenderPropProps> {
   /** Number of items that should be shown within the carousel bounds */
   visibleItems?: VisibleItems
@@ -126,8 +71,6 @@ export interface InfiniteCarouselProps extends CarouselProps<RenderPropProps> {
    * @default 1
    */
   moveBy?: number
-  /** The height of the carousel. This is required because each carousel item is absolutely positioned. */
-  height: number | string
   /** Value to debounce the drag transition by.
    * E.g. if debounceBy is 200, the carousel will debounce the drag transition by 200ms.
    * NOTE: this is only used when dragging the carousel, not when controlling the carousel via the setPage function.
@@ -164,7 +107,6 @@ export const InfiniteCarousel = ({
   moveBy = 1,
   renderAfter,
   renderBefore,
-  height,
   dragProps,
   debounceBy = 200,
   draggable = true,
@@ -198,64 +140,29 @@ export const InfiniteCarousel = ({
     }
   )
 
-  //console.log(page)
-
-  /**
-   * Create a range of numbers from -visibleItems/2 to visibleItems/2
-   * Create an array created from the # of children provided
-   */
-  const visualRange = arrayFromNumber(visibleItemsNumber)
-
-  // Note: these are offset by 1 to account for the fact that the first index will be 0
-
-  /**const prepend = arrayFromNumber(moveBy).map((i) => getMin(visualRange) - i - 1)
-
-  const append = arrayFromNumber(moveBy).map((i) => getMax(visualRange) + i + 1)**/
-
   const prepend = arrayFromNumber(visibleItemsNumber).map((i) => 0 - i - 1)
 
   const append = arrayFromNumber(visibleItemsNumber).map((i) => childCount + i)
 
-  const prependedItems = prepend.reverse().map((i) => {
-    const modulo = wrap(i, [0, childCount])
-    //console.log(`Prepend index: ${modulo}`)
-    return childrenArray[modulo]
-  })
+  const loopedChildren = useMemo(() => {
+    const prependedItems = prepend.reverse().map((i) => {
+      const modulo = wrap(i, [0, childCount])
+      return childrenArray[modulo]
+    })
+    const appendedItems = append.map((i) => {
+      const modulo = wrap(i, [0, childCount])
+      return childrenArray[modulo]
+    })
 
-  const appendedItems = append.map((i) => {
-    const modulo = wrap(i, [0, childCount])
-    //console.log(`Append index: ${modulo}`)
-    return childrenArray[modulo]
-  })
-
-  //const isLooped =
-  //console.log({ page })
-
-  /**
-   * Append/prepend items outside the visual range of the carousel
-   * to create a smooth transition when dragging.
-   */
-  const visualRangeWithDuplicates = [...visualRange, ...prepend, ...append].sort((a, b) => a - b)
-
-  /**
-   * Offset the visual range by half the number of visible items
-   * to center the carousel
-   */
-  const offsetVisualRangeWithDuplicates = visualRangeWithDuplicates.map(
-    (i) => i - Math.floor(visibleItemsNumber / 2)
-  )
+    return [...prependedItems, ...childrenArray, ...appendedItems]
+  }, [childrenArray])
 
   const [ref, { width }] = useDimensions<HTMLDivElement>()
 
-  /** Pixel value to translate the carousel */
-  const moveByPx = width / visibleItemsNumber
-
-  /**const calculateNewX = () => {
-    const val = -page * moveByPx
-    return val
-  }**/
-
   const itemWidth = width / visibleItemsNumber
+
+  /** Pixel value to translate the carousel */
+  const moveByPx = itemWidth * moveBy
 
   const x = useMotionValue(0)
 
@@ -265,18 +172,15 @@ export const InfiniteCarousel = ({
   const max = childCount
 
   const setPage = (page: number) => {
-    console.log({ page })
     dispatch({ type: "SET_PAGE", page })
     const animateTo = -page * moveByPx
     void animate(x, animateTo).then(() => {
       if (page === max) {
-        console.log("Loop should restart")
         x.set(0)
         dispatch({ type: "SET_PAGE", page: 0 })
       }
       if (page === min) {
         const resetToPage = childCount - visibleItemsNumber
-        console.log(`Loop should restart at ${-resetToPage * moveByPx}`)
         x.set(-resetToPage * moveByPx)
         dispatch({ type: "SET_PAGE", page: resetToPage })
       }
@@ -301,21 +205,17 @@ export const InfiniteCarousel = ({
     (e: Event, dragProps: PanInfo) => {
       const { offset, velocity } = dragProps
       const swipe = swipePower(offset.x, velocity.x)
-      //console.log({ swipe, offsetX: offset.x, velocityX: velocity.x, swipePowerThreshold })
 
       setDragging(false)
 
       // If dragging RTL
       if (offset.x < -swipePxThreshold || swipe < -swipePowerThreshold) {
-        console.log("RTL")
         setPage(page + moveBy)
 
         // If dragging LTR
       } else if (offset.x > swipePxThreshold || swipe > swipePowerThreshold) {
-        console.log("LTR")
         setPage(page - moveBy)
       } else {
-        console.log("No swipe")
         // If the user didn't drag far enough to trigger a swipe, animate the carousel back to original position
         const animateTo = -page * moveByPx
         void animate(x, animateTo)
@@ -327,35 +227,11 @@ export const InfiniteCarousel = ({
     }
   )
 
-  const wrappedPage = wrap(page, [0, childCount])
-
-  //console.log({ shouldRestartLoop, page })
-
   const handleDragStart = () => {
     setDragging(true)
-    /**if (shouldRestartLoop) {
-      dispatch({ type: "SET_PAGE", page: 0 })
-    }**/
-    //x.set(0)
-    //const xReset =
-    //const wrappedPage = wrap(page, [0, childCount])
-    //x.set(calculateNewX())
-    //console.log({ wrappedPage })
   }
 
-  const shiftItemsBy = -width
-
-  //useEffect(() => {
-  /**
-   * When `page` changes, animate the carousel to the new position.
-   * This ensures that the carousel will snap to the new position and not get "stuck" between two pages.
-   */
-  /**const controls = animate(x, calculateNewX())
-    return () => {
-      controls.stop()
-    }**/
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  //}, [page, width])
+  const shiftItemsBy = -itemWidth * prepend.length
 
   const isDisabled = childCount < visibleItemsNumber || !draggable
 
@@ -363,14 +239,6 @@ export const InfiniteCarousel = ({
     setPage,
     page,
   }
-
-  /**useMotionValueEvent(x, "animationComplete", () => {
-    console.log("Animation complete")
-  })
-
-  useMotionValueEvent(x, "change", (latestX) => {
-    console.log("Change", latestX)
-  })**/
 
   return (
     <CarouselContextProvider
@@ -383,12 +251,11 @@ export const InfiniteCarousel = ({
         data-dragging={dragging}
         style={
           {
-            //"--carousel-height": carouselHeight,
             "--item-width": `${itemWidth}px`,
+            "--item-shift": `${shiftItemsBy}px`,
           } as CSSProperties
         }
         className={cn(
-          //"h-[var(--carousel-height)]",
           "w-full overflow-hidden",
           !isDisabled && "data-[dragging=false]:cursor-grab data-[dragging=true]:cursor-grabbing",
           wrapperClassName
@@ -412,58 +279,15 @@ export const InfiniteCarousel = ({
           }}
           dragConstraints={calculateDragConstraints()}
         >
-          {/**<Virtualizer
-            index={page}
-            range={offsetVisualRangeWithDuplicates}
-            itemProps={{
-              className: cn("w-[var(--item-width)] shrink-0", itemClassName),
-              width: 100 / visibleItemsNumber,
-            }}
-          >
-            {({ index }) => {
-              const modulo = index % childCount
-              const imageIndex = modulo < 0 ? childCount + modulo : modulo
-              //console.log(childrenArray[imageIndex])
-              return <>{childrenArray[imageIndex]}</>
-            }}
-          </Virtualizer> */}
-          {prependedItems.map((child, index) => {
-            return (
-              <div
-                //data-index={index}
-                className={cn("w-[var(--item-width)] shrink-0", itemClassName)}
-                key={index}
-                style={{
-                  transform: `translateX(${shiftItemsBy}px)`,
-                }}
-              >
-                {child}
-              </div>
-            )
-          })}
-          {childrenArray.map((child, index) => {
+          {loopedChildren.map((child, index) => {
             return (
               <div
                 data-index={index}
-                className={cn("w-[var(--item-width)] shrink-0", itemClassName)}
+                className={cn(
+                  "w-[var(--item-width)] shrink-0 translate-x-[var(--item-shift)]",
+                  itemClassName
+                )}
                 key={index}
-                style={{
-                  transform: `translateX(${shiftItemsBy}px)`,
-                }}
-              >
-                {child}
-              </div>
-            )
-          })}
-          {appendedItems.map((child, index) => {
-            return (
-              <div
-                //data-index={index}
-                className={cn("w-[var(--item-width)] shrink-0", itemClassName)}
-                key={index}
-                style={{
-                  transform: `translateX(${shiftItemsBy}px)`,
-                }}
               >
                 {child}
               </div>
