@@ -1,6 +1,6 @@
 {
   "name": "@social-hustle/ui-carousel",
-  "version": "6.0.0",
+  "version": "6.1.0",
   "description": "Customizable, reusable & headless Framer Motion components for creating carousels",
   "exports": {
     "./grid": {

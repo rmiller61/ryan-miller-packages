@@ -1,5 +1,11 @@
 # @social-hustle/ui-carousel
 
+## 6.1.0
+
+### Minor Changes
+
+- non-absolute infinite carousel
+
 ## 6.0.0
 
 ### Patch Changes
