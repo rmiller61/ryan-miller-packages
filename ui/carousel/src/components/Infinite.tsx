@@ -145,16 +145,23 @@ export const InfiniteCarousel = ({
   const append = arrayFromNumber(visibleItemsNumber).map((i) => childCount + i)
 
   const loopedChildren = useMemo(() => {
-    const prependedItems = prepend.reverse().map((i) => {
-      const modulo = wrap(i, [0, childCount])
-      return childrenArray[modulo]
-    })
-    const appendedItems = append.map((i) => {
-      const modulo = wrap(i, [0, childCount])
-      return childrenArray[modulo]
+    const childMap = new Map<number, React.ReactNode>()
+
+    childrenArray.forEach((child, index) => {
+      childMap.set(index, child)
     })
 
-    return [...prependedItems, ...childrenArray, ...appendedItems]
+    prepend.reverse().forEach((i) => {
+      const modulo = wrap(i, [0, childCount])
+      childMap.set(i, childrenArray[modulo])
+    })
+
+    append.forEach((i) => {
+      const modulo = wrap(i, [0, childCount])
+      childMap.set(i, childrenArray[modulo])
+    })
+
+    return Array.from(childMap).sort((a, b) => a[0] - b[0])
   }, [childrenArray])
 
   const [ref, { width }] = useDimensions<HTMLDivElement>()
@@ -279,10 +286,10 @@ export const InfiniteCarousel = ({
           }}
           dragConstraints={calculateDragConstraints()}
         >
-          {loopedChildren.map((child, index) => {
+          {loopedChildren.map(([i, child], index) => {
             return (
               <div
-                data-index={index}
+                data-index={i}
                 className={cn("w-[var(--item-width)] shrink-0", itemClassName)}
                 key={index}
               >
