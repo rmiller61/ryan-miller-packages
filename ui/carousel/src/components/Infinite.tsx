@@ -179,14 +179,17 @@ export const InfiniteCarousel = ({
   const max = childCount
 
   const setPage = (page: number) => {
+    console.log({ page })
     dispatch({ type: "SET_PAGE", page })
     const animateTo = -page * moveByPx
     void animate(x, animateTo).then(() => {
       if (page === max) {
+        console.log("max")
         x.set(0)
         dispatch({ type: "SET_PAGE", page: 0 })
       }
       if (page === min) {
+        console.log("min")
         const resetToPage = childCount - visibleItemsNumber
         x.set(-resetToPage * moveByPx)
         dispatch({ type: "SET_PAGE", page: resetToPage })
@@ -246,6 +249,13 @@ export const InfiniteCarousel = ({
     setPage,
     page,
   }
+
+  /**
+   * If width changes, reset the page to the startAt value.
+   */
+  useEffect(() => {
+    setPage(startAt)
+  }, [startAt, width])
 
   return (
     <CarouselContextProvider
