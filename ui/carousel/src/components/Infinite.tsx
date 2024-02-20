@@ -266,7 +266,7 @@ export const InfiniteCarousel = ({
           ref={ref}
           dragDirectionLock
           className={cn(
-            "relative flex h-full w-full flex-nowrap items-stretch justify-start",
+            "relative left-[var(--item-shift)] flex h-full w-full flex-nowrap items-stretch justify-start",
             className
           )}
           draggable={!isDisabled}
@@ -283,10 +283,7 @@ export const InfiniteCarousel = ({
             return (
               <div
                 data-index={index}
-                className={cn(
-                  "w-[var(--item-width)] shrink-0 translate-x-[var(--item-shift)]",
-                  itemClassName
-                )}
+                className={cn("w-[var(--item-width)] shrink-0", itemClassName)}
                 key={index}
               >
                 {child}
