@@ -42,6 +42,13 @@ export const Default: Story = {
   args,
 }
 
+export const Centered: Story = {
+  args: {
+    ...args,
+    centered: true,
+  },
+}
+
 export const WithControls: Story = {
   args: {
     ...args,

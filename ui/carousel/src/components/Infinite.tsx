@@ -56,6 +56,10 @@ interface RenderPropProps {
   page: number
 }
 export interface InfiniteCarouselProps extends CarouselProps<RenderPropProps> {
+  /**
+   * Whether the carousel should be centered
+   */
+  centered?: boolean
   /** Number of items that should be shown within the carousel bounds */
   visibleItems?: VisibleItems
   /** Px value that needs to be exceeded to swipe.
@@ -111,11 +115,22 @@ export const InfiniteCarousel = ({
   debounceBy = 200,
   draggable = true,
   startAt = 0,
+  centered = false,
 }: InfiniteCarouselProps) => {
   const childrenArray = Children.toArray(children)
   const childCount = Children.count(children)
 
+  const [ref, { width }] = useDimensions<HTMLDivElement>()
+
   const visibleItemsNumber = useVisibleItems(visibleItems)
+  const itemWidth = width / visibleItemsNumber
+
+  const offsetFactor = centered ? Math.floor(visibleItemsNumber / 2) : 0
+  const offset = offsetFactor * itemWidth
+
+  /** Pixel value to translate the carousel */
+  const moveByPx = itemWidth * moveBy
+
   const [{ page, dragging }, dispatch] = useReducer(
     (state: State, action: Action): State => {
       switch (action.type) {
@@ -164,22 +179,14 @@ export const InfiniteCarousel = ({
     return Array.from(childMap).sort((a, b) => a[0] - b[0])
   }, [childrenArray])
 
-  const [ref, { width }] = useDimensions<HTMLDivElement>()
-
-  const itemWidth = width / visibleItemsNumber
-
-  /** Pixel value to translate the carousel */
-  const moveByPx = itemWidth * moveBy
-
   const x = useMotionValue(0)
 
   const setDragging = (dragging: boolean) => dispatch({ type: "SET_DRAGGING", dragging })
 
-  const min = -visibleItemsNumber
-  const max = childCount
+  const min = -visibleItemsNumber + offsetFactor
+  const max = childCount - offsetFactor
 
   const setPage = (page: number) => {
-    console.log({ page })
     dispatch({ type: "SET_PAGE", page })
     const animateTo = -page * moveByPx
     void animate(x, animateTo).then(() => {
@@ -241,7 +248,7 @@ export const InfiniteCarousel = ({
     setDragging(true)
   }
 
-  const shiftItemsBy = -itemWidth * prepend.length
+  const shiftItemsBy = -itemWidth * prepend.length + offset
 
   const isDisabled = childCount < visibleItemsNumber || !draggable
 
