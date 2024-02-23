@@ -129,7 +129,8 @@ export const InfiniteCarousel = ({
   const offset = offsetFactor * itemWidth
 
   /** Pixel value to translate the carousel */
-  const moveByPx = itemWidth * moveBy
+  //const moveByPx = itemWidth * moveBy
+  const moveByPx = itemWidth
 
   const [{ page, dragging }, dispatch] = useReducer(
     (state: State, action: Action): State => {
@@ -185,6 +186,8 @@ export const InfiniteCarousel = ({
 
   const min = -visibleItemsNumber + offsetFactor
   const max = childCount - offsetFactor
+
+  console.log(page)
 
   const setPage = (page: number) => {
     dispatch({ type: "SET_PAGE", page })
