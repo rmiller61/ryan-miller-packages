@@ -143,7 +143,7 @@ export const InfiniteCarousel = ({
           return {
             ...state,
             page: action.page,
-            //dragging: false,
+            dragging: false,
           }
         default:
           return state
@@ -223,8 +223,6 @@ export const InfiniteCarousel = ({
       const { offset, velocity } = dragProps
       const swipe = swipePower(offset.x, velocity.x)
 
-      setDragging(false)
-
       // If dragging RTL
       if (offset.x < -swipePxThreshold || swipe < -swipePowerThreshold) {
         setPage(page + moveBy)
@@ -233,6 +231,7 @@ export const InfiniteCarousel = ({
       } else if (offset.x > swipePxThreshold || swipe > swipePowerThreshold) {
         setPage(page - moveBy)
       } else {
+        setDragging(false)
         // If the user didn't drag far enough to trigger a swipe, animate the carousel back to original position
         const animateTo = -page * moveByPx
         void animate(x, animateTo)
