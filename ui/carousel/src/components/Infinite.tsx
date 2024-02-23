@@ -125,7 +125,14 @@ export const InfiniteCarousel = ({
   const visibleItemsNumber = useVisibleItems(visibleItems)
   const itemWidth = width / visibleItemsNumber
 
+  /**
+   * If `centered: true`, items should be offset so the carousel is centered
+   */
   const offsetFactor = centered ? Math.floor(visibleItemsNumber / 2) : 0
+
+  /**
+   * Calculate `offsetFactor` by `itemWidth` to get the value in px
+   */
   const offset = offsetFactor * itemWidth
 
   /** Pixel value to translate the carousel */
@@ -184,10 +191,17 @@ export const InfiniteCarousel = ({
 
   const setDragging = (dragging: boolean) => dispatch({ type: "SET_DRAGGING", dragging })
 
+  /**
+   * Minimum `page` value. When `page` reaches this value, the carousel will loop on the left side.
+   */
   const min = -visibleItemsNumber + offsetFactor
+
+  /**
+   * Maximum `page` value. When `page` reaches this value, the carousel will loop on the right side.
+   */
   const max = childCount - offsetFactor
 
-  console.log(page)
+  console.log({ page, min, max })
 
   const setPage = (page: number) => {
     dispatch({ type: "SET_PAGE", page })
