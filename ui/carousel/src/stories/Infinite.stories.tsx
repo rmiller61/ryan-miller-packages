@@ -57,13 +57,13 @@ export const WithControls: Story = {
       <>
         <button
           className="absolute left-0 top-1/2 -mt-5 flex h-10 w-10 items-center justify-center bg-white"
-          onClick={() => setPage(page + 1)}
+          onClick={() => setPage(page - 1)}
         >
           <GoChevronLeft />
         </button>
         <button
           className="absolute right-0 top-1/2 -mt-5 flex h-10 w-10 items-center justify-center bg-white"
-          onClick={() => setPage(page - 1)}
+          onClick={() => setPage(page + 1)}
         >
           <GoChevronRight />
         </button>
