@@ -205,18 +205,26 @@ export const InfiniteCarousel = ({
 
   const setPage = (page: number) => {
     dispatch({ type: "SET_PAGE", page })
-    const animateTo = -page * moveByPx
-    void animate(x, animateTo).then(() => {
-      if (page === max) {
+  }
+
+  const setAnimation = async (value: number) => {
+    const animateTo = -value * moveByPx
+    return await animate(x, animateTo)
+  }
+
+  const translateCarousel = (newPageNumber: number) => {
+    setPage(newPageNumber)
+    void setAnimation(newPageNumber).then(() => {
+      if (newPageNumber === max) {
         console.log("max")
         x.set(0)
-        dispatch({ type: "SET_PAGE", page: 0 })
+        setPage(0)
       }
-      if (page === min) {
+      if (newPageNumber === min) {
         console.log("min")
         const resetToPage = childCount - visibleItemsNumber
         x.set(-resetToPage * moveByPx)
-        dispatch({ type: "SET_PAGE", page: resetToPage })
+        setPage(resetToPage)
       }
     })
   }
@@ -242,16 +250,15 @@ export const InfiniteCarousel = ({
 
       // If dragging RTL
       if (offset.x < -swipePxThreshold || swipe < -swipePowerThreshold) {
-        setPage(page + moveBy)
+        translateCarousel(page + moveBy)
 
         // If dragging LTR
       } else if (offset.x > swipePxThreshold || swipe > swipePowerThreshold) {
-        setPage(page - moveBy)
+        translateCarousel(page - moveBy)
       } else {
         setDragging(false)
         // If the user didn't drag far enough to trigger a swipe, animate the carousel back to original position
-        const animateTo = -page * moveByPx
-        void animate(x, animateTo)
+        void setAnimation(page)
       }
     },
     debounceBy,
@@ -269,7 +276,7 @@ export const InfiniteCarousel = ({
   const isDisabled = childCount < visibleItemsNumber || !draggable
 
   const renderProps: RenderPropProps = {
-    setPage,
+    setPage: translateCarousel,
     page,
   }
 
@@ -277,7 +284,7 @@ export const InfiniteCarousel = ({
    * If width changes, reset the page to the startAt value.
    */
   useEffect(() => {
-    setPage(startAt)
+    translateCarousel(startAt)
   }, [startAt, width])
 
   return (
