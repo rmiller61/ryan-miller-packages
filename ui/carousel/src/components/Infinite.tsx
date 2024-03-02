@@ -208,8 +208,13 @@ export const InfiniteCarousel = ({
 
   const translateCarousel = (newPageNumber: number) => {
     setPage(newPageNumber)
+    const newWrappedPageNumber = wrap(newPageNumber, [0, childCount])
     void setAnimation(newPageNumber).then(() => {
-      if (newPageNumber === maxPage) {
+      if (newPageNumber !== newWrappedPageNumber) {
+        x.set(-newWrappedPageNumber * itemWidth)
+        setPage(newWrappedPageNumber)
+      }
+      /**if (newPageNumber === maxPage) {
         console.log("max")
         x.set(0)
         setPage(0)
@@ -219,7 +224,7 @@ export const InfiniteCarousel = ({
         const resetToPage = childCount - visibleItemsNumber
         x.set(-resetToPage * itemWidth)
         setPage(resetToPage)
-      }
+      }**/
     })
   }
 
