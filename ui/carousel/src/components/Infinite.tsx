@@ -159,9 +159,9 @@ export const InfiniteCarousel = ({
     }
   )
 
-  const prepend = arrayFromNumber(visibleItemsNumber).map((i) => 0 - i - 1)
+  const prepend = arrayFromNumber(childCount).map((i) => 0 - i - 1)
 
-  const append = arrayFromNumber(visibleItemsNumber).map((i) => childCount + i)
+  const append = arrayFromNumber(childCount).map((i) => childCount + i)
 
   const loopedChildren = useMemo(() => {
     const childMap = new Map<number, React.ReactNode>()
@@ -228,10 +228,9 @@ export const InfiniteCarousel = ({
     })
   }
 
-  const calculateDragConstraints = () => {
-    const left = (page + moveBy) * -itemWidth
-    const right = (page - moveBy) * -itemWidth
-    return { left, right }
+  const dragConstraints = {
+    left: -itemWidth * append.length - page * itemWidth,
+    right: itemWidth * prepend.length - page * itemWidth,
   }
 
   /**
@@ -293,11 +292,11 @@ export const InfiniteCarousel = ({
     translateCarousel(startAt)
   }, [startAt, width])
 
-  useMotionValueEvent(x, "change", (latest) => {
+  /**useMotionValueEvent(x, "change", (latest) => {
     const pageNumber = Math.round(latest / -itemWidth)
     const wrappedPage = wrap(pageNumber, [0, childCount])
     console.log({ wrappedPage })
-  })
+  })**/
 
   return (
     <CarouselContextProvider
@@ -337,7 +336,7 @@ export const InfiniteCarousel = ({
           style={{
             x,
           }}
-          //dragConstraints={calculateDragConstraints()}
+          dragConstraints={dragConstraints}
         >
           {loopedChildren.map(([i, child], index) => {
             return (
