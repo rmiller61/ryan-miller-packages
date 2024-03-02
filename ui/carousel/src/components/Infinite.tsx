@@ -66,8 +66,8 @@ export interface InfiniteCarouselProps extends CarouselProps<RenderPropProps> {
    * TODO: Why is the default value 10000?
    */
   swipePowerThreshold?: number
-  /** Integer between 0 and 1 denoting how much the drag offset has to satisfy the moveByPx value for a swipe to occur
-   * E.g. given a moveByPx of 500 and a swipeThreshold of 0.5, the drag offset has to be >= 250px to trigger a swipe
+  /** Integer between 0 and 1 denoting how much the drag offset has to satisfy the itemWidth value for a swipe to occur
+   * E.g. given a itemWidth of 500 and a swipeThreshold of 0.5, the drag offset has to be >= 250px to trigger a swipe
    */
   swipeThreshold?: number
   /**
@@ -135,10 +135,6 @@ export const InfiniteCarousel = ({
    */
   const offset = offsetFactor * itemWidth
 
-  /** Pixel value to translate the carousel */
-  //const moveByPx = itemWidth * moveBy
-  const moveByPx = itemWidth
-
   const [{ page, dragging }, dispatch] = useReducer(
     (state: State, action: Action): State => {
       switch (action.type) {
@@ -194,67 +190,72 @@ export const InfiniteCarousel = ({
   /**
    * Minimum `page` value. When `page` reaches this value, the carousel will loop on the left side.
    */
-  const min = -visibleItemsNumber + offsetFactor
+  const minPage = -visibleItemsNumber + offsetFactor
 
   /**
    * Maximum `page` value. When `page` reaches this value, the carousel will loop on the right side.
    */
-  const max = childCount - offsetFactor
-
-  console.log({ page, min, max })
+  const maxPage = childCount - offsetFactor
 
   const setPage = (page: number) => {
     dispatch({ type: "SET_PAGE", page })
   }
 
   const setAnimation = async (value: number) => {
-    const animateTo = -value * moveByPx
+    const animateTo = -value * itemWidth
     return await animate(x, animateTo)
   }
 
   const translateCarousel = (newPageNumber: number) => {
     setPage(newPageNumber)
     void setAnimation(newPageNumber).then(() => {
-      if (newPageNumber === max) {
+      if (newPageNumber === maxPage) {
         console.log("max")
         x.set(0)
         setPage(0)
       }
-      if (newPageNumber === min) {
+      if (newPageNumber === minPage) {
         console.log("min")
         const resetToPage = childCount - visibleItemsNumber
-        x.set(-resetToPage * moveByPx)
+        x.set(-resetToPage * itemWidth)
         setPage(resetToPage)
       }
     })
   }
 
   const calculateDragConstraints = () => {
-    const left = (page + moveBy) * -moveByPx
-    const right = (page - moveBy) * -moveByPx
+    const left = (page + moveBy) * -itemWidth
+    const right = (page - moveBy) * -itemWidth
     return { left, right }
   }
 
   /**
    * The threshold in pixels that needs to be exceeded to trigger a `swipe`, which will move the carousel to the next page.
-   * This is calculated by multiplying the `moveByPx` value by the `swipeThreshold` prop.
-   * E.g. if `moveByPx` is 500 and `swipeThreshold` is 0.5, the `swipePxThreshold` will be 250.
+   * This is calculated by multiplying the `itemWidth` value by the `swipeThreshold` prop.
+   * E.g. if `itemWidth` is 500 and `swipeThreshold` is 0.5, the `swipePxThreshold` will be 250.
    * This means that the user has to drag the carousel by >= 250px to trigger a swipe.
    */
-  const swipePxThreshold = moveByPx * clamp(swipeThreshold, [0, 1])
+  const swipePxThreshold = itemWidth * clamp(swipeThreshold, [0, 1])
+
+  const calculatePage = (x: number) => {
+    const newPage = Math.round(x / -itemWidth) + page
+    return clamp(newPage, [minPage, maxPage])
+  }
 
   const handleEndDrag = useDebouncedCallback(
     (e: Event, dragProps: PanInfo) => {
       const { offset, velocity } = dragProps
       const swipe = swipePower(offset.x, velocity.x)
 
+      const translateTo = calculatePage(offset.x)
+
       // If dragging RTL
       if (offset.x < -swipePxThreshold || swipe < -swipePowerThreshold) {
-        translateCarousel(page + moveBy)
+        translateCarousel(translateTo)
 
         // If dragging LTR
       } else if (offset.x > swipePxThreshold || swipe > swipePowerThreshold) {
-        translateCarousel(page - moveBy)
+        translateCarousel(translateTo)
       } else {
         setDragging(false)
         // If the user didn't drag far enough to trigger a swipe, animate the carousel back to original position
@@ -286,6 +287,12 @@ export const InfiniteCarousel = ({
   useEffect(() => {
     translateCarousel(startAt)
   }, [startAt, width])
+
+  useMotionValueEvent(x, "change", (latest) => {
+    const pageNumber = Math.round(latest / -itemWidth)
+    const wrappedPage = wrap(pageNumber, [0, childCount])
+    console.log({ wrappedPage })
+  })
 
   return (
     <CarouselContextProvider
@@ -321,10 +328,11 @@ export const InfiniteCarousel = ({
           dragElastic={0}
           onDragEnd={handleEndDrag}
           onDragStart={handleDragStart}
+          //onDrag={(event, info) => console.log({ event, info })}
           style={{
             x,
           }}
-          dragConstraints={calculateDragConstraints()}
+          //dragConstraints={calculateDragConstraints()}
         >
           {loopedChildren.map(([i, child], index) => {
             return (
