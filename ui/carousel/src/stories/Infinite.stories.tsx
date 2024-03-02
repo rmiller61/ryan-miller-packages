@@ -34,7 +34,6 @@ const args = {
       {index}
     </div>
   )),
-  moveBy: 1,
   visibleItems,
 }
 

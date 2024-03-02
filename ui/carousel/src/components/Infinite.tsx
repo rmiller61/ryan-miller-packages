@@ -70,11 +70,6 @@ export interface InfiniteCarouselProps extends CarouselProps<RenderPropProps> {
    * E.g. given a itemWidth of 500 and a swipeThreshold of 0.5, the drag offset has to be >= 250px to trigger a swipe
    */
   swipeThreshold?: number
-  /**
-   * Number of carousel items to translate on a swipe
-   * @default 1
-   */
-  moveBy?: number
   /** Value to debounce the drag transition by.
    * E.g. if debounceBy is 200, the carousel will debounce the drag transition by 200ms.
    * NOTE: this is only used when dragging the carousel, not when controlling the carousel via the setPage function.
@@ -108,7 +103,6 @@ export const InfiniteCarousel = ({
   visibleItems = 2,
   swipePowerThreshold = 10000,
   swipeThreshold = 0.9,
-  moveBy = 1,
   renderAfter,
   renderBefore,
   dragProps,
