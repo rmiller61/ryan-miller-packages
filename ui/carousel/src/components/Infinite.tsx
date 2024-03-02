@@ -1,6 +1,6 @@
 import { CarouselContextProvider } from "../common/context"
 import type { CarouselProps } from "../common/types"
-import { swipePower } from "../common/utils"
+import { getSwipePower } from "../common/utils"
 import { arrayFromNumber } from "@social-hustle/utils-arrays"
 import cn from "@social-hustle/utils-classnames"
 import { useDimensions } from "@social-hustle/utils-hooks"
@@ -237,24 +237,24 @@ export const InfiniteCarousel = ({
    */
   const swipePxThreshold = itemWidth * clamp(swipeThreshold, [0, 1])
 
-  const calculatePage = (x: number) => {
-    const newPage = Math.round(x / -itemWidth) + page
+  const calculatePage = (offsetX: number) => {
+    const newPage = Math.round(offsetX / -itemWidth) + page
     return clamp(newPage, [minPage, maxPage])
   }
 
   const handleEndDrag = useDebouncedCallback(
     (e: Event, dragProps: PanInfo) => {
       const { offset, velocity } = dragProps
-      const swipe = swipePower(offset.x, velocity.x)
+      const swipePower = getSwipePower(offset.x, velocity.x)
 
       const translateTo = calculatePage(offset.x)
 
       // If dragging RTL
-      if (offset.x < -swipePxThreshold || swipe < -swipePowerThreshold) {
+      if (offset.x < -swipePxThreshold || swipePower < -swipePowerThreshold) {
         translateCarousel(translateTo)
 
         // If dragging LTR
-      } else if (offset.x > swipePxThreshold || swipe > swipePowerThreshold) {
+      } else if (offset.x > swipePxThreshold || swipePower > swipePowerThreshold) {
         translateCarousel(translateTo)
       } else {
         setDragging(false)
