@@ -4,12 +4,11 @@ import { getSwipePower } from "../common/utils"
 import { arrayFromNumber } from "@social-hustle/utils-arrays"
 import cn from "@social-hustle/utils-classnames"
 import { useDimensions, useResizeObserver } from "@social-hustle/utils-hooks"
-import { getMin, getMax, clamp, wrap } from "@social-hustle/utils-numbers"
+import { clamp, wrap } from "@social-hustle/utils-numbers"
 import type { PanInfo } from "framer-motion"
 import { animate, motion, useMotionValue, useMotionValueEvent } from "framer-motion"
-import { Children, useEffect, useMemo, type CSSProperties, useReducer } from "react"
-import { useWindowSize, usePrevious } from "react-use"
-import { useDebouncedCallback } from "use-debounce"
+import { Children, useMemo, type CSSProperties, useReducer } from "react"
+import { useWindowSize } from "react-use"
 
 const getCurrentBreakpoint = (arr: number[], windowWidth: number) => {
   let breakpoint = 0
@@ -71,12 +70,6 @@ export interface InfiniteCarouselProps extends CarouselProps<RenderPropProps> {
    * E.g. given a itemWidth of 500 and a swipeThreshold of 0.5, the drag offset has to be >= 250px to trigger a swipe
    */
   swipeThreshold?: number
-  /** Value to debounce the drag transition by.
-   * E.g. if debounceBy is 200, the carousel will debounce the drag transition by 200ms.
-   * NOTE: this is only used when dragging the carousel, not when controlling the carousel via the setPage function.
-   * @default 200
-   */
-  debounceBy?: number
   /** The starting page/index. Defaults to 0 */
   startAt?: number
 }
@@ -107,7 +100,6 @@ export const InfiniteCarousel = ({
   renderAfter,
   renderBefore,
   dragProps,
-  debounceBy = 200,
   draggable = true,
   startAt = 0,
   centered = false,
@@ -220,28 +212,22 @@ export const InfiniteCarousel = ({
     return newPage
   }
 
-  const handleEndDrag = useDebouncedCallback(
-    (e: Event, dragProps: PanInfo) => {
-      const { offset, velocity } = dragProps
-      const swipePower = getSwipePower(offset.x, velocity.x)
+  const handleEndDrag = (e: Event, dragProps: PanInfo) => {
+    const { offset, velocity } = dragProps
+    const swipePower = getSwipePower(offset.x, velocity.x)
 
-      const translateTo = calculatePage(offset.x)
+    const translateTo = calculatePage(offset.x)
 
-      const shouldSwipe = Math.abs(swipePower) > swipePowerThreshold
+    const shouldSwipe = Math.abs(swipePower) > swipePowerThreshold
 
-      if (shouldSwipe) {
-        translateCarousel(translateTo)
-      } else {
-        setDragging(false)
-        // If the user didn't drag far enough to trigger a swipe, animate the carousel back to original position
-        void setAnimation(page)
-      }
-    },
-    debounceBy,
-    {
-      leading: true,
+    if (shouldSwipe) {
+      translateCarousel(translateTo)
+    } else {
+      setDragging(false)
+      // If the user didn't drag far enough to trigger a swipe, animate the carousel back to original position
+      void setAnimation(page)
     }
-  )
+  }
 
   const handleDragStart = () => {
     setDragging(true)
