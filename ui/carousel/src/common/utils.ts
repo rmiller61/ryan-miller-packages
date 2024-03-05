@@ -5,6 +5,6 @@
  * @param offset - The distance the swipe has traveled, in px.
  * @param velocity - The speed of the swipe, in px/ms.
  */
-export const swipePower = (offset: number, velocity: number) => {
+export const getSwipePower = (offset: number, velocity: number) => {
   return Math.abs(offset) * velocity
 }
