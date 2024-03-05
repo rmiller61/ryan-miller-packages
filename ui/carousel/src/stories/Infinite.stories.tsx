@@ -144,3 +144,18 @@ export const StartAtMiddle: Story = {
     },
   },
 }
+
+export const ShowPartialSlides: Story = {
+  args: {
+    ...args,
+    wrapperClassName: "px-[10vw]",
+  },
+  decorators: [
+    (Story) => (
+      <div className="">
+        {/* 👇 Decorators in Storybook also accept a function. Replace <Story/> with Story() to enable it  */}
+        <Story />
+      </div>
+    ),
+  ],
+}
