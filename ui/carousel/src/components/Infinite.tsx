@@ -181,16 +181,6 @@ export const InfiniteCarousel = ({
 
   const setDragging = (dragging: boolean) => dispatch({ type: "SET_DRAGGING", dragging })
 
-  /**
-   * Minimum `page` value. When `page` reaches this value, the carousel will loop on the left side.
-   */
-  const minPage = -visibleItemsNumber + offsetFactor
-
-  /**
-   * Maximum `page` value. When `page` reaches this value, the carousel will loop on the right side.
-   */
-  const maxPage = childCount - offsetFactor
-
   const setPage = (page: number) => {
     dispatch({ type: "SET_PAGE", page })
   }
@@ -208,17 +198,6 @@ export const InfiniteCarousel = ({
         x.set(-newWrappedPageNumber * itemWidth)
         setPage(newWrappedPageNumber)
       }
-      /**if (newPageNumber === maxPage) {
-        console.log("max")
-        x.set(0)
-        setPage(0)
-      }
-      if (newPageNumber === minPage) {
-        console.log("min")
-        const resetToPage = childCount - visibleItemsNumber
-        x.set(-resetToPage * itemWidth)
-        setPage(resetToPage)
-      }**/
     })
   }
 
@@ -237,7 +216,7 @@ export const InfiniteCarousel = ({
 
   const calculatePage = (offsetX: number) => {
     const newPage = Math.round(offsetX / -itemWidth) + page
-    return clamp(newPage, [minPage, maxPage])
+    return newPage
   }
 
   const handleEndDrag = useDebouncedCallback(
