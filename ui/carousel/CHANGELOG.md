@@ -1,5 +1,11 @@
 # @social-hustle/ui-carousel
 
+## 6.3.0
+
+### Minor Changes
+
+- fix animation bugs, optimize animations & renders
+
 ## 6.2.0
 
 ### Minor Changes
