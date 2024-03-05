@@ -208,7 +208,9 @@ export const InfiniteCarousel = ({
   const swipePxThreshold = itemWidth * clamp(swipeThreshold, [0, 1])
 
   const calculatePage = (offsetX: number) => {
-    const newPage = Math.round(offsetX / -itemWidth) + page
+    const newPage =
+      offsetX > 0 ? Math.floor(offsetX / -itemWidth) + page : Math.ceil(offsetX / -itemWidth) + page
+
     return newPage
   }
 
@@ -218,7 +220,9 @@ export const InfiniteCarousel = ({
 
     const translateTo = calculatePage(offset.x)
 
-    const shouldSwipe = Math.abs(swipePower) > swipePowerThreshold
+    const shouldSwipeBasedOnDistance = Math.abs(offset.x) > swipePxThreshold
+    const shouldSwipeBasedOnPower = Math.abs(swipePower) > swipePowerThreshold
+    const shouldSwipe = shouldSwipeBasedOnDistance || shouldSwipeBasedOnPower
 
     if (shouldSwipe) {
       translateCarousel(translateTo)
