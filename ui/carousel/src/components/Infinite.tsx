@@ -64,6 +64,7 @@ export interface InfiniteCarouselProps extends CarouselProps<RenderPropProps> {
   visibleItems?: VisibleItems
   /** Px value that needs to be exceeded to swipe.
    * TODO: Why is the default value 10000?
+   * @see https://codesandbox.io/p/sandbox/framer-motion-image-gallery-pqvx3?file=%2Fsrc%2FExample.tsx%3A28%2C1-28%2C4
    */
   swipePowerThreshold?: number
   /** Integer between 0 and 1 denoting how much the drag offset has to satisfy the itemWidth value for a swipe to occur
@@ -102,7 +103,7 @@ export const InfiniteCarousel = ({
   itemClassName = "",
   visibleItems = 2,
   swipePowerThreshold = 10000,
-  swipeThreshold = 0.9,
+  swipeThreshold = 0.2,
   renderAfter,
   renderBefore,
   dragProps,
@@ -226,12 +227,9 @@ export const InfiniteCarousel = ({
 
       const translateTo = calculatePage(offset.x)
 
-      // If dragging RTL
-      if (offset.x < -swipePxThreshold || swipePower < -swipePowerThreshold) {
-        translateCarousel(translateTo)
+      const shouldSwipe = Math.abs(swipePower) > swipePowerThreshold
 
-        // If dragging LTR
-      } else if (offset.x > swipePxThreshold || swipePower > swipePowerThreshold) {
+      if (shouldSwipe) {
         translateCarousel(translateTo)
       } else {
         setDragging(false)
