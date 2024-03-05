@@ -6,6 +6,7 @@ import { wrap } from "@social-hustle/utils-numbers"
 import type { Meta, StoryObj } from "@storybook/react"
 import { motion } from "framer-motion"
 import { GoChevronLeft, GoChevronRight } from "react-icons/go"
+import { useDebouncedCallback } from "use-debounce"
 
 const visibleItems: VisibleItems = {
   600: 2,
@@ -13,6 +14,26 @@ const visibleItems: VisibleItems = {
 }
 
 const images = arrayFromNumber(8).map((i) => `/images/${i + 1}.jpg`)
+
+const Navigation = ({ setPage, page }: { setPage: (page: number) => void; page: number }) => {
+  const paginate = useDebouncedCallback((next: number) => setPage(next), 100, { leading: true })
+  return (
+    <>
+      <button
+        className="absolute left-0 top-1/2 -mt-5 flex h-10 w-10 items-center justify-center bg-white"
+        onClick={() => paginate(page - 1)}
+      >
+        <GoChevronLeft />
+      </button>
+      <button
+        className="absolute right-0 top-1/2 -mt-5 flex h-10 w-10 items-center justify-center bg-white"
+        onClick={() => paginate(page + 1)}
+      >
+        <GoChevronRight />
+      </button>
+    </>
+  )
+}
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
@@ -53,20 +74,10 @@ export const WithControls: Story = {
     ...args,
     draggable: false,
     renderAfter: ({ setPage, page }) => (
-      <>
-        <button
-          className="absolute left-0 top-1/2 -mt-5 flex h-10 w-10 items-center justify-center bg-white"
-          onClick={() => setPage(page - 1)}
-        >
-          <GoChevronLeft />
-        </button>
-        <button
-          className="absolute right-0 top-1/2 -mt-5 flex h-10 w-10 items-center justify-center bg-white"
-          onClick={() => setPage(page + 1)}
-        >
-          <GoChevronRight />
-        </button>
-      </>
+      <Navigation
+        setPage={setPage}
+        page={page}
+      />
     ),
   },
   decorators: [
