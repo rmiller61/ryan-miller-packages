@@ -3,7 +3,7 @@ import type { CarouselProps } from "../common/types"
 import { getSwipePower } from "../common/utils"
 import { arrayFromNumber } from "@social-hustle/utils-arrays"
 import cn from "@social-hustle/utils-classnames"
-import { useDimensions } from "@social-hustle/utils-hooks"
+import { useDimensions, useResizeObserver } from "@social-hustle/utils-hooks"
 import { getMin, getMax, clamp, wrap } from "@social-hustle/utils-numbers"
 import type { PanInfo } from "framer-motion"
 import { animate, motion, useMotionValue, useMotionValueEvent } from "framer-motion"
@@ -114,7 +114,7 @@ export const InfiniteCarousel = ({
   const childrenArray = Children.toArray(children)
   const childCount = Children.count(children)
 
-  const [ref, { width }] = useDimensions<HTMLDivElement>()
+  const [ref, { width }, node] = useDimensions<HTMLDivElement>()
 
   const visibleItemsNumber = useVisibleItems(visibleItems)
   const itemWidth = width / visibleItemsNumber
@@ -279,12 +279,9 @@ export const InfiniteCarousel = ({
     page,
   }
 
-  /**
-   * If width changes, reset the page to the startAt value.
-   */
-  useEffect(() => {
-    translateCarousel(startAt)
-  }, [startAt, width])
+  useResizeObserver(node, () => {
+    translateCarousel(page)
+  })
 
   /**useMotionValueEvent(x, "change", (latest) => {
     const pageNumber = Math.round(latest / -itemWidth)
