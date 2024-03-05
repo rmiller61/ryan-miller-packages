@@ -223,8 +223,8 @@ export const InfiniteCarousel = ({
   }
 
   const dragConstraints = {
-    left: -itemWidth * append.length - page * itemWidth,
-    right: itemWidth * prepend.length - page * itemWidth,
+    left: -itemWidth * append.length - page * itemWidth + offset,
+    right: itemWidth * prepend.length - page * itemWidth - offset,
   }
 
   /**
