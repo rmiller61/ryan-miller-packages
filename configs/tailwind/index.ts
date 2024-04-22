@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss"
+import plugin from "tailwindcss/plugin"
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
@@ -42,5 +43,16 @@ export default {
     require("tailwindcss-easing"),
     require("@tailwindcss/aspect-ratio"),
     require("@tailwindcss/container-queries"),
+    plugin(function ({ matchUtilities }) {
+      matchUtilities({
+        "truncate-multiline": (value) => ({
+          display: "-webkit-box",
+          "-webkit-box-orient": "vertical",
+          "-webkit-line-clamp": value,
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+        }),
+      })
+    }),
   ],
 } satisfies Config
