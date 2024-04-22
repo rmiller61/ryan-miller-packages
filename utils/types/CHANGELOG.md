@@ -1,5 +1,11 @@
 # @social-hustle/utils-types
 
+## 1.3.1
+
+### Patch Changes
+
+- add ArrayElement type
+
 ## 1.3.0
 
 ### Minor Changes
