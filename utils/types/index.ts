@@ -59,3 +59,6 @@ export type KeyOfMap<M extends Map<unknown, unknown>> = M extends Map<infer K, u
 export type ValueOfMap<M extends Map<unknown, unknown>> = M extends Map<unknown, infer V>
   ? V
   : never
+
+export type ArrayElement<ArrayType extends readonly unknown[]> =
+  ArrayType extends readonly (infer ElementType)[] ? ElementType : never
