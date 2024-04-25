@@ -128,7 +128,7 @@ describe("request", () => {
   it("custom fetcher should work", async () => {
     server.use(
       http.get(url, ({ request }) => {
-        const headers = request.headers
+        const headers = Object.fromEntries(request.headers.entries())
         return HttpResponse.json({ message: "hello", headers })
       })
     )
@@ -137,6 +137,8 @@ describe("request", () => {
       url,
       fetch: (_, opts) => fetch(_, { ...opts, headers: { ...opts?.headers, "X-Test": "test" } }),
     })
+
+    console.log(JSON.stringify(response, null, 2))
 
     expect(response.data).toStrictEqual({ message: "hello", headers: { "x-test": "test" } })
   })
