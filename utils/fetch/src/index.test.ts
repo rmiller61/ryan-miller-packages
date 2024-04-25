@@ -1,5 +1,5 @@
 import axios from "./index"
-import { rest } from "msw"
+import { http, HttpResponse } from "msw"
 import { setupServer } from "msw/node"
 import { afterAll, afterEach, beforeAll, expect, it } from "vitest"
 import "isomorphic-fetch"
@@ -16,8 +16,8 @@ const url = "https://example.com"
 describe("request", () => {
   it("should return a response object", async () => {
     server.use(
-      rest.get(url, (req, res, ctx) => {
-        return res(ctx.json({ message: "hello" }))
+      http.get(url, () => {
+        return HttpResponse.json({ message: "hello" })
       })
     )
 
@@ -28,8 +28,8 @@ describe("request", () => {
 
   it("should return a response object with a stream", async () => {
     server.use(
-      rest.get(url, (req, res, ctx) => {
-        return res(ctx.json({ message: "hello" }))
+      http.get(url, () => {
+        return HttpResponse.json({ message: "hello" })
       })
     )
 
@@ -40,11 +40,11 @@ describe("request", () => {
 
   it("auth should work", async () => {
     server.use(
-      rest.get(url, (req, res, ctx) => {
-        if (req.headers.get("Authorization") == "Basic dXNlcm5hbWU6cGFzc3dvcmQ=") {
-          return res(ctx.json({ message: "hello" }))
+      http.get(url, ({ request }) => {
+        if (request.headers.get("Authorization") == "Basic dXNlcm5hbWU6cGFzc3dvcmQ=") {
+          return HttpResponse.json({ message: "hello" })
         }
-        return res(ctx.status(401))
+        return HttpResponse.json(null, { status: 401 })
       })
     )
 
@@ -58,11 +58,11 @@ describe("request", () => {
 
   it("should throw if auth fails", async () => {
     server.use(
-      rest.get(url, (req, res, ctx) => {
-        if (req.headers.get("Authorization") == "Basic dXNlcm5hbWU6cGFzc3dvcmQ=") {
-          return res(ctx.json({ message: "hello" }))
+      http.get(url, ({ request }) => {
+        if (request.headers.get("Authorization") == "Basic dXNlcm5hbWU6cGFzc3dvcmQ=") {
+          return HttpResponse.json({ message: "hello" })
         }
-        return res(ctx.status(401))
+        return HttpResponse.json(null, { status: 401 })
       })
     )
 
@@ -76,8 +76,8 @@ describe("request", () => {
 
   it("should throw an error if the request times out", async () => {
     server.use(
-      rest.get(url, (req, res, ctx) => {
-        return res(ctx.delay(1000), ctx.json({ message: "hello" }))
+      http.get(url, () => {
+        return HttpResponse.json({ message: "hello" })
       })
     )
 
@@ -88,13 +88,8 @@ describe("request", () => {
 
   it("should thow if max content length is exceeded", async () => {
     server.use(
-      rest.get(url, (req, res, ctx) => {
-        return res(
-          ctx.set({
-            "Content-Length": "100",
-          }),
-          ctx.json({ message: "hello" })
-        )
+      http.get(url, () => {
+        return HttpResponse.json({ message: "hello" })
       })
     )
 
@@ -105,8 +100,8 @@ describe("request", () => {
 
   it("should throw if the status code is not in the 2xx range", async () => {
     server.use(
-      rest.get(url, (req, res, ctx) => {
-        return res(ctx.status(300))
+      http.get(url, () => {
+        return HttpResponse.json(null, { status: 300 })
       })
     )
 
@@ -117,8 +112,8 @@ describe("request", () => {
 
   it("should pass custom validation", async () => {
     server.use(
-      rest.get(url, (req, res, ctx) => {
-        return res(ctx.status(300))
+      http.get(url, () => {
+        return HttpResponse.json(null, { status: 300 })
       })
     )
 
@@ -132,9 +127,9 @@ describe("request", () => {
 
   it("custom fetcher should work", async () => {
     server.use(
-      rest.get(url, (req, res, ctx) => {
-        const headers = req.headers.all()
-        return res(ctx.json({ message: "hello", headers }))
+      http.get(url, ({ request }) => {
+        const headers = request.headers
+        return HttpResponse.json({ message: "hello", headers })
       })
     )
 
