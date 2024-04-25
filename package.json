@@ -80,11 +80,13 @@
     "tsup": "6.5.0",
     "tsx": "^4.6.2",
     "turbo": "1.11.0",
-    "typescript": "5.2.2",
     "vite": "5.0.0",
     "vite-tsconfig-paths": "4.2.1",
     "vitest": "0.34.6",
     "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "typescript": "5.4.2"
   },
   "packageManager": "pnpm@7.29.3",
   "engines": {
