@@ -6,7 +6,6 @@ module.exports = {
   plugins: ["@typescript-eslint", "import", "testing-library", "@tanstack/query"],
 
   extends: [
-    "eslint-config-next",
     "prettier",
     "plugin:jsx-a11y/recommended",
     "plugin:storybook/recommended",
@@ -15,7 +14,6 @@ module.exports = {
   ],
 
   rules: {
-    "@next/next/no-html-link-for-pages": "off",
     "testing-library/prefer-screen-queries": "off",
     "@tanstack/query/exhaustive-deps": "error",
     "@tanstack/query/prefer-query-object-syntax": "error",
@@ -67,9 +65,6 @@ module.exports = {
     },
     react: {
       version: "detect",
-    },
-    next: {
-      rootDir: ["./apps/*/", "./packages/**/"],
     },
   },
 }
