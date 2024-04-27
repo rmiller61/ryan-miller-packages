@@ -3,7 +3,7 @@
 module.exports = {
   parser: "@typescript-eslint/parser",
 
-  plugins: ["@typescript-eslint", "import", "testing-library", "@tanstack/query"],
+  plugins: ["@typescript-eslint", "import", "testing-library"],
 
   extends: [
     "prettier",
@@ -15,8 +15,6 @@ module.exports = {
 
   rules: {
     "testing-library/prefer-screen-queries": "off",
-    "@tanstack/query/exhaustive-deps": "error",
-    "@tanstack/query/prefer-query-object-syntax": "error",
     "@typescript-eslint/consistent-type-imports": "error",
   },
 
