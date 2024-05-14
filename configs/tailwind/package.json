@@ -3,13 +3,13 @@
   "version": "1.0.1",
   "main": "index.ts",
   "devDependencies": {
-    "tailwindcss": "3.3.2"
+    "tailwindcss": "3.4.3"
   },
   "peerDependencies": {
     "@tailwindcss/aspect-ratio": "0.4.2",
-    "@tailwindcss/container-queries": "0.1.0",
-    "tailwindcss": "3.3.2",
-    "tailwindcss-animate": "1.0.5",
+    "@tailwindcss/container-queries": "0.1.1",
+    "tailwindcss": "3.4.3",
+    "tailwindcss-animate": "1.0.7",
     "tailwindcss-easing": "0.2.1"
   },
   "publishConfig": {
