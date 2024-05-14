@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss"
+import plugin from "tailwindcss/plugin"
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
@@ -42,5 +43,28 @@ export default {
     require("tailwindcss-easing"),
     require("@tailwindcss/aspect-ratio"),
     require("@tailwindcss/container-queries"),
+    plugin(function ({ matchUtilities }) {
+      matchUtilities(
+        {
+          "multiline-clamp": (value) => ({
+            "--line-clamp": value,
+            display: "-webkit-box",
+            "-webkit-box-orient": "vertical",
+            "-webkit-line-clamp": "var(--line-clamp)",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }),
+        },
+        {
+          values: {
+            "1": "1",
+            "2": "2",
+            "3": "3",
+            "4": "4",
+            "5": "5",
+          },
+        }
+      )
+    }),
   ],
 } satisfies Config
