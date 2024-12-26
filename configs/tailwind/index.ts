@@ -44,15 +44,27 @@ export default {
     require("@tailwindcss/aspect-ratio"),
     require("@tailwindcss/container-queries"),
     plugin(function ({ matchUtilities }) {
-      matchUtilities({
-        "truncate-multiline": (value) => ({
-          display: "-webkit-box",
-          "-webkit-box-orient": "vertical",
-          "-webkit-line-clamp": value,
-          overflow: "hidden",
-          textOverflow: "ellipsis",
-        }),
-      })
+      matchUtilities(
+        {
+          "multiline-clamp": (value) => ({
+            "--line-clamp": value,
+            display: "-webkit-box",
+            "-webkit-box-orient": "vertical",
+            "-webkit-line-clamp": "var(--line-clamp)",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }),
+        },
+        {
+          values: {
+            "1": "1",
+            "2": "2",
+            "3": "3",
+            "4": "4",
+            "5": "5",
+          },
+        }
+      )
     }),
   ],
 } satisfies Config
