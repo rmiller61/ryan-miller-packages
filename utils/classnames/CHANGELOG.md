@@ -1,5 +1,11 @@
 # @social-hustle/utils-classnames
 
+## 1.2.0
+
+### Minor Changes
+
+- remove default export
+
 ## 1.1.1
 
 ### Patch Changes
