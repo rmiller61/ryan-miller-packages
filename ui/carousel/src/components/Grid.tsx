@@ -1,6 +1,6 @@
 import { CarouselContextProvider } from "../common/context"
 import type { CarouselProps } from "../common/types"
-import cn from "@social-hustle/utils-classnames"
+import { cn } from "@social-hustle/utils-classnames"
 import { useDimensions, useResizeObserver } from "@social-hustle/utils-hooks"
 import type { MotionValue } from "framer-motion"
 import { motion, useMotionValue, type DraggableProps } from "framer-motion"

@@ -1,5 +1,5 @@
 import * as DialogPrimitive from "@radix-ui/react-dialog"
-import cn from "@social-hustle/utils-classnames"
+import { cn } from "@social-hustle/utils-classnames"
 import { forwardRef } from "react"
 
 export type DialogContentProps = React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>

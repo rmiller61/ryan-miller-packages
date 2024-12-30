@@ -1,5 +1,5 @@
 import * as RadioGroupPrimitive from "@radix-ui/react-radio-group"
-import cn from "@social-hustle/utils-classnames"
+import { cn } from "@social-hustle/utils-classnames"
 import * as React from "react"
 import { BsCircleFill } from "react-icons/bs"
 

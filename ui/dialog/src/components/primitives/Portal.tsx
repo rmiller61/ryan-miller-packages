@@ -1,6 +1,6 @@
 import * as DialogPrimitive from "@radix-ui/react-dialog"
 import type { DialogPortalProps } from "@radix-ui/react-dialog"
-import cn from "@social-hustle/utils-classnames"
+import { cn } from "@social-hustle/utils-classnames"
 
 export type { DialogPortalProps } from "@radix-ui/react-dialog"
 

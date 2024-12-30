@@ -1,8 +1,6 @@
-/* eslint-disable @next/next/no-img-element */
-
 import { useCarouselMotionValue } from "../common/context"
 import { GridCarousel, type GridCarouselProps, type RenderPropProps } from "../components/Grid"
-import cn from "@social-hustle/utils-classnames"
+import { cn } from "@social-hustle/utils-classnames"
 import { useDimensions } from "@social-hustle/utils-hooks"
 import { clamp } from "@social-hustle/utils-numbers"
 import type { Meta, StoryObj } from "@storybook/react"

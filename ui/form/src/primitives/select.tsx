@@ -1,5 +1,5 @@
 import * as SelectPrimitive from "@radix-ui/react-select"
-import cn from "@social-hustle/utils-classnames"
+import { cn } from "@social-hustle/utils-classnames"
 import * as React from "react"
 import { BsCheck, BsChevronDown } from "react-icons/bs"
 
