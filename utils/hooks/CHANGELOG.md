@@ -1,5 +1,11 @@
 # @social-hustle/utils-hooks
 
+## 1.2.0
+
+### Minor Changes
+
+- add rafState, windowSize, unmount, and effectOnce hooks
+
 ## 1.1.0
 
 ### Minor Changes

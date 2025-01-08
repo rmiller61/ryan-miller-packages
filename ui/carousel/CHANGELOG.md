@@ -1,5 +1,12 @@
 # @social-hustle/ui-carousel
 
+## 7.0.0
+
+### Patch Changes
+
+- Updated dependencies
+  - @social-hustle/utils-hooks@1.2.0
+
 ## 6.3.0
 
 ### Minor Changes
