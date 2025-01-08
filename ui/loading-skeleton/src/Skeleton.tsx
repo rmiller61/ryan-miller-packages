@@ -1,5 +1,5 @@
 import { arrayFromNumber } from "@social-hustle/utils-arrays"
-import cn from "@social-hustle/utils-classnames"
+import { cn } from "@social-hustle/utils-classnames"
 import type { ComponentProps, PropsWithChildren, FunctionComponent, CSSProperties } from "react"
 import { Fragment } from "react"
 

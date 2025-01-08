@@ -1,5 +1,0 @@
-{
-  "main": "../dist/cjs/upstash-redis/index.js",
-  "module": "../dist/esm/upstash-redis/index.js",
-  "types": "../dist/types/upstash-redis/index.d.ts"
-}

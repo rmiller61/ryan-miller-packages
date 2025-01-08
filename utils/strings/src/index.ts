@@ -28,7 +28,7 @@ export const deburr = (str: string) => str.normalize("NFD").replace(/\p{Diacriti
  * @returns Converts the characters “&”, “<”, “>”, ‘"’, and “’” in string to their corresponding HTML entities.
  * @see https://youmightnotneed.com/lodash#escape
  */
-export const escape = (str: string) => {
+export const escapeChars = (str: string) => {
   const map = {
     "&": "&amp;",
     "<": "&lt;",
@@ -264,3 +264,5 @@ export const removeStopWords = (str: string) => {
 
   return filteredStr
 }
+
+export const stripSpecialChars = (str: string) => str.replace(/[^a-zA-Z0-9]/g, "")

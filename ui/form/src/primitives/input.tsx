@@ -1,4 +1,4 @@
-import cn from "@social-hustle/utils-classnames"
+import { cn } from "@social-hustle/utils-classnames"
 import * as React from "react"
 
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {}

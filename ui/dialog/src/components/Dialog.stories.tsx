@@ -1,7 +1,7 @@
 import { Dialog } from "./Dialog"
 import { DialogTrigger } from "./primitives/Trigger"
 import * as DialogPrimitive from "@radix-ui/react-dialog"
-import cn from "@social-hustle/utils-classnames"
+import { cn } from "@social-hustle/utils-classnames"
 import type { Meta, StoryObj } from "@storybook/react"
 import { useCloseDialog, useOpenDialog } from "hooks"
 import * as React from "react"

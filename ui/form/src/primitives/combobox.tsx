@@ -1,6 +1,6 @@
 import * as DialogPrimitive from "@radix-ui/react-dialog"
 import * as PopoverPrimitive from "@radix-ui/react-popover"
-import cn from "@social-hustle/utils-classnames"
+import { cn } from "@social-hustle/utils-classnames"
 import { Command as CommandPrimitive } from "cmdk"
 import * as React from "react"
 import { BsCheck, BsChevronExpand, BsSearch } from "react-icons/bs"
