@@ -1,0 +1,112 @@
+import { isBrowser } from "../src/misc/utils"
+import { useWindowSize } from "../src/useWindowSize"
+import { act, renderHook } from "@testing-library/react-hooks"
+import { replaceRaf } from "raf-stub"
+import { vi } from "vitest"
+
+declare var requestAnimationFrame: {
+  reset: () => void
+  step: (steps?: number, duration?: number) => void
+}
+
+describe("useWindowSize", () => {
+  beforeAll(() => {
+    replaceRaf()
+  })
+
+  afterEach(() => {
+    requestAnimationFrame.reset()
+  })
+
+  it("should be defined", () => {
+    expect(useWindowSize).toBeDefined()
+  })
+
+  function getHook(options?: any) {
+    return renderHook(() => useWindowSize(options))
+  }
+
+  function triggerResize(dimension: "width" | "height", value: number) {
+    if (dimension === "width") {
+      ;(window.innerWidth as number) = value
+    } else if (dimension === "height") {
+      ;(window.innerHeight as number) = value
+    }
+
+    window.dispatchEvent(new Event("resize"))
+  }
+
+  it("should return current window dimensions", () => {
+    const { result } = getHook()
+
+    expect(typeof result.current).toBe("object")
+    expect(typeof result.current.height).toBe("number")
+    expect(typeof result.current.width).toBe("number")
+  })
+
+  it("should use passed parameters as initial values in case of non-browser use", () => {
+    const { result } = getHook({ initialWidth: 1, initialHeight: 1 })
+
+    expect(result.current.height).toBe(isBrowser ? window.innerHeight : 1)
+    expect(result.current.width).toBe(isBrowser ? window.innerWidth : 1)
+  })
+
+  it("should re-render after height change on closest RAF", () => {
+    const { result } = getHook()
+
+    act(() => {
+      triggerResize("height", 360)
+      requestAnimationFrame.step()
+    })
+
+    expect(result.current.height).toBe(360)
+
+    act(() => {
+      triggerResize("height", 2048)
+      requestAnimationFrame.step()
+    })
+
+    expect(result.current.height).toBe(2048)
+  })
+
+  it("should re-render after width change on closest RAF", () => {
+    const { result } = getHook()
+
+    act(() => {
+      triggerResize("width", 360)
+      requestAnimationFrame.step()
+    })
+
+    expect(result.current.width).toBe(360)
+
+    act(() => {
+      triggerResize("width", 2048)
+      requestAnimationFrame.step()
+    })
+
+    expect(result.current.width).toBe(2048)
+  })
+
+  it("should call onChange callback on window resize", () => {
+    const onChange = vi.fn()
+    getHook({ onChange })
+
+    act(() => {
+      triggerResize("width", 720)
+      triggerResize("height", 480)
+      requestAnimationFrame.step()
+    })
+
+    expect(onChange).toHaveBeenCalledWith(720, 480)
+    expect(onChange).toHaveBeenCalledTimes(2)
+
+    act(() => {
+      triggerResize("width", 1920)
+      triggerResize("height", 1080)
+      requestAnimationFrame.step()
+    })
+
+    expect(onChange).toHaveBeenCalledWith(1920, 1080)
+    expect(onChange).toHaveBeenCalledTimes(4)
+  })
+})
