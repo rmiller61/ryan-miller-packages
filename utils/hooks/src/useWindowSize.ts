@@ -14,7 +14,7 @@ const getWindowSize = () => ({
   height: window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight,
 })
 
-const useWindowSize = ({
+export const useWindowSize = ({
   initialWidth = Infinity,
   initialHeight = Infinity,
   onChange,
@@ -56,5 +56,3 @@ const useWindowSize = ({
   // Return the current window size (width and height)
   return state
 }
-
-export default useWindowSize

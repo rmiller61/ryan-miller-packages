@@ -1,5 +1,11 @@
 # @social-hustle/utils-hooks
 
+## 1.2.1
+
+### Patch Changes
+
+- fix useWindowSize export error
+
 ## 1.2.0
 
 ### Minor Changes
